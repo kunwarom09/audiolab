@@ -10,7 +10,7 @@ BACKEND_PID=$!
 
 # Start Next.js frontend dev server
 echo "⚡ Starting Next.js App on http://localhost:3000..."
-npm run dev &
+BACKEND_API_URL=http://127.0.0.1:8000 npm run dev &
 FRONTEND_PID=$!
 
 trap "kill $BACKEND_PID $FRONTEND_PID 2>/dev/null" EXIT

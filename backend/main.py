@@ -206,6 +206,67 @@ async def download_mp3(
         logger.error(f"MP3 Download error for '{artist} - {title}': {e}")
         raise HTTPException(status_code=500, detail=f"Failed to download MP3: {str(e)}")
 
+@app.api_route("/api/download_video", methods=["GET", "POST"])
+async def download_video(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    url: Optional[str] = Query(None),
+    title: Optional[str] = Query("Video"),
+    artist: Optional[str] = Query("Unknown")
+):
+    if request.method == "POST":
+        try:
+            body = await request.json()
+            url = body.get("url", url)
+            title = body.get("title", title)
+            artist = body.get("artist", artist)
+        except Exception:
+            pass
+
+    if not url:
+        raise HTTPException(status_code=400, detail="Missing video URL.")
+
+    url = url.strip()
+    try:
+        video_path = extractor_instance.download_reel_video(url, title, artist)
+        clean_name = re.sub(r'[^\w\s-]', '', f"{artist} - {title}").strip() or "video"
+        
+        # Get extension of downloaded file
+        ext = video_path.split('.')[-1].lower() if '.' in video_path else 'mp4'
+        download_filename = f"{clean_name}.{ext}"
+        object_name = f"videos/{download_filename}"
+
+        # Store in Object Storage (S3 / MinIO / Local)
+        try:
+            storage_service.upload_file(video_path, object_name)
+            presigned_url = storage_service.generate_presigned_url(object_name)
+            if presigned_url and presigned_url.startswith("http"):
+                # Clean up local file in background task
+                background_tasks.add_task(lambda p: os.remove(p) if os.path.exists(p) else None, video_path)
+                return RedirectResponse(url=presigned_url)
+        except Exception as st_err:
+            logger.warning(f"Storage service upload warning for video: {st_err}. Falling back to direct stream.")
+
+        # Fallback direct streaming response
+        def cleanup():
+            if os.path.exists(video_path):
+                try:
+                    os.remove(video_path)
+                except Exception:
+                    pass
+
+        background_tasks.add_task(cleanup)
+        
+        media_type = f"video/{ext}" if ext in ['mp4', 'webm', 'ogg', 'mov'] else "video/mp4"
+        return FileResponse(
+            path=video_path,
+            filename=download_filename,
+            media_type=media_type
+        )
+    except Exception as e:
+        logger.error(f"Video Download error for '{url}': {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to download video: {str(e)}")
+
 # In-memory registry for fallback jobs when Redis/Celery is disabled
 FALLBACK_JOBS = {}
 

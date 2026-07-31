@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Play, Pause, Disc, Calendar, Tag, Download, Check, ExternalLink } from 'lucide-react';
+import { Play, Pause, Disc, Calendar, Tag, Download, Check, ExternalLink, Video } from 'lucide-react';
 import LyricsViewer from './LyricsViewer';
 import OfficialVideoCard from './OfficialVideoCard';
 
@@ -22,12 +22,15 @@ export default function SongResultCard({ data }) {
   const [activeTab, setActiveTab] = useState('all');
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
+  const [isDownloadingVideo, setIsDownloadingVideo] = useState(false);
+  const [downloadVideoSuccess, setDownloadVideoSuccess] = useState(false);
   const audioRef = useRef(null);
 
   if (!data || !data.song) return null;
 
   const { song, official_video, reel_source, spotify } = data;
   const spotifyUrl = spotify?.url || song?.spotify_url || `https://open.spotify.com/search/${encodeURIComponent(`${song.artist} ${song.title}`)}`;
+  const isReelUrl = reel_source?.url && (reel_source.url.startsWith('http://') || reel_source.url.startsWith('https://'));
   const youtubeUrl = official_video?.url || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${song.artist} ${song.title} official music video`)}`;
 
   const toggleAudio = () => {
@@ -54,12 +57,21 @@ export default function SongResultCard({ data }) {
 
       const downloadUrl = `/api/download?${queryParams.toString()}`;
       
+      const response = await fetch(downloadUrl);
+      if (!response.ok) {
+        throw new Error('Failed to download MP3');
+      }
+      
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
       const a = document.createElement('a');
-      a.href = downloadUrl;
+      a.href = blobUrl;
       a.download = `${song.artist} - ${song.title}.mp3`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      window.URL.revokeObjectURL(blobUrl);
 
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 3000);
@@ -67,6 +79,46 @@ export default function SongResultCard({ data }) {
       console.error('Download MP3 error:', err);
     } finally {
       setIsDownloading(false);
+    }
+  };
+
+  const handleDownloadVideo = async () => {
+    if (!isReelUrl) return;
+
+    setIsDownloadingVideo(true);
+    setDownloadVideoSuccess(false);
+
+    try {
+      const queryParams = new URLSearchParams({
+        url: reel_source.url,
+        title: song.title || 'Reel',
+        artist: song.artist || 'Unknown'
+      });
+
+      const downloadUrl = `/api/download_video?${queryParams.toString()}`;
+      
+      const response = await fetch(downloadUrl);
+      if (!response.ok) {
+        throw new Error('Failed to download video');
+      }
+      
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = `${song.artist} - ${song.title}.mp4`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(blobUrl);
+
+      setDownloadVideoSuccess(true);
+      setTimeout(() => setDownloadVideoSuccess(false), 3000);
+    } catch (err) {
+      console.error('Download Reel error:', err);
+    } finally {
+      setIsDownloadingVideo(false);
     }
   };
 
@@ -208,31 +260,83 @@ export default function SongResultCard({ data }) {
               </a>
             </div>
 
-            {/* Action Row: Download MP3 & Audio Snippet Player in SAME LINE */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3 w-full">
-              {/* Direct MP3 Download Button */}
-              <button
-                onClick={handleDownloadMP3}
-                disabled={isDownloading}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap"
-              >
-                {isDownloading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Downloading MP3...</span>
-                  </>
-                ) : downloadSuccess ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-300" />
-                    <span>Downloaded MP3!</span>
-                  </>
-                ) : (
-                  <>
-                    <Download className="w-4 h-4" />
-                    <span>Download Full Song (MP3)</span>
-                  </>
-                )}
-              </button>
+            {/* Action Row: Download MP3, Download Video & Audio Snippet Player in SAME LINE */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3 w-full flex-wrap">
+              {isReelUrl ? (
+                <>
+                  {/* Primary Download Reel Button */}
+                  <button
+                    onClick={handleDownloadVideo}
+                    disabled={isDownloadingVideo}
+                    className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap"
+                  >
+                    {isDownloadingVideo ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <span>Downloading Reel...</span>
+                      </>
+                    ) : downloadVideoSuccess ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-300" />
+                        <span>Downloaded Reel!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Video className="w-4 h-4" />
+                        <span>Download Reel</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Secondary Download MP3 Button */}
+                  <button
+                    onClick={handleDownloadMP3}
+                    disabled={isDownloading}
+                    className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-slate-800 dark:text-white flex items-center justify-center gap-2 transition-all bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-60 disabled:cursor-not-allowed border border-slate-300 dark:border-white/10 shadow-xs cursor-pointer shrink-0 whitespace-nowrap"
+                  >
+                    {isDownloading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-slate-800/30 border-t-slate-800 dark:border-white/30 dark:border-t-white rounded-full animate-spin"></div>
+                        <span>Downloading MP3...</span>
+                      </>
+                    ) : downloadSuccess ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-500" />
+                        <span>Downloaded MP3!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-4 h-4" />
+                        <span>Download MP3</span>
+                      </>
+                    )}
+                  </button>
+                </>
+              ) : (
+                /* If NOT a Reel URL: Show Download MP3 as PRIMARY, no video button */
+                <button
+                  onClick={handleDownloadMP3}
+                  disabled={isDownloading}
+                  className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap"
+                >
+                  {isDownloading ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <span>Downloading MP3...</span>
+                    </>
+                  ) : downloadSuccess ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-300" />
+                      <span>Downloaded MP3!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-4 h-4" />
+                      <span>Download MP3</span>
+                    </>
+                  )}
+                </button>
+              )}
 
               {/* Audio Snippet Audio Player (If preview URL exists) */}
               {song.preview_url && (
