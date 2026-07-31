@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { History, Sun, Moon, Music2, User, LogOut } from 'lucide-react';
+import { History, Sun, Moon, Music2, User, LogOut, Menu, X } from 'lucide-react';
 
 export default function Header({ onOpenHistory, historyCount, isDarkMode, onToggleTheme, user, onOpenLoginModal, onLogout }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--border-color)] bg-[var(--bg-header)]/90 backdrop-blur-md transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -25,48 +27,50 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
           </div>
         </Link>
 
-        {/* Center Nav Links */}
+        {/* Center Nav Links (Desktop only) */}
         <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-[var(--text-secondary)]">
           <Link href="/" className="hover:text-[var(--audiolab-red)] transition-colors">Home</Link>
           <Link href="/tools/song-extractor" className="hover:text-[var(--audiolab-red)] transition-colors">AI Song Finder</Link>
           <a href="/#tools-suite" className="hover:text-[var(--audiolab-red)] transition-colors">Converters</a>
         </nav>
 
-        {/* Right Actions: User Account + Theme Toggle + History Button */}
+        {/* Right Actions */}
         <div className="flex items-center gap-2.5">
-          {/* User Account / Login Button */}
-          {user ? (
-            <div className="flex items-center gap-2">
-              <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5" />
-                <span className="max-w-[90px] truncate">{user.email.split('@')[0]}</span>
+          {/* User Account / Login Button (Desktop only) */}
+          <div className="hidden md:flex items-center gap-2">
+            {user ? (
+              <div className="flex items-center gap-2">
+                <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  <span className="max-w-[90px] truncate">{user.email.split('@')[0]}</span>
+                </div>
+                <button
+                  onClick={onLogout}
+                  className="p-2 rounded-lg bg-[var(--bg-card)] hover:bg-red-500/10 border border-[var(--border-color)] text-slate-400 hover:text-[var(--audiolab-red)] transition-colors cursor-pointer"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
               </div>
-              <button
-                onClick={onLogout}
-                className="p-2 rounded-lg bg-[var(--bg-card)] hover:bg-red-500/10 border border-[var(--border-color)] text-slate-400 hover:text-[var(--audiolab-red)] transition-colors cursor-pointer"
-                title="Sign Out"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <button
-                onClick={onOpenLoginModal}
-                className="text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--audiolab-red)] transition-colors cursor-pointer px-2 py-1"
-              >
-                Login
-              </button>
-              <button
-                onClick={onOpenLoginModal}
-                className="px-4 py-2 rounded-lg bg-[var(--audiolab-red)] hover:bg-red-700 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
-              >
-                Sign Up
-              </button>
-            </div>
-          )}
+            ) : (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={onOpenLoginModal}
+                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--audiolab-red)] transition-colors cursor-pointer px-2 py-1"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={onOpenLoginModal}
+                  className="px-4 py-2 rounded-lg bg-[var(--audiolab-red)] hover:bg-red-700 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+          </div>
 
-          {/* Theme Toggle Button */}
+          {/* Theme Toggle Button (Always visible) */}
           <button
             onClick={onToggleTheme}
             className="p-2 rounded-lg bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-[var(--text-primary)] transition-all cursor-pointer flex items-center justify-center"
@@ -80,7 +84,7 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
             )}
           </button>
 
-          {/* History Drawer Trigger */}
+          {/* History Drawer Trigger (Always visible) */}
           <button
             onClick={onOpenHistory}
             className="px-3 py-2 rounded-lg bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-[var(--text-primary)] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
@@ -94,8 +98,94 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
               </span>
             )}
           </button>
+
+          {/* Hamburger Menu Toggle (Mobile only) */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-lg bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-[var(--text-primary)] transition-all cursor-pointer flex items-center justify-center"
+            title="Toggle Menu"
+            aria-label="Toggle Navigation Menu"
+          >
+            {isMenuOpen ? (
+              <X className="w-3.5 h-3.5 text-[var(--audiolab-red)]" />
+            ) : (
+              <Menu className="w-3.5 h-3.5" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Panel */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--bg-header)] animate-fadeIn">
+          <div className="px-4 py-4 flex flex-col gap-3 text-xs font-bold text-[var(--text-secondary)]">
+            <Link 
+              href="/" 
+              className="hover:text-[var(--audiolab-red)] transition-colors py-2 border-b border-[var(--border-color)]/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link 
+              href="/tools/song-extractor" 
+              className="hover:text-[var(--audiolab-red)] transition-colors py-2 border-b border-[var(--border-color)]/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              AI Song Finder
+            </Link>
+            <a 
+              href="/#tools-suite" 
+              className="hover:text-[var(--audiolab-red)] transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Converters
+            </a>
+
+            {/* Mobile User Section (Inside Menu) */}
+            <div className="pt-3 mt-1 border-t border-[var(--border-color)]">
+              {user ? (
+                <div className="flex flex-col gap-2">
+                  <div className="px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    <span className="truncate">{user.email}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      onLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full py-2.5 rounded-lg bg-[var(--bg-card)] hover:bg-red-500/10 border border-[var(--border-color)] text-slate-400 hover:text-[var(--audiolab-red)] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => {
+                      onOpenLoginModal();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full py-2.5 rounded-lg border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer text-center"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => {
+                      onOpenLoginModal();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full py-2.5 rounded-lg bg-[var(--audiolab-red)] hover:bg-red-700 text-white text-xs font-bold transition-all cursor-pointer shadow-sm text-center"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
