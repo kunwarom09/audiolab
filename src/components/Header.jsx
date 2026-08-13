@@ -17,9 +17,9 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="text-lg font-black tracking-tight text-[var(--text-primary)] uppercase">
+              <span className="text-lg font-black tracking-tight text-[var(--text-primary)] uppercase">
                 AUDIO<span className="text-[var(--audiolab-red)]">LAB</span>
-              </h1>
+              </span>
               <span className="text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--audiolab-red)]/10 text-[var(--audiolab-red)] border border-[var(--audiolab-red)]/20">
                 Suite
               </span>

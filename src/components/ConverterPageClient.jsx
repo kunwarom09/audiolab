@@ -167,9 +167,9 @@ export default function ConverterPageClient({ tool }) {
 
       {/* Tool Header Details */}
       <div className="space-y-2 text-center sm:text-left">
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
           {tool.title}
-        </h2>
+        </h1>
         <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-2xl leading-relaxed">
           {tool.description}
         </p>
@@ -246,15 +246,15 @@ export default function ConverterPageClient({ tool }) {
       {/* Tool-specific FAQ items at the bottom */}
       {step === 'upload' && tool.faq && tool.faq.length > 0 && (
         <div className="pt-12 border-t border-[var(--border-color)] space-y-6">
-          <h3 className="text-lg font-black text-[var(--text-primary)] tracking-tight text-center sm:text-left">
+          <h2 className="text-lg font-black text-[var(--text-primary)] tracking-tight text-center sm:text-left">
             Frequently Asked Questions
-          </h3>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {tool.faq.map((item, idx) => (
               <div key={idx} className="glass-panel rounded-2xl p-5 space-y-2">
-                <h4 className="text-xs sm:text-sm font-bold text-[var(--text-primary)]">
+                <h3 className="text-xs sm:text-sm font-bold text-[var(--text-primary)]">
                   {item.q}
-                </h4>
+                </h3>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                   {item.a}
                 </p>

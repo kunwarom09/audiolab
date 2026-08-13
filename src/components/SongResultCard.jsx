@@ -33,6 +33,42 @@ export default function SongResultCard({ data }) {
   const isReelUrl = reel_source?.url && (reel_source.url.startsWith('http://') || reel_source.url.startsWith('https://'));
   const youtubeUrl = official_video?.url || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${song.artist} ${song.title} official music video`)}`;
 
+  // Dynamic MusicRecording Schema.org JSON-LD for Search Engines
+  const musicSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'MusicRecording',
+    name: song.title,
+    byArtist: {
+      '@type': 'MusicGroup',
+      name: song.artist
+    },
+    ...(song.album ? {
+      inAlbum: {
+        '@type': 'MusicAlbum',
+        name: song.album
+      }
+    } : {}),
+    ...(song.genre ? { genre: song.genre } : {}),
+    ...(song.release_year ? { datePublished: `${song.release_year}-01-01` } : {}),
+    ...(song.cover_art ? { image: song.cover_art } : {}),
+    ...(song.preview_url ? {
+      audio: {
+        '@type': 'AudioObject',
+        contentUrl: song.preview_url
+      }
+    } : {}),
+    ...(song.lyrics ? {
+      recordingOf: {
+        '@type': 'MusicComposition',
+        name: song.title,
+        lyrics: {
+          '@type': 'Lyrics',
+          text: typeof song.lyrics === 'string' ? song.lyrics : Array.isArray(song.lyrics) ? song.lyrics.join('\n') : ''
+        }
+      }
+    } : {})
+  };
+
   const toggleAudio = () => {
     if (!audioRef.current) return;
     if (isPlaying) {

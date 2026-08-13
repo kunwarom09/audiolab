@@ -156,12 +156,71 @@ export default function SongExtractorPage() {
     localStorage.removeItem('reel_song_history');
   };
 
+  const appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'AI Song Finder & Extractor',
+    applicationCategory: 'MultimediaApplication',
+    applicationSubCategory: 'Music Identification Engine',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript. Requires HTML5.',
+    description: 'Identify background songs from Instagram Reels, TikTok videos, Facebook Reels, and Snapchat Spotlight links instantly. Retrieve full synchronized lyrics and download high-quality MP3s.',
+    url: 'https://audiolab.app/tools/song-extractor',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD'
+    }
+  };
+
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How to Extract & Identify Songs from Social Media Videos',
+    description: 'Step-by-step guide to identify background music from Instagram, TikTok, Facebook, or Snapchat video links.',
+    totalTime: 'PT30S',
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Copy Video Link',
+        text: 'Copy the public URL of any Instagram Reel, TikTok video, Facebook Reel, or Snapchat Spotlight.'
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Paste URL into Song Finder',
+        text: 'Paste the link into AudioLab AI Song Finder input box and click Find Song.'
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'View Lyrics & Download MP3',
+        text: 'Instantly view song details, synchronized lyrics, official YouTube music video, and download the MP3.'
+      }
+    ]
+  };
+
   return (
     <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 md:py-12 space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(appSchema).replace(/</g, '\\u003c')
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToSchema).replace(/</g, '\\u003c')
+        }}
+      />
+
       {/* Shazam Style Hero Card */}
       <div id="hero">
         <HeroCard onExtract={handleExtract} isLoading={isLoading} />
       </div>
+
 
       {/* Error Alert Box */}
       {error && (
@@ -185,12 +244,12 @@ export default function SongExtractorPage() {
       {/* Supported Platforms Bar */}
       <section id="platforms" className="space-y-4 pt-4">
         <div className="text-center space-y-1">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] block">
             Supported Platforms
-          </h3>
-          <h4 className="text-xl font-extrabold text-[var(--text-primary)]">
+          </span>
+          <h2 className="text-xl font-extrabold text-[var(--text-primary)]">
             Extract Songs From Anywhere
-          </h4>
+          </h2>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">

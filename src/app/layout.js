@@ -13,7 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "AudioLab — Free Online Audio Tools & Converters",
+  title: {
+    default: "AudioLab — Free Online Audio Tools & Converters",
+    template: "%s | AudioLab",
+  },
   description: "Free web-based audio converter and editor tool suite. Convert MP3, WAV, FLAC, M4A, MP4, WebM to other formats. Identify songs, view lyrics, and more.",
   keywords: [
     "audio converter",
@@ -32,9 +35,14 @@ export const metadata = {
   creator: "AudioLab",
   publisher: "AudioLab",
   applicationName: "AudioLab",
+  category: "technology",
+  manifest: "/manifest.json",
   metadataBase: new URL("https://audiolab.app"),
   alternates: {
     canonical: "/",
+  },
+  verification: {
+    google: "google-site-verification-placeholder",
   },
   openGraph: {
     title: "AudioLab — Free Online Audio Tools & Converters",
@@ -71,12 +79,34 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const jsonLd = {
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'AudioLab',
+    url: 'https://audiolab.app',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://audiolab.app/tools/{search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'AudioLab',
+    url: 'https://audiolab.app',
+    logo: 'https://audiolab.app/icon.svg'
+  };
+
+  const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'AudioLab',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript. Requires HTML5.',
+    softwareVersion: '2.0.0',
     description: 'Free online audio tools and converters to convert, edit, and identify audio files.',
     url: 'https://audiolab.app',
     offers: {
@@ -84,6 +114,20 @@ export default function RootLayout({ children }) {
       price: '0',
       priceCurrency: 'USD',
     },
+    featureList: [
+      'AI Song Identification & Extraction from Reels/Shorts',
+      'MP3 to WAV Conversion',
+      'WAV to MP3 Conversion',
+      'FLAC to MP3 Conversion',
+      'AAC to MP3 Conversion',
+      'OGG to MP3 Conversion',
+      'M4A to MP3 Conversion',
+      'MP4 to MP3 Audio Extraction',
+      'MOV to MP3 Audio Extraction',
+      'AVI to MP3 Audio Extraction',
+      'MKV to MP3 Audio Extraction',
+      'WebM to MP3 Audio Extraction'
+    ]
   };
 
   return (
@@ -94,7 +138,21 @@ export default function RootLayout({ children }) {
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema).replace(/</g, '\\u003c')
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema).replace(/</g, '\\u003c')
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webAppSchema).replace(/</g, '\\u003c')
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col">
@@ -103,3 +161,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+

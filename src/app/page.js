@@ -9,6 +9,67 @@ import { Music2, ShieldCheck, Zap } from 'lucide-react';
 export default function HomePage() {
   const [activeFilter, setActiveFilter] = useState('all');
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How does the AI Song Finder work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Paste any Instagram Reel, TikTok video, Facebook Reel, or Snapchat Spotlight URL. Our Shazam-powered audio recognition engine extracts the background audio stream and matches its acoustic fingerprint against millions of tracks to identify the song title, artist, album, and release details in seconds.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this online Song Finder completely free?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes! You can identify unlimited songs, view complete synchronized lyrics, watch official YouTube music videos, and download high-quality MP3 files with zero cost and no account registration required.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I download the extracted song as an MP3?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Absolutely. Once the song is identified, simply click the "Download Full Song (MP3)" button. Our engine will fetch and convert the track into a high-quality 192kbps MP3 audio file directly onto your device.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Which social media platforms are supported?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Song Finder supports direct video links from Instagram Reels, TikTok Videos, Facebook Reels, Snapchat Spotlight, and YouTube Shorts.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I view full lyrics and watch the official music video?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, every extraction automatically provides complete line-by-line song lyrics with a built-in search filter and one-click copy button, as well as an embedded official YouTube music video player.'
+        }
+      }
+    ]
+  };
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'AudioLab Free Audio Tools & Converters',
+    numberOfItems: Object.keys(TOOLS).length,
+    itemListElement: Object.values(TOOLS).map((tool, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: tool.title,
+      description: tool.description,
+      url: `https://audiolab.app/tools/${tool.slug}`
+    }))
+  };
+
   const filterTabs = [
     { id: 'all', label: 'All' },
     { id: 'AI Tools', label: 'AI Tools' },
@@ -24,11 +85,24 @@ export default function HomePage() {
 
   return (
     <div className="w-full space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c')
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListSchema).replace(/</g, '\\u003c')
+        }}
+      />
+
       {/* Centered Minimalist Hero Header */}
       <section className="pt-16 pb-8 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-4">
-        <h2 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
           Every tool you need to work with Audio in one place
-        </h2>
+        </h1>
         <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
           Every tool you need to process audio, at your fingertips. All are 100% FREE and easy to use! Convert formats, extract audio from video, look up lyrics, and identify songs with just a few clicks.
         </p>
@@ -76,12 +150,12 @@ export default function HomePage() {
       {/* Shared Features Grid */}
       <section id="features" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-[var(--border-color)] space-y-6">
         <div className="text-center space-y-1">
-          <h3 className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)]">
+          <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)] block">
             Features
-          </h3>
-          <h4 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
+          </span>
+          <h2 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
             Why Use AudioLab?
-          </h4>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
