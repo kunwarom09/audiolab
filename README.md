@@ -1,6 +1,6 @@
-# 🎵 SongExtractor — Shazam-Style AI Song Finder & MP3 Downloader
+# 🎵 iLoveAudios — Free Online Audio Tools, Converters & AI Song Finder
 
-**SongExtractor** is an AI-powered web application that identifies background music, retrieves complete song metadata, displays synchronized lyrics, embeds official YouTube music videos, and enables high-quality MP3 downloads from **Instagram Reels, Facebook Reels, TikTok videos, and Snapchat Spotlight links**.
+**iLoveAudios** is a free web-based suite of audio converters, video-to-audio extractors, and AI-powered song identifier that identifies background music, retrieves complete song metadata, displays synchronized lyrics, embeds official YouTube music videos, and enables high-quality MP3 downloads from **Instagram Reels, Facebook Reels, TikTok videos, and Snapchat Spotlight links**.
 
 ---
 

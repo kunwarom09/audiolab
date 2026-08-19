@@ -1,7 +1,7 @@
 import { TOOLS } from '@/lib/toolsConfig';
 
 export default function sitemap() {
-  const baseUrl = 'https://audiolab.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
 
   // Base paths
   const routes = [

@@ -19,8 +19,8 @@ export default function robots() {
         crawlDelay: 2,
       },
     ],
-    sitemap: 'https://audiolab.app/sitemap.xml',
-    host: 'https://audiolab.app',
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com'}/sitemap.xml`,
+    host: process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com',
   };
 }
 

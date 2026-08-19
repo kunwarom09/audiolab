@@ -1,6 +1,6 @@
 {
-  "name": "AudioLab — Free Online Audio Tools & Converters",
-  "short_name": "AudioLab",
+  "name": "iLoveAudios — Free Online Audio Tools & Converters",
+  "short_name": "iLoveAudios",
   "description": "Convert audio formats, extract song details from social media videos, look up lyrics, and identify music online for free.",
   "start_url": "/",
   "display": "standalone",

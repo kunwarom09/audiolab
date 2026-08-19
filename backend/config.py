@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    APP_NAME: str = "SongExtractor API"
+    APP_NAME: str = "iLoveAudios API"
     ENVIRONMENT: str = "production"
     DEBUG: bool = False
     PORT: int = 8000

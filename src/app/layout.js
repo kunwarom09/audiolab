@@ -12,10 +12,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+
 export const metadata = {
   title: {
-    default: "AudioLab — Free Online Audio Tools & Converters",
-    template: "%s | AudioLab",
+    default: "iLoveAudios — Free Online Audio Tools & Converters",
+    template: "%s | iLoveAudios",
   },
   description: "Free web-based audio converter and editor tool suite. Convert MP3, WAV, FLAC, M4A, MP4, WebM to other formats. Identify songs, view lyrics, and more.",
   keywords: [
@@ -27,17 +29,18 @@ export const metadata = {
     "mp4 to mp3",
     "flac to mp3",
     "song finder",
+    "iloveaudios",
+    "i love audios",
     "audio lab",
-    "audiolab",
     "online audio tools"
   ],
-  authors: [{ name: "AudioLab Engine" }],
-  creator: "AudioLab",
-  publisher: "AudioLab",
-  applicationName: "AudioLab",
+  authors: [{ name: "iLoveAudios Engine" }],
+  creator: "iLoveAudios",
+  publisher: "iLoveAudios",
+  applicationName: "iLoveAudios",
   category: "technology",
   manifest: "/manifest.json",
-  metadataBase: new URL("https://audiolab.app"),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
@@ -45,16 +48,16 @@ export const metadata = {
     google: "google-site-verification-placeholder",
   },
   openGraph: {
-    title: "AudioLab — Free Online Audio Tools & Converters",
-    description: "Convert audio formats, extract audio from videos, search lyrics, and identify songs with AudioLab's browser-based suite.",
-    url: "https://audiolab.app",
-    siteName: "AudioLab",
+    title: "iLoveAudios — Free Online Audio Tools & Converters",
+    description: "Convert audio formats, extract audio from videos, search lyrics, and identify songs with iLoveAudios browser-based suite.",
+    url: siteUrl,
+    siteName: "iLoveAudios",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AudioLab — Free Online Audio Tools & Converters",
+    title: "iLoveAudios — Free Online Audio Tools & Converters",
     description: "Free web-based audio converter and editor tool suite.",
   },
   icons: {
@@ -79,14 +82,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const currentSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'AudioLab',
-    url: 'https://audiolab.app',
+    name: 'iLoveAudios',
+    url: currentSiteUrl,
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://audiolab.app/tools/{search_term_string}',
+      target: `${currentSiteUrl}/tools/{search_term_string}`,
       'query-input': 'required name=search_term_string'
     }
   };
@@ -94,21 +99,21 @@ export default function RootLayout({ children }) {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'AudioLab',
-    url: 'https://audiolab.app',
-    logo: 'https://audiolab.app/icon.svg'
+    name: 'iLoveAudios',
+    url: currentSiteUrl,
+    logo: `${currentSiteUrl}/icon.svg`
   };
 
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'AudioLab',
+    name: 'iLoveAudios',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     softwareVersion: '2.0.0',
     description: 'Free online audio tools and converters to convert, edit, and identify audio files.',
-    url: 'https://audiolab.app',
+    url: currentSiteUrl,
     offers: {
       '@type': 'Offer',
       price: '0',

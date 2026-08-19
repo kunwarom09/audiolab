@@ -4,6 +4,23 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { History, Sun, Moon, Music2, User, LogOut, Menu, X } from 'lucide-react';
 
+const LogoIcon = ({ className = "w-9 h-9" }) => (
+  <svg viewBox="0 0 512 512" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="headerLogoRed" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#EF3E4A" />
+        <stop offset="100%" stopColor="#E5293E" />
+      </linearGradient>
+    </defs>
+    <rect x="16" y="16" width="480" height="480" rx="140" fill="url(#headerLogoRed)" />
+    <g fill="#FFFFFF">
+      <circle cx="212" cy="320" r="54" />
+      <polygon points="246,312 288,152 312,158 270,318" />
+      <path d="M 288 152 L 358 196 L 312 248 L 294 186 Z" />
+    </g>
+  </svg>
+);
+
 export default function Header({ onOpenHistory, historyCount, isDarkMode, onToggleTheme, user, onOpenLoginModal, onLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -12,13 +29,13 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Left: Brand Logo with waveform design */}
         <Link href="/" className="flex items-center gap-2.5 cursor-pointer group">
-          <div className="w-9 h-9 rounded-xl bg-[var(--audiolab-red)] text-white flex items-center justify-center shadow-sm group-hover:scale-[1.02] transition-transform duration-200">
-            <Music2 className="w-4.5 h-4.5 fill-current" />
+          <div className="w-9 h-9 rounded-xl overflow-hidden shadow-sm group-hover:scale-[1.04] transition-transform duration-200 flex items-center justify-center">
+            <LogoIcon className="w-full h-full" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-lg font-black tracking-tight text-[var(--text-primary)] uppercase">
-                AUDIO<span className="text-[var(--audiolab-red)]">LAB</span>
+              <span className="text-lg font-black tracking-tight text-[var(--text-primary)]">
+                iLove<span className="text-[var(--audiolab-red)]">Audios</span>
               </span>
               <span className="text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--audiolab-red)]/10 text-[var(--audiolab-red)] border border-[var(--audiolab-red)]/20">
                 Suite

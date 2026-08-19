@@ -12,8 +12,9 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
   const title = `${tool.title} — Free Online Audio Tool`;
-  const canonicalUrl = `https://audiolab.app/tools/${slug}`;
+  const canonicalUrl = `${siteUrl}/tools/${slug}`;
 
   return {
     title,
@@ -58,6 +59,8 @@ export default async function ToolConverterPage({ params }) {
     notFound();
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+
   // 1. SoftwareApplication Schema
   const toolSchema = {
     '@context': 'https://schema.org',
@@ -68,7 +71,7 @@ export default async function ToolConverterPage({ params }) {
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: tool.description,
-    url: `https://audiolab.app/tools/${slug}`,
+    url: `${siteUrl}/tools/${slug}`,
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -81,14 +84,14 @@ export default async function ToolConverterPage({ params }) {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: `How to Convert ${tool.fromFormat} to ${tool.toFormat} Online`,
-    description: `Step-by-step guide to convert ${tool.fromFormat} audio or video files into ${tool.toFormat} format for free with AudioLab.`,
+    description: `Step-by-step guide to convert ${tool.fromFormat} audio or video files into ${tool.toFormat} format for free with iLoveAudios.`,
     totalTime: 'PT1M',
     step: [
       {
         '@type': 'HowToStep',
         position: 1,
         name: 'Upload Your File',
-        text: `Click the dropzone or drag and drop your ${tool.fromFormat} file into AudioLab.`
+        text: `Click the dropzone or drag and drop your ${tool.fromFormat} file into iLoveAudios.`
       },
       {
         '@type': 'HowToStep',

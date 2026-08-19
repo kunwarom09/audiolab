@@ -156,6 +156,8 @@ export default function SongExtractorPage() {
     localStorage.removeItem('reel_song_history');
   };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+
   const appSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -165,7 +167,7 @@ export default function SongExtractorPage() {
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: 'Identify background songs from Instagram Reels, TikTok videos, Facebook Reels, and Snapchat Spotlight links instantly. Retrieve full synchronized lyrics and download high-quality MP3s.',
-    url: 'https://audiolab.app/tools/song-extractor',
+    url: `${siteUrl}/tools/song-extractor`,
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -190,7 +192,7 @@ export default function SongExtractorPage() {
         '@type': 'HowToStep',
         position: 2,
         name: 'Paste URL into Song Finder',
-        text: 'Paste the link into AudioLab AI Song Finder input box and click Find Song.'
+        text: 'Paste the link into iLoveAudios AI Song Finder input box and click Find Song.'
       },
       {
         '@type': 'HowToStep',

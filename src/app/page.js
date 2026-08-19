@@ -56,17 +56,19 @@ export default function HomePage() {
     ]
   };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'AudioLab Free Audio Tools & Converters',
+    name: 'iLoveAudios Free Audio Tools & Converters',
     numberOfItems: Object.keys(TOOLS).length,
     itemListElement: Object.values(TOOLS).map((tool, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
       name: tool.title,
       description: tool.description,
-      url: `https://audiolab.app/tools/${tool.slug}`
+      url: `${siteUrl}/tools/${tool.slug}`
     }))
   };
 
@@ -154,7 +156,7 @@ export default function HomePage() {
             Features
           </span>
           <h2 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
-            Why Use AudioLab?
+            Why Use iLoveAudios?
           </h2>
         </div>
 

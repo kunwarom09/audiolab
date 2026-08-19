@@ -33,7 +33,7 @@ export default function AppClientWrapper({ children }) {
       const savedHistory = localStorage.getItem('extractor_history') || localStorage.getItem('reel_song_history');
       const parsedHistory = savedHistory ? JSON.parse(savedHistory) : [];
 
-      const savedConvHistory = localStorage.getItem('audiolab_conversion_history');
+      const savedConvHistory = localStorage.getItem('iloveaudios_conversion_history') || localStorage.getItem('audiolab_conversion_history');
       const parsedConvHistory = savedConvHistory ? JSON.parse(savedConvHistory) : [];
 
       const savedUser = localStorage.getItem('extractor_user');
@@ -76,7 +76,7 @@ export default function AppClientWrapper({ children }) {
       const newItem = e.detail;
       setConversionHistory((prev) => {
         const updated = [newItem, ...prev.filter(x => x.jobId !== newItem.jobId)].slice(0, 20);
-        localStorage.setItem('audiolab_conversion_history', JSON.stringify(updated));
+        localStorage.setItem('iloveaudios_conversion_history', JSON.stringify(updated));
         return updated;
       });
     };
@@ -116,6 +116,7 @@ export default function AppClientWrapper({ children }) {
 
   const handleClearConversionHistory = () => {
     setConversionHistory([]);
+    localStorage.removeItem('iloveaudios_conversion_history');
     localStorage.removeItem('audiolab_conversion_history');
   };
 
@@ -155,7 +156,7 @@ export default function AppClientWrapper({ children }) {
         </main>
 
         <footer className="w-full border-t border-[var(--border-color)] py-8 text-center text-xs text-[var(--text-muted)] bg-[var(--bg-card)]">
-          <p>AudioLab &copy; 2026 — Secure & Fast Audio Platform</p>
+          <p>iLoveAudios &copy; 2026 — Secure & Fast Audio Platform</p>
         </footer>
 
         <ExtractionHistory
