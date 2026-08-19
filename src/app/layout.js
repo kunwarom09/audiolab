@@ -12,7 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 export const metadata = {
   title: {
@@ -45,7 +46,7 @@ export const metadata = {
     canonical: "/",
   },
   verification: {
-    google: "google-site-verification-placeholder",
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-placeholder",
   },
   openGraph: {
     title: "iLoveAudios — Free Online Audio Tools & Converters",
@@ -82,7 +83,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const currentSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+  const currentSiteUrl = siteUrl;
 
   const websiteSchema = {
     '@context': 'https://schema.org',

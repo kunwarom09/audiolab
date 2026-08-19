@@ -1,7 +1,8 @@
 import { TOOLS } from '@/lib/toolsConfig';
 
 export default function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const baseUrl = rawBaseUrl.replace(/\/+$/, '');
 
   // Base paths
   const routes = [

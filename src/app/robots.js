@@ -1,26 +1,30 @@
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+
 export default function robots() {
   return {
     rules: [
       {
         userAgent: 'Googlebot',
-        allow: ['/', '/tools/'],
-        disallow: ['/api/', '/_next/static/', '/api/auth/'],
+        allow: '/',
+        disallow: ['/api/'],
       },
       {
         userAgent: 'Bingbot',
-        allow: ['/', '/tools/'],
-        disallow: ['/api/', '/_next/static/', '/api/auth/'],
+        allow: '/',
+        disallow: ['/api/'],
         crawlDelay: 1,
       },
       {
         userAgent: '*',
-        allow: ['/', '/tools/'],
-        disallow: ['/api/', '/_next/static/', '/api/auth/'],
+        allow: '/',
+        disallow: ['/api/'],
         crawlDelay: 2,
       },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com'}/sitemap.xml`,
-    host: process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com',
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }
+
 

@@ -56,7 +56,8 @@ export default function HomePage() {
     ]
   };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
   const itemListSchema = {
     '@context': 'https://schema.org',
