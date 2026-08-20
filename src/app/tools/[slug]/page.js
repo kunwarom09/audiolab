@@ -82,32 +82,39 @@ export default async function ToolConverterPage({ params }) {
   };
 
   // 2. HowTo Schema for Step-by-Step Rich Snippets
+  const howToSteps = tool.howTo ? tool.howTo.map((item, idx) => ({
+    '@type': 'HowToStep',
+    position: idx + 1,
+    name: item.title,
+    text: item.text
+  })) : [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Upload Your File',
+      text: `Click the dropzone or drag and drop your ${tool.fromFormat} file into iLoveAudios.`
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Configure Options',
+      text: 'Adjust output quality settings, audio bitrate, or trim options if needed.'
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Convert & Download',
+      text: `Click the Convert button and download your finished ${tool.toFormat} file.`
+    }
+  ];
+
   const howToSchema = tool.fromFormat && tool.toFormat ? {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: `How to Convert ${tool.fromFormat} to ${tool.toFormat} Online`,
     description: `Step-by-step guide to convert ${tool.fromFormat} audio or video files into ${tool.toFormat} format for free with iLoveAudios.`,
     totalTime: 'PT1M',
-    step: [
-      {
-        '@type': 'HowToStep',
-        position: 1,
-        name: 'Upload Your File',
-        text: `Click the dropzone or drag and drop your ${tool.fromFormat} file into iLoveAudios.`
-      },
-      {
-        '@type': 'HowToStep',
-        position: 2,
-        name: 'Configure Options',
-        text: 'Adjust output quality settings, audio bitrate, or trim options if needed.'
-      },
-      {
-        '@type': 'HowToStep',
-        position: 3,
-        name: 'Convert & Download',
-        text: `Click the Convert button and download your finished ${tool.toFormat} file.`
-      }
-    ]
+    step: howToSteps
   } : null;
 
   // 3. FAQPage Schema for Tool-Specific FAQs

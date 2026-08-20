@@ -1,9 +1,9 @@
 export const TOOLS = {
   'song-extractor': {
     slug: 'song-extractor',
-    title: 'AI Song Finder & Extractor',
-    shortTitle: 'Song Extractor',
-    description: 'Identify background songs from Instagram, TikTok, Facebook, & Snapchat video links instantly. Retrieve full lyrics and download MP3s.',
+    title: 'Song Finder – Identify Any Song from a Video',
+    shortTitle: 'Song Finder',
+    description: 'Find the song used in an Instagram Reel, TikTok, Facebook Reel, or Snapchat video. Paste a video link into ILoveAudios Song Finder and identify the song and artist.',
     icon: 'Music2',
     color: 'from-blue-600 to-cyan-500',
     category: 'AI Tools',
@@ -137,18 +137,148 @@ export const TOOLS = {
     title: 'MP4 to MP3 Converter',
     shortTitle: 'MP4 → MP3',
     description: 'Extract high-quality MP3 audio track from MP4 video files.',
+    introduction: 'Convert MP4 to MP3 online with ILOVEAUDIOS. Extract the audio from your MP4 video and save it as an MP3 file. Upload your MP4 file, start the conversion, and download the resulting audio.',
     fromFormat: 'MP4',
     toFormat: 'MP3',
     icon: 'Video',
     color: 'from-red-600 to-pink-500',
     category: 'Video to Audio',
     acceptedMimes: ['video/mp4'],
+    howTo: [
+      {
+        step: 1,
+        title: 'Upload your MP4 file',
+        text: 'Drag and drop your MP4 video into the converter or select a file from your device.'
+      },
+      {
+        step: 2,
+        title: 'Start the conversion',
+        text: 'ILOVEAUDIOS extracts the audio track from your MP4 video and converts it into MP3 format.'
+      },
+      {
+        step: 3,
+        title: 'Download your MP3',
+        text: 'Once processing is complete, download the resulting MP3 audio file.'
+      }
+    ],
+    whyConvert: {
+      title: 'Why Convert MP4 to MP3?',
+      description: 'MP4 files contain both video and audio. If you only need the audio—for example, for listening to a recording, saving a soundtrack, or reducing file size—converting the MP4 to MP3 removes the video portion and produces an audio-only file.',
+      benefits: [
+        {
+          title: 'Reduce File Size by 90%+',
+          text: 'Stripping out high-resolution video frames reduces file weight drastically, saving device storage and bandwidth.'
+        },
+        {
+          title: 'Save Soundtracks & Audio',
+          text: 'Capture music, live concert performances, background tracks, and commentary into standalone audio.'
+        },
+        {
+          title: 'Portable Audio on Any Device',
+          text: 'Listen to lectures, podcasts, webinars, and audio notes anywhere—even in background mode or on car stereos.'
+        }
+      ]
+    },
+    features: [
+      {
+        icon: 'Sparkles',
+        title: 'Studio Quality (Up to 320kbps)',
+        description: 'Export pristine audio with configurable bitrates from 128kbps up to studio-grade 320kbps.'
+      },
+      {
+        icon: 'Zap',
+        title: 'Fast FFmpeg Engine',
+        description: 'Accelerated conversion extracts and encodes audio streams in seconds without lagging.'
+      },
+      {
+        icon: 'Globe',
+        title: '100% Free & Online',
+        description: 'No software installation, no watermarks, and no mandatory account registration required.'
+      },
+      {
+        icon: 'ShieldCheck',
+        title: 'Secure & Auto-Deleted',
+        description: 'Files are processed in secure temporary storage and automatically deleted shortly after conversion.'
+      },
+      {
+        icon: 'Sliders',
+        title: 'Advanced Customization',
+        description: 'Customize audio sample rates (44.1kHz / 48kHz), channels (stereo/mono), and volume normalization.'
+      },
+      {
+        icon: 'Smartphone',
+        title: 'Universal Compatibility',
+        description: 'Your exported MP3 files are universally playable on iPhone, Android, Mac, Windows, and media players.'
+      }
+    ],
+    comparison: {
+      title: 'MP4 vs MP3',
+      description: 'Compare the multimedia video container with the world standard audio format:',
+      headers: ['Attribute', 'MP4 (Video Container)', 'MP3 (Audio Format)'],
+      rows: [
+        {
+          feature: 'File Format Type',
+          format1: 'Multimedia Container (Video + Audio + Text)',
+          format2: 'Compressed Audio Bitstream'
+        },
+        {
+          feature: 'Contained Media',
+          format1: 'Visual Frames, Audio Tracks, Subtitles',
+          format2: 'Pure Sound / Music / Voice Only'
+        },
+        {
+          feature: 'Typical File Size',
+          format1: 'Large (typically 50MB – 1GB+)',
+          format2: 'Compact (typically 3MB – 15MB)'
+        },
+        {
+          feature: 'Primary Use Case',
+          format1: 'Watching movies, tutorials, video clips',
+          format2: 'Music listening, podcasts, audiobooks'
+        },
+        {
+          feature: 'Playback Devices',
+          format1: 'Devices with video screens & players',
+          format2: 'Universal (every phone, car stereo, audio player)'
+        },
+        {
+          feature: 'Audio Compression',
+          format1: 'Usually AAC or MP3 within container',
+          format2: 'MPEG-1 Audio Layer III'
+        }
+      ]
+    },
     faq: [
       {
-        q: "Does extracting MP3 reduce video file size?",
-        a: "Yes! Extracting the audio track into an MP3 file reduces the file size by up to 90% or more, as the video streams are completely discarded."
+        q: 'What is an MP4 to MP3 converter?',
+        a: 'An MP4 to MP3 converter is an online tool that extracts the sound stream from an MP4 video file, discards the visual video frames, and encodes the audio into a standalone MP3 audio file.'
+      },
+      {
+        q: 'How do I convert MP4 to MP3?',
+        a: 'Upload your MP4 file by dragging and dropping it into the converter box, select your preferred audio bitrate (e.g. 192kbps or 320kbps), click "Convert File to MP3", and download the finished MP3 audio track.'
+      },
+      {
+        q: 'Is the MP4 to MP3 converter free?',
+        a: 'Yes! ILOVEAUDIOS provides 100% free MP4 to MP3 conversions with no credit cards, subscriptions, or forced account registration required.'
+      },
+      {
+        q: 'What MP4 files are supported?',
+        a: 'You can upload all standard MP4 video formats recorded on iPhones, Android devices, DSLR cameras, screen capture utilities, Zoom meetings, or downloaded online videos.'
+      },
+      {
+        q: 'What MP3 quality can I choose?',
+        a: 'You can select custom output bitrates ranging from standard 128kbps, high-quality 192kbps (default), to studio-grade 320kbps, along with custom sample rates (44.1kHz / 48kHz) and stereo/mono channels.'
+      },
+      {
+        q: 'How large can my MP4 file be?',
+        a: 'Guest users can upload MP4 video files up to 100MB per file for instant processing. Registered users enjoy higher file size limits.'
+      },
+      {
+        q: 'Are my uploaded files stored?',
+        a: 'No. Uploaded videos and converted MP3 files are processed in secure temporary storage solely to complete the conversion, and are automatically deleted shortly after processing.'
       }
-    ]
+    ],
+    relatedTools: ['mov-to-mp3', 'webm-to-mp3', 'avi-to-mp3', 'm4a-to-mp3', 'wav-to-mp3', 'song-extractor']
   },
   'mov-to-mp3': {
     slug: 'mov-to-mp3',

@@ -2,32 +2,34 @@ const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com'
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 export const metadata = {
-  title: 'AI Song Finder & Reel Audio Extractor — Free Online Tool',
-  description: 'Identify background songs from Instagram Reels, TikTok videos, Facebook Reels, and Snapchat Spotlight links instantly. Retrieve full synchronized lyrics and download high-quality MP3s.',
+  title: 'Song Finder – Identify Songs from Reels & Videos | ILoveAudios',
+  description: 'Find the song used in an Instagram Reel, TikTok, Facebook Reel, or Snapchat video. Paste a video link into ILoveAudios Song Finder and identify the song and artist.',
   keywords: [
     'song finder',
-    'reel song extractor',
-    'instagram reel audio downloader',
-    'tiktok song finder',
+    'song finder from video',
+    'song finder from reel',
     'identify song from video',
-    'find song in video',
-    'extract audio from reel',
-    'shazam online',
-    'free song identifier'
+    'identify song from Instagram Reel',
+    'find song from TikTok',
+    'find song from Facebook Reel',
+    'identify music from video',
+    'music finder',
+    'song identifier',
+    'find a song by video'
   ],
   alternates: {
     canonical: `${siteUrl}/tools/song-extractor`,
   },
   openGraph: {
-    title: 'AI Song Finder & Reel Audio Extractor — iLoveAudios',
-    description: 'Identify background songs from Instagram Reels, TikTok videos, Facebook Reels, and Snapchat Spotlight links instantly. Retrieve synchronized lyrics and download MP3s.',
+    title: 'Song Finder – Identify Songs from Reels & Videos | ILoveAudios',
+    description: 'Find the song used in an Instagram Reel, TikTok, Facebook Reel, or Snapchat video. Paste a video link into ILoveAudios Song Finder and identify the song and artist.',
     url: `${siteUrl}/tools/song-extractor`,
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Song Finder & Reel Audio Extractor — iLoveAudios',
-    description: 'Extract and identify background music from Instagram Reels, TikTok, and Facebook videos for free.',
+    title: 'Song Finder – Identify Songs from Reels & Videos | ILoveAudios',
+    description: 'Find the song used in an Instagram Reel, TikTok, Facebook Reel, or Snapchat video. Paste a video link into ILoveAudios Song Finder and identify the song and artist.',
   },
 };
 

@@ -5,8 +5,30 @@ import FileDropzone from './FileDropzone';
 import ConversionSettings from './ConversionSettings';
 import ConversionProgress from './ConversionProgress';
 import DownloadResult from './DownloadResult';
-import { ArrowLeft, Play, Disc } from 'lucide-react';
+import ToolCard from './ToolCard';
+import { TOOLS } from '@/lib/toolsConfig';
+import { 
+  ArrowLeft, 
+  Play, 
+  Disc, 
+  Sparkles, 
+  Zap, 
+  Globe, 
+  ShieldCheck, 
+  Sliders, 
+  Smartphone, 
+  CheckCircle2 
+} from 'lucide-react';
 import Link from 'next/link';
+
+const featureIcons = {
+  Sparkles,
+  Zap,
+  Globe,
+  ShieldCheck,
+  Sliders,
+  Smartphone
+};
 
 export default function ConverterPageClient({ tool }) {
   const [step, setStep] = useState('upload'); // upload | settings | converting | completed
@@ -175,6 +197,15 @@ export default function ConverterPageClient({ tool }) {
         </p>
       </div>
 
+      {/* Introduction BEFORE Converter */}
+      {tool.introduction && (
+        <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+            {tool.introduction}
+          </p>
+        </div>
+      )}
+
       {/* Steps Handler */}
       {step === 'upload' && (
         <FileDropzone
@@ -243,25 +274,226 @@ export default function ConverterPageClient({ tool }) {
         />
       )}
 
-      {/* Tool-specific FAQ items at the bottom */}
-      {step === 'upload' && tool.faq && tool.faq.length > 0 && (
-        <div className="pt-12 border-t border-[var(--border-color)] space-y-6">
-          <h2 className="text-lg font-black text-[var(--text-primary)] tracking-tight text-center sm:text-left">
-            Frequently Asked Questions
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* ========================================================================= */}
+      {/* RICH CONTENT SECTIONS BELOW CONVERTER (SEO Optimized)                    */}
+      {/* ========================================================================= */}
+
+      {/* 1. How to Convert Section */}
+      {tool.howTo && tool.howTo.length > 0 && (
+        <section className="pt-10 border-t border-[var(--border-color)] space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
+              Step-by-Step Guide
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              How to Convert {tool.fromFormat || 'MP4'} to {tool.toFormat || 'MP3'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {tool.howTo.map((item, idx) => (
+              <div
+                key={idx}
+                className="glass-panel glass-panel-hover rounded-2xl p-5 space-y-3 relative overflow-hidden flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center font-black text-sm">
+                    {idx + 1}
+                  </div>
+                  <h3 className="text-sm font-black text-[var(--text-primary)]">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    {item.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 2. Why Convert Section */}
+      {tool.whyConvert && (
+        <section className="space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-purple-500">
+              Use Cases & Benefits
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              {tool.whyConvert.title}
+            </h2>
+          </div>
+
+          <div className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/20 bg-purple-500/5">
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              {tool.whyConvert.description}
+            </p>
+
+            {tool.whyConvert.benefits && tool.whyConvert.benefits.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[var(--border-color)]">
+                {tool.whyConvert.benefits.map((benefit, idx) => (
+                  <div key={idx} className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <h4 className="text-xs font-bold text-[var(--text-primary)]">
+                        {benefit.title}
+                      </h4>
+                    </div>
+                    <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed pl-6">
+                      {benefit.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 3. Features Grid Section */}
+      {tool.features && tool.features.length > 0 && (
+        <section className="space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-500">
+              Key Capabilities
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              {tool.title} Features
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {tool.features.map((feat, idx) => {
+              const IconComp = featureIcons[feat.icon] || Sparkles;
+              return (
+                <div key={idx} className="glass-panel glass-panel-hover rounded-2xl p-5 space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 flex items-center justify-center shrink-0">
+                    <IconComp className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-black text-[var(--text-primary)]">
+                    {feat.title}
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    {feat.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* 4. Comparison Table (MP4 vs MP3) */}
+      {tool.comparison && (
+        <section className="space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-amber-500">
+              Format Comparison
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              {tool.comparison.title}
+            </h2>
+            {tool.comparison.description && (
+              <p className="text-xs text-[var(--text-secondary)]">
+                {tool.comparison.description}
+              </p>
+            )}
+          </div>
+
+          <div className="glass-panel rounded-2xl overflow-hidden border border-[var(--border-color)]">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-[var(--bg-card-hover)] border-b border-[var(--border-color)] text-[var(--text-primary)] font-black text-[11px] uppercase tracking-wider">
+                  <tr>
+                    {tool.comparison.headers.map((head, idx) => (
+                      <th key={idx} className="px-4 py-3.5 sm:px-6">
+                        {head}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[var(--border-color)] text-[var(--text-secondary)]">
+                  {tool.comparison.rows.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-[var(--bg-card-hover)]/40 transition-colors">
+                      <td className="px-4 py-3.5 sm:px-6 font-bold text-[var(--text-primary)] whitespace-nowrap">
+                        {row.feature}
+                      </td>
+                      <td className="px-4 py-3.5 sm:px-6">
+                        {row.format1}
+                      </td>
+                      <td className="px-4 py-3.5 sm:px-6 text-blue-600 dark:text-blue-400 font-medium">
+                        {row.format2}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 5. Frequently Asked Questions Section */}
+      {tool.faq && tool.faq.length > 0 && (
+        <section className="space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-cyan-500">
+              Got Questions?
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {tool.faq.map((item, idx) => (
-              <div key={idx} className="glass-panel rounded-2xl p-5 space-y-2">
-                <h3 className="text-xs sm:text-sm font-bold text-[var(--text-primary)]">
-                  {item.q}
+              <div key={idx} className="glass-panel rounded-2xl p-5 space-y-2 border border-[var(--border-color)] hover:border-blue-500/30 transition-colors">
+                <h3 className="text-xs sm:text-sm font-bold text-[var(--text-primary)] flex items-start gap-2">
+                  <span className="text-blue-500 font-black shrink-0">Q:</span>
+                  <span>{item.q}</span>
                 </h3>
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed pl-5">
                   {item.a}
                 </p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
+      )}
+
+      {/* 6. Related Tools Section */}
+      {tool.relatedTools && tool.relatedTools.length > 0 && (
+        <section className="space-y-6 pt-4">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)]">
+              Explore More Converters
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              Related Tools
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {tool.relatedTools.map((slug) => {
+              const relTool = TOOLS[slug];
+              if (!relTool) return null;
+              return (
+                <ToolCard
+                  key={relTool.slug}
+                  title={relTool.title}
+                  description={relTool.description}
+                  href={relTool.isCustomPage ? `/tools/${relTool.slug}` : `/tools/${relTool.slug}`}
+                  icon={relTool.icon}
+                  category={relTool.category}
+                  badge={relTool.badge}
+                  fromFormat={relTool.fromFormat}
+                  toFormat={relTool.toFormat}
+                />
+              );
+            })}
+          </div>
+        </section>
       )}
     </div>
   );
