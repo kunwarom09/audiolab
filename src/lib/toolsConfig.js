@@ -38,7 +38,7 @@ export const TOOLS = {
       },
       {
         q: "What is the maximum file upload size?",
-        a: "You can upload files up to 100MB per file with completely unlimited free conversions."
+        a: "You can upload files up to 500MB per file with completely unlimited free conversions."
       }
     ]
   },
@@ -271,7 +271,7 @@ export const TOOLS = {
       },
       {
         q: 'How large can my MP4 file be?',
-        a: 'You can upload video files up to 100MB per file with completely unlimited free conversions.'
+        a: 'You can upload video files up to 500MB per file with completely unlimited free conversions.'
       },
       {
         q: 'Are my uploaded files stored?',
