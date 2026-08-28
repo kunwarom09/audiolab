@@ -9,11 +9,25 @@ import requests
 import yt_dlp
 import static_ffmpeg
 
+import shutil
+
 # Ensure static ffmpeg binary paths are set up before importing Shazam / pydub
 try:
     static_ffmpeg.add_paths()
 except Exception as e:
     print(f"Warning adding static_ffmpeg paths: {e}")
+
+def get_ffmpeg_dir():
+    try:
+        bin_path = shutil.which('ffmpeg')
+        if bin_path:
+            p_dir = os.path.dirname(bin_path)
+            if p_dir and p_dir not in os.environ.get("PATH", ""):
+                os.environ["PATH"] = f"{p_dir}:{os.environ.get('PATH', '')}"
+            return p_dir
+    except Exception:
+        pass
+    return None
 
 from shazamio import Shazam
 
@@ -29,6 +43,7 @@ class SongExtractor:
         temp_dir = tempfile.gettempdir()
         unique_id = str(uuid.uuid4())[:8]
         output_template = os.path.join(temp_dir, f"reel_song_{unique_id}.%(ext)s")
+        ffmpeg_dir = get_ffmpeg_dir()
 
         user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
@@ -42,6 +57,8 @@ class SongExtractor:
             ydl_opts = {
                 'format': 'bestaudio/best',
                 'outtmpl': output_template,
+                'ffmpeg_location': ffmpeg_dir,
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
@@ -86,6 +103,7 @@ class SongExtractor:
         clean_filename = re.sub(r'[^\w\s-]', '', f"{artist} - {title}").strip() or "video"
         unique_id = str(uuid.uuid4())[:8]
         output_template = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.%(ext)s")
+        ffmpeg_dir = get_ffmpeg_dir()
 
         user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
@@ -97,9 +115,11 @@ class SongExtractor:
 
         for ua in user_agents:
             ydl_opts = {
-                'format': 'bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4][height<=720]/best',
+                'format': 'bestvideo[ext=mp4][height<=1080]+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best',
                 'outtmpl': output_template,
                 'merge_output_format': 'mp4',
+                'ffmpeg_location': ffmpeg_dir,
+                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
                 'quiet': True,
                 'no_warnings': True,
                 'nocheckcertificate': True,
@@ -139,34 +159,62 @@ class SongExtractor:
         clean_filename = re.sub(r'[^\w\s-]', '', f"{artist} - {title}").strip() or "song"
         unique_id = str(uuid.uuid4())[:8]
         output_template = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.%(ext)s")
+        ffmpeg_dir = get_ffmpeg_dir()
 
-        query = video_url if (video_url and 'youtube.com' in video_url) else f"ytsearch1:{artist} {title} official audio"
+        user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+        ]
 
-        ydl_opts = {
-            'format': 'bestaudio/best',
-            'outtmpl': output_template,
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
-            'quiet': True,
-            'no_warnings': True,
-            'nocheckcertificate': True,
-        }
+        queries = []
+        if video_url and ('youtube.com' in video_url or 'youtu.be' in video_url):
+            queries.append(video_url)
+        queries.append(f"ytsearch1:{artist} {title} official audio")
+        queries.append(f"ytsearch1:{artist} {title} audio")
+        queries.append(f"ytsearch1:{artist} {title}")
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.extract_info(query, download=True)
-            mp3_path = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.mp3")
-            if os.path.exists(mp3_path):
-                return mp3_path
+        last_exception = None
 
-            for ext in ['mp3', 'm4a', 'opus', 'wav']:
-                possible = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.{ext}")
-                if os.path.exists(possible):
-                    return possible
+        for query in queries:
+            for ua in user_agents:
+                ydl_opts = {
+                    'format': 'bestaudio/best',
+                    'outtmpl': output_template,
+                    'ffmpeg_location': ffmpeg_dir,
+                    'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                    'postprocessors': [{
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': '192',
+                    }],
+                    'quiet': True,
+                    'no_warnings': True,
+                    'nocheckcertificate': True,
+                    'user_agent': ua,
+                    'headers': {
+                        'User-Agent': ua,
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'Accept-Language': 'en-US,en;q=0.5',
+                    }
+                }
 
-        raise FileNotFoundError("Could not generate MP3 audio file.")
+                try:
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                        ydl.extract_info(query, download=True)
+                        mp3_path = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.mp3")
+                        if os.path.exists(mp3_path):
+                            return mp3_path
+
+                        for ext in ['mp3', 'm4a', 'opus', 'wav']:
+                            possible = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.{ext}")
+                            if os.path.exists(possible):
+                                return possible
+                except Exception as e:
+                    last_exception = e
+                    continue
+
+        raise last_exception or FileNotFoundError("Could not generate MP3 audio file.")
 
     async def recognize_song_from_audio(self, audio_path: str):
         """

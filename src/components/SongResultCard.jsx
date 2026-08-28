@@ -113,21 +113,26 @@ export default function SongResultCard({ data }) {
       setTimeout(() => setDownloadSuccess(false), 3000);
     } catch (err) {
       console.error('Download MP3 error:', err);
+      alert('Could not download MP3. Please check the backend connection or try again.');
     } finally {
       setIsDownloading(false);
     }
   };
 
   const handleDownloadVideo = async () => {
-    if (!isReelUrl) return;
+    const videoUrlToDownload = isReelUrl 
+      ? reel_source.url 
+      : (official_video?.url || '');
+
+    if (!videoUrlToDownload) return;
 
     setIsDownloadingVideo(true);
     setDownloadVideoSuccess(false);
 
     try {
       const queryParams = new URLSearchParams({
-        url: reel_source.url,
-        title: song.title || 'Reel',
+        url: videoUrlToDownload,
+        title: song.title || 'Video',
         artist: song.artist || 'Unknown'
       });
 
@@ -152,7 +157,8 @@ export default function SongResultCard({ data }) {
       setDownloadVideoSuccess(true);
       setTimeout(() => setDownloadVideoSuccess(false), 3000);
     } catch (err) {
-      console.error('Download Reel error:', err);
+      console.error('Download Video error:', err);
+      alert('Could not download video. Please check the video source or try again.');
     } finally {
       setIsDownloadingVideo(false);
     }
@@ -298,77 +304,51 @@ export default function SongResultCard({ data }) {
 
             {/* Action Row: Download MP3, Download Video & Audio Snippet Player in SAME LINE */}
             <div className="pt-2 flex flex-col sm:flex-row items-center gap-3 w-full flex-wrap">
-              {isReelUrl ? (
-                <>
-                  {/* Primary Download Reel Button */}
-                  <button
-                    onClick={handleDownloadVideo}
-                    disabled={isDownloadingVideo}
-                    className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap"
-                  >
-                    {isDownloadingVideo ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        <span>Downloading Reel...</span>
-                      </>
-                    ) : downloadVideoSuccess ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-300" />
-                        <span>Downloaded Reel!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Video className="w-4 h-4" />
-                        <span>Download Reel</span>
-                      </>
-                    )}
-                  </button>
+              {/* Primary Download MP3 Button */}
+              <button
+                onClick={handleDownloadMP3}
+                disabled={isDownloading}
+                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap shadow-md hover:shadow-lg"
+              >
+                {isDownloading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Downloading MP3...</span>
+                  </>
+                ) : downloadSuccess ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-300" />
+                    <span>Downloaded MP3!</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    <span>Download MP3</span>
+                  </>
+                )}
+              </button>
 
-                  {/* Secondary Download MP3 Button */}
-                  <button
-                    onClick={handleDownloadMP3}
-                    disabled={isDownloading}
-                    className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-slate-800 dark:text-white flex items-center justify-center gap-2 transition-all bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-60 disabled:cursor-not-allowed border border-slate-300 dark:border-white/10 shadow-xs cursor-pointer shrink-0 whitespace-nowrap"
-                  >
-                    {isDownloading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-slate-800/30 border-t-slate-800 dark:border-white/30 dark:border-t-white rounded-full animate-spin"></div>
-                        <span>Downloading MP3...</span>
-                      </>
-                    ) : downloadSuccess ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-500" />
-                        <span>Downloaded MP3!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Download className="w-4 h-4" />
-                        <span>Download MP3</span>
-                      </>
-                    )}
-                  </button>
-                </>
-              ) : (
-                /* If NOT a Reel URL: Show Download MP3 as PRIMARY, no video button */
+              {/* Video Download Button (if Reel URL or Official Video is present) */}
+              {(isReelUrl || official_video?.url) && (
                 <button
-                  onClick={handleDownloadMP3}
-                  disabled={isDownloading}
-                  className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap"
+                  onClick={handleDownloadVideo}
+                  disabled={isDownloadingVideo}
+                  className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-slate-800 dark:text-white flex items-center justify-center gap-2 transition-all bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-60 disabled:cursor-not-allowed border border-slate-300 dark:border-white/10 shadow-xs cursor-pointer shrink-0 whitespace-nowrap"
                 >
-                  {isDownloading ? (
+                  {isDownloadingVideo ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      <span>Downloading MP3...</span>
+                      <div className="w-4 h-4 border-2 border-slate-800/30 border-t-slate-800 dark:border-white/30 dark:border-t-white rounded-full animate-spin"></div>
+                      <span>{isReelUrl ? 'Downloading Reel...' : 'Downloading Video...'}</span>
                     </>
-                  ) : downloadSuccess ? (
+                  ) : downloadVideoSuccess ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-300" />
-                      <span>Downloaded MP3!</span>
+                      <Check className="w-4 h-4 text-emerald-500" />
+                      <span>{isReelUrl ? 'Downloaded Reel!' : 'Downloaded Video!'}</span>
                     </>
                   ) : (
                     <>
-                      <Download className="w-4 h-4" />
-                      <span>Download MP3</span>
+                      <Video className="w-4 h-4" />
+                      <span>{isReelUrl ? 'Download Reel Video' : 'Download Video (MP4)'}</span>
                     </>
                   )}
                 </button>

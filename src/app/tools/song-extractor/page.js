@@ -70,42 +70,14 @@ const SONG_FINDER_FAQS = [
 
 export default function SongExtractorPage() {
   const {
-    user,
     history,
     setHistory,
-    isLoginModalOpen,
-    setIsLoginModalOpen,
     setIsHistoryOpen
   } = useApp();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
-  const [extractionCount, setExtractionCount] = useState(0);
-  const [pendingUrl, setPendingUrl] = useState(null);
-
-  // Initialize Extraction Count on Mount
-  useEffect(() => {
-    try {
-      const savedCount = parseInt(localStorage.getItem('extractor_count') || '0', 10);
-      queueMicrotask(() => {
-        if (savedCount) setExtractionCount(savedCount);
-      });
-    } catch (err) {
-      console.error('Failed to load extraction count:', err);
-    }
-  }, []);
-
-  // Sync pendingUrl trigger if login modal completes successfully
-  useEffect(() => {
-    if (user && pendingUrl) {
-      const urlToProcess = pendingUrl;
-      setPendingUrl(null);
-      setTimeout(() => {
-        handleExtract(urlToProcess, true);
-      }, 300);
-    }
-  }, [user, pendingUrl]);
 
   const pollJobStatus = async (jobId) => {
     const maxPolls = 60; // 60 * 2s = 120s max
@@ -127,17 +99,15 @@ export default function SongExtractorPage() {
     throw new Error('Extraction task timed out. Please try again.');
   };
 
-  const handleExtract = async (reelUrl, bypassLimitCheck = false) => {
-    // Enforce 3 extractions limit for unauthenticated users
-    if (!bypassLimitCheck && extractionCount >= 3 && !user) {
-      setPendingUrl(reelUrl);
-      setIsLoginModalOpen(true);
-      return;
-    }
-
+  const handleExtract = async (reelUrl) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
+
+    // Smooth scroll to progress area
+    setTimeout(() => {
+      document.getElementById('extraction-process')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
 
     try {
       const response = await fetch('/api/extract', {
@@ -162,11 +132,6 @@ export default function SongExtractorPage() {
 
       setResult(finalResult);
 
-      // Increment extraction count
-      const nextCount = extractionCount + 1;
-      setExtractionCount(nextCount);
-      localStorage.setItem('extractor_count', nextCount.toString());
-
       const newHistoryItem = {
         ...finalResult,
         timestamp: Date.now()
@@ -175,6 +140,11 @@ export default function SongExtractorPage() {
       const updatedHistory = [newHistoryItem, ...history.filter(h => h.song?.title !== finalResult.song?.title)].slice(0, 20);
       setHistory(updatedHistory);
       localStorage.setItem('extractor_history', JSON.stringify(updatedHistory));
+
+      // Smooth scroll to result
+      setTimeout(() => {
+        document.getElementById('extraction-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
 
     } catch (err) {
       console.error('Extraction error:', err);
@@ -297,11 +267,19 @@ export default function SongExtractorPage() {
         </div>
       )}
 
-      {/* Loading Progress State */}
-      {isLoading && <ProgressTracker />}
+      {/* Loading Progress State (Extraction Process Visualizer) */}
+      {isLoading && (
+        <div id="extraction-process" className="scroll-mt-24">
+          <ProgressTracker />
+        </div>
+      )}
 
       {/* Extraction Result Card */}
-      {result && !isLoading && <SongResultCard data={result} />}
+      {result && !isLoading && (
+        <div id="extraction-result" className="scroll-mt-24">
+          <SongResultCard data={result} />
+        </div>
+      )}
 
       {/* ========================================================================= */}
       {/* RICH CONTENT SECTIONS (Optimized for "Song Finder" Intent)                */}

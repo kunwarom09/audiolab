@@ -27,7 +27,7 @@ try:
     from celery_app import celery_app
     from tasks import extract_song_task, download_mp3_task
     from converter_tasks import convert_audio_task
-    CELERY_AVAILABLE = True
+    CELERY_AVAILABLE = cache_manager.is_connected
 except Exception as e:
     logger.warning(f"Celery task import warning: {e}. Falling back to sync mode.")
     CELERY_AVAILABLE = False

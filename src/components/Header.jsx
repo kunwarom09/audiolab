@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { History, Sun, Moon, Music2, User, LogOut, Menu, X } from 'lucide-react';
+import { History, Sun, Moon, Menu, X } from 'lucide-react';
 
 const LogoIcon = ({ className = "w-9 h-9" }) => (
   <svg viewBox="0 0 512 512" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@ const LogoIcon = ({ className = "w-9 h-9" }) => (
   </svg>
 );
 
-export default function Header({ onOpenHistory, historyCount, isDarkMode, onToggleTheme, user, onOpenLoginModal, onLogout }) {
+export default function Header({ onOpenHistory, historyCount, isDarkMode, onToggleTheme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -53,40 +53,6 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
 
         {/* Right Actions */}
         <div className="flex items-center gap-2.5">
-          {/* User Account / Login Button (Desktop only) */}
-          <div className="hidden md:flex items-center gap-2">
-            {user ? (
-              <div className="flex items-center gap-2">
-                <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" />
-                  <span className="max-w-[90px] truncate">{user.email.split('@')[0]}</span>
-                </div>
-                <button
-                  onClick={onLogout}
-                  className="p-2 rounded-lg bg-[var(--bg-card)] hover:bg-red-500/10 border border-[var(--border-color)] text-slate-400 hover:text-[var(--audiolab-red)] transition-colors cursor-pointer"
-                  title="Sign Out"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={onOpenLoginModal}
-                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--audiolab-red)] transition-colors cursor-pointer px-2 py-1"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={onOpenLoginModal}
-                  className="px-4 py-2 rounded-lg bg-[var(--audiolab-red)] hover:bg-red-700 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
-                >
-                  Sign Up
-                </button>
-              </div>
-            )}
-          </div>
-
           {/* Theme Toggle Button (Always visible) */}
           <button
             onClick={onToggleTheme}
@@ -157,49 +123,6 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
             >
               Converters
             </a>
-
-            {/* Mobile User Section (Inside Menu) */}
-            <div className="pt-3 mt-1 border-t border-[var(--border-color)]">
-              {user ? (
-                <div className="flex flex-col gap-2">
-                  <div className="px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    <span className="truncate">{user.email}</span>
-                  </div>
-                  <button
-                    onClick={() => {
-                      onLogout();
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full py-2.5 rounded-lg bg-[var(--bg-card)] hover:bg-red-500/10 border border-[var(--border-color)] text-slate-400 hover:text-[var(--audiolab-red)] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={() => {
-                      onOpenLoginModal();
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full py-2.5 rounded-lg border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer text-center"
-                  >
-                    Login
-                  </button>
-                  <button
-                    onClick={() => {
-                      onOpenLoginModal();
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full py-2.5 rounded-lg bg-[var(--audiolab-red)] hover:bg-red-700 text-white text-xs font-bold transition-all cursor-pointer shadow-sm text-center"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       )}

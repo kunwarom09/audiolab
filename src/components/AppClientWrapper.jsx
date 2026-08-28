@@ -3,7 +3,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import Header from './Header';
 import ExtractionHistory from './ExtractionHistory';
-import LoginModal from './LoginModal';
 
 const AppContext = createContext();
 
@@ -16,10 +15,8 @@ export default function AppClientWrapper({ children }) {
   const [conversionHistory, setConversionHistory] = useState([]);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  // Initialize Theme, History, and User on Mount
+  // Initialize Theme and History on Mount
   useEffect(() => {
     try {
       const savedTheme = localStorage.getItem('extractor_theme');
@@ -36,37 +33,13 @@ export default function AppClientWrapper({ children }) {
       const savedConvHistory = localStorage.getItem('iloveaudios_conversion_history') || localStorage.getItem('audiolab_conversion_history');
       const parsedConvHistory = savedConvHistory ? JSON.parse(savedConvHistory) : [];
 
-      const savedUser = localStorage.getItem('extractor_user');
-      const parsedUser = savedUser ? JSON.parse(savedUser) : null;
-
       queueMicrotask(() => {
         if (isDark) setIsDarkMode(true);
         if (parsedHistory.length) setHistory(parsedHistory);
         if (parsedConvHistory.length) setConversionHistory(parsedConvHistory);
-        if (parsedUser) setUser(parsedUser);
       });
-
-      // Check for Google OAuth callback return parameters
-      if (typeof window !== 'undefined') {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('login_success') === 'true') {
-          const email = params.get('email');
-          const name = params.get('name') || email?.split('@')[0];
-          const userData = { email, name, provider: 'google', token: `jwt_session_${Date.now()}` };
-          queueMicrotask(() => {
-            setUser(userData);
-          });
-          localStorage.setItem('extractor_user', JSON.stringify(userData));
-          window.history.replaceState({}, document.title, window.location.pathname);
-        } else if (params.get('google_login') === 'prompt') {
-          queueMicrotask(() => {
-            setIsLoginModalOpen(true);
-          });
-          window.history.replaceState({}, document.title, window.location.pathname);
-        }
-      }
     } catch (err) {
-      console.error('Failed to load theme, history, or user data:', err);
+      console.error('Failed to load theme or history data:', err);
     }
   }, []);
 
@@ -97,17 +70,6 @@ export default function AppClientWrapper({ children }) {
     }
   };
 
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-    localStorage.setItem('extractor_user', JSON.stringify(userData));
-    setIsLoginModalOpen(false);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('extractor_user');
-  };
-
   const handleClearHistory = () => {
     setHistory([]);
     localStorage.removeItem('extractor_history');
@@ -128,14 +90,8 @@ export default function AppClientWrapper({ children }) {
         conversionHistory,
         setConversionHistory,
         isDarkMode,
-        user,
-        setUser,
-        isLoginModalOpen,
-        setIsLoginModalOpen,
         setIsHistoryOpen,
         handleToggleTheme,
-        handleLoginSuccess,
-        handleLogout,
         handleClearHistory,
         handleClearConversionHistory
       }}
@@ -146,9 +102,6 @@ export default function AppClientWrapper({ children }) {
           historyCount={history.length + conversionHistory.length}
           isDarkMode={isDarkMode}
           onToggleTheme={handleToggleTheme}
-          user={user}
-          onOpenLoginModal={() => setIsLoginModalOpen(true)}
-          onLogout={handleLogout}
         />
 
         <main className="flex-1 w-full z-10">
@@ -165,19 +118,11 @@ export default function AppClientWrapper({ children }) {
           isOpen={isHistoryOpen}
           onClose={() => setIsHistoryOpen(false)}
           onSelect={(item) => {
-            // If on a specific tool page, let's redirect or post message to handle selection
-            // Dispatch a custom event to notify components that history item was selected
             const event = new CustomEvent('historySelect', { detail: item });
             window.dispatchEvent(event);
           }}
           onClear={handleClearHistory}
           onClearConversions={handleClearConversionHistory}
-        />
-
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-          onLoginSuccess={handleLoginSuccess}
         />
       </div>
     </AppContext.Provider>

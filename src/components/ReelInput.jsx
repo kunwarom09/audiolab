@@ -122,11 +122,11 @@ export default function ReelInput({ onExtract, isLoading }) {
             {isLoading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                <span className="hidden sm:inline">Extracting...</span>
+                <span className="hidden sm:inline">Finding Song...</span>
               </>
             ) : (
               <>
-                <span>Extract Song</span>
+                <span>Find Song</span>
                 <ArrowRight className="w-4 h-4 hidden md:inline" />
               </>
             )}

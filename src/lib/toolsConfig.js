@@ -38,7 +38,7 @@ export const TOOLS = {
       },
       {
         q: "What is the maximum file upload size?",
-        a: "Guest users can upload files up to 100MB. Registered users enjoy higher limits."
+        a: "You can upload files up to 100MB per file with completely unlimited free conversions."
       }
     ]
   },
@@ -271,7 +271,7 @@ export const TOOLS = {
       },
       {
         q: 'How large can my MP4 file be?',
-        a: 'Guest users can upload MP4 video files up to 100MB per file for instant processing. Registered users enjoy higher file size limits.'
+        a: 'You can upload video files up to 100MB per file with completely unlimited free conversions.'
       },
       {
         q: 'Are my uploaded files stored?',
