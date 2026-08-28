@@ -17,7 +17,8 @@ import {
   ShieldCheck, 
   Sliders, 
   Smartphone, 
-  CheckCircle2 
+  CheckCircle2,
+  AlertTriangle 
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -34,9 +35,9 @@ export default function ConverterPageClient({ tool }) {
   const [step, setStep] = useState('upload'); // upload | settings | converting | completed
   const [file, setFile] = useState(null);
   const [settings, setSettings] = useState({
-    bitrate: '192k',
+    bitrate: '192',
     sampleRate: '44100',
-    channels: 'stereo',
+    channels: '2',
     normalize: false,
     preserveMetadata: true
   });
@@ -45,10 +46,56 @@ export default function ConverterPageClient({ tool }) {
   const [jobId, setJobId] = useState(null);
   const [fileSize, setFileSize] = useState(null);
   const [convertedFileName, setConvertedFileName] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
+    setErrorMessage(null);
     setStep('settings');
+  };
+
+  const uploadFileWithProgress = (fileToUpload, onProgress) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      formData.append('file', fileToUpload);
+
+      xhr.upload.addEventListener('progress', (e) => {
+        if (e.lengthComputable) {
+          const percentComplete = (e.loaded / e.total) * 100;
+          onProgress(percentComplete);
+        }
+      });
+
+      xhr.addEventListener('load', () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            resolve(data);
+          } catch {
+            reject(new Error('Invalid upload response from server.'));
+          }
+        } else {
+          try {
+            const errorData = JSON.parse(xhr.responseText);
+            reject(new Error(errorData.error || errorData.detail || `Upload failed with status ${xhr.status}`));
+          } catch {
+            reject(new Error(`Upload failed with status ${xhr.status}`));
+          }
+        }
+      });
+
+      xhr.addEventListener('error', () => {
+        reject(new Error('Network error during file upload. Please ensure file is within 500MB and try again.'));
+      });
+
+      xhr.addEventListener('abort', () => {
+        reject(new Error('File upload was aborted.'));
+      });
+
+      xhr.open('POST', '/api/upload');
+      xhr.send(formData);
+    });
   };
 
   const handleStartConversion = async () => {
@@ -57,30 +104,23 @@ export default function ConverterPageClient({ tool }) {
     setStep('converting');
     setProgress(5);
     setStatus('uploading');
+    setErrorMessage(null);
 
     try {
-      // 1. Upload File
-      const formData = new FormData();
-      formData.append('file', file);
-      
-      const uploadRes = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
+      // 1. Upload File with live percentage progress (0% - 40% of conversion bar)
+      const uploadData = await uploadFileWithProgress(file, (percent) => {
+        const scaledProgress = Math.max(5, Math.min(40, Math.round((percent / 100) * 40)));
+        setProgress(scaledProgress);
       });
 
-      if (!uploadRes.ok) {
-        throw new Error('File upload failed. Please try again.');
-      }
-
-      const uploadData = await uploadRes.json();
       const fileId = uploadData.file_id;
       
-      setProgress(30);
+      setProgress(45);
       setStatus('analyzing');
-      await new Promise(r => setTimeout(r, 1000)); // Smooth transition
+      await new Promise(r => setTimeout(r, 600));
 
       // 2. Start Conversion
-      setProgress(40);
+      setProgress(55);
       setStatus('converting');
       
       const convertRes = await fetch('/api/convert', {
@@ -100,8 +140,8 @@ export default function ConverterPageClient({ tool }) {
       });
 
       if (!convertRes.ok) {
-        const errorData = await convertRes.json();
-        throw new Error(errorData.error || 'Conversion initiation failed.');
+        const errorData = await convertRes.json().catch(() => ({}));
+        throw new Error(errorData.error || errorData.detail || 'Conversion initiation failed.');
       }
 
       const convertData = await convertRes.json();
@@ -110,13 +150,13 @@ export default function ConverterPageClient({ tool }) {
 
       // 3. Poll status
       let attempts = 0;
-      const maxAttempts = 120; // 2 minutes timeout
+      const maxAttempts = 180; // 4.5 minutes timeout
       
       const poll = setInterval(async () => {
         attempts++;
         if (attempts > maxAttempts) {
           clearInterval(poll);
-          throw new Error('Conversion timed out.');
+          throw new Error('Conversion timed out. The file might be too long to process.');
         }
 
         try {
@@ -127,7 +167,7 @@ export default function ConverterPageClient({ tool }) {
           
           if (statusData.status === 'completed' && statusData.result) {
             clearInterval(poll);
-            setProgress(90);
+            setProgress(92);
             setStatus('saving');
             setFileSize(statusData.result.file_size);
             const outputName = statusData.result.output_filename || `${file.name.split('.')[0]}.${tool.toFormat.toLowerCase()}`;
@@ -148,13 +188,13 @@ export default function ConverterPageClient({ tool }) {
               setProgress(100);
               setStatus('completed');
               setStep('completed');
-            }, 800);
+            }, 600);
           } else if (statusData.status === 'failed') {
             clearInterval(poll);
             throw new Error(statusData.error || 'FFmpeg conversion processing failed.');
           } else if (statusData.status === 'processing') {
-            // Scale progress between 50% and 85% based on elapsed polls
-            const calculatedProgress = Math.min(85, 50 + Math.floor((attempts / 15) * 10));
+            // Scale progress smoothly between 55% and 88%
+            const calculatedProgress = Math.min(88, 55 + Math.floor((attempts / 15) * 8));
             setProgress(calculatedProgress);
           }
         } catch (pollErr) {
@@ -163,8 +203,8 @@ export default function ConverterPageClient({ tool }) {
       }, 1500);
 
     } catch (err) {
-      console.error(err);
-      alert(err.message || 'An error occurred during conversion.');
+      console.error('Conversion flow error:', err);
+      setErrorMessage(err.message || 'An unexpected error occurred during conversion.');
       setStep('settings');
     }
   };
@@ -174,6 +214,7 @@ export default function ConverterPageClient({ tool }) {
     setStep('upload');
     setProgress(0);
     setJobId(null);
+    setErrorMessage(null);
   };
 
   return (
@@ -203,6 +244,19 @@ export default function ConverterPageClient({ tool }) {
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
             {tool.introduction}
           </p>
+        </div>
+      )}
+
+      {/* Error Alert Box */}
+      {errorMessage && (
+        <div className="rounded-2xl p-4.5 border border-red-800/80 bg-red-950/90 text-red-100 shadow-2xl shadow-red-950/50 backdrop-blur-md flex items-start gap-3.5 animate-in fade-in">
+          <div className="p-2 rounded-xl bg-red-900/60 border border-red-700/50 shrink-0">
+            <AlertTriangle className="w-5 h-5 text-red-300" />
+          </div>
+          <div className="flex-1 pt-0.5">
+            <h4 className="text-sm font-bold text-red-100 tracking-wide">Upload or Conversion Error</h4>
+            <p className="text-xs text-red-200/90 leading-relaxed mt-1">{errorMessage}</p>
+          </div>
         </div>
       )}
 
