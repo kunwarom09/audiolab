@@ -325,7 +325,7 @@ async def upload_file(request: Request, file: UploadFile = File(...)):
     file_size = len(contents)
     
     if file_size > settings.MAX_UPLOAD_SIZE_GUEST:
-        raise HTTPException(status_code=400, detail="File is too large. Maximum allowed size is 500MB.")
+        raise HTTPException(status_code=413, detail=f"File is too large ({file_size // (1024*1024)}MB). Maximum allowed size is 1GB.")
         
     file_uuid = uuid.uuid4().hex[:12]
     ext = file.filename.split('.')[-1].lower() if '.' in file.filename else 'dat'

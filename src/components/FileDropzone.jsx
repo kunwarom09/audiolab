@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { UploadCloud, FileAudio, FileVideo, AlertCircle, X, Smartphone } from 'lucide-react';
 
-export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat, maxSizeBytes = 524288000 }) {
+export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat, maxSizeBytes = 1073741824 }) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
@@ -39,7 +39,7 @@ export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat
     setError(null);
     if (!file) return;
 
-    // Validate size limit (500MB)
+    // Validate size limit (1GB)
     if (file.size > maxSizeBytes) {
       const mbLimit = maxSizeBytes / (1024 * 1024);
       setError(`File is too large (${(file.size / (1024 * 1024)).toFixed(1)}MB). Maximum allowed size is ${mbLimit}MB.`);

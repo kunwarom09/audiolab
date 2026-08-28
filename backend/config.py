@@ -31,8 +31,8 @@ class Settings(BaseSettings):
     CACHE_TTL_SECONDS: int = 86400  # 24 hours
     ARTIFACT_TTL_SECONDS: int = 3600  # 1 hour
     CONVERSION_TTL_SECONDS: int = 1800  # 30 minutes
-    MAX_UPLOAD_SIZE_GUEST: int = 500 * 1024 * 1024  # 500MB
-    MAX_UPLOAD_SIZE_PREMIUM: int = 500 * 1024 * 1024  # 500MB
+    MAX_UPLOAD_SIZE_GUEST: int = 1024 * 1024 * 1024  # 1GB (1024MB)
+    MAX_UPLOAD_SIZE_PREMIUM: int = 1024 * 1024 * 1024  # 1GB (1024MB)
 
     class Config:
         env_file = ".env.local"
