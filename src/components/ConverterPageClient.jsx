@@ -6,7 +6,7 @@ import ConversionSettings from './ConversionSettings';
 import ConversionProgress from './ConversionProgress';
 import DownloadResult from './DownloadResult';
 import ToolCard from './ToolCard';
-import { TOOLS } from '@/lib/toolsConfig';
+import { TOOLS, FORMAT_DEFINITIONS } from '@/lib/toolsConfig';
 import { 
   ArrowLeft, 
   Play, 
@@ -18,7 +18,10 @@ import {
   Sliders, 
   Smartphone, 
   CheckCircle2,
-  AlertTriangle 
+  AlertTriangle,
+  Info,
+  Layers,
+  ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -32,6 +35,9 @@ const featureIcons = {
 };
 
 export default function ConverterPageClient({ tool, backendApiUrl }) {
+  const sourceDef = tool?.fromFormat ? FORMAT_DEFINITIONS[tool.fromFormat] : null;
+  const targetDef = tool?.toFormat ? FORMAT_DEFINITIONS[tool.toFormat] : null;
+
   const [step, setStep] = useState('upload'); // upload | settings | converting | completed
   const [file, setFile] = useState(null);
   const [settings, setSettings] = useState({
@@ -457,7 +463,83 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
         </section>
       )}
 
-      {/* 4. Comparison Table (MP4 vs MP3) */}
+      {/* 4. Format Encyclopedic Deep-Dives ("What is SOURCE?" & "What is TARGET?") */}
+      {(sourceDef || targetDef) && (
+        <section className="space-y-6">
+          <div className="text-center sm:text-left space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
+              Format Encyclopedia
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+              About the Audio & Video Formats
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* What is Source Format */}
+            {sourceDef && (
+              <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 border border-[var(--border-color)]">
+                <div className="flex items-center justify-between gap-2 border-b border-[var(--border-color)] pb-3">
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-purple-500">Source Format</span>
+                    <h3 className="text-base font-black text-[var(--text-primary)]">What is {tool.fromFormat}?</h3>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-xl text-[10px] font-black bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                    {sourceDef.extension}
+                  </span>
+                </div>
+
+                <div className="space-y-2 text-xs text-[var(--text-secondary)] leading-relaxed">
+                  <p>{sourceDef.description}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-2 text-[11px] border-t border-[var(--border-color)]">
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase font-bold">Developer</span>
+                    <span className="font-semibold text-[var(--text-primary)]">{sourceDef.developer}</span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase font-bold">Release Year</span>
+                    <span className="font-semibold text-[var(--text-primary)]">{sourceDef.year}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* What is Target Format */}
+            {targetDef && (
+              <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 border border-[var(--border-color)]">
+                <div className="flex items-center justify-between gap-2 border-b border-[var(--border-color)] pb-3">
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-emerald-500">Target Format</span>
+                    <h3 className="text-base font-black text-[var(--text-primary)]">What is {tool.toFormat}?</h3>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-xl text-[10px] font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    {targetDef.extension}
+                  </span>
+                </div>
+
+                <div className="space-y-2 text-xs text-[var(--text-secondary)] leading-relaxed">
+                  <p>{targetDef.description}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-2 text-[11px] border-t border-[var(--border-color)]">
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase font-bold">Developer</span>
+                    <span className="font-semibold text-[var(--text-primary)]">{targetDef.developer}</span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase font-bold">Release Year</span>
+                    <span className="font-semibold text-[var(--text-primary)]">{targetDef.year}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 5. Comparison Table */}
       {tool.comparison && (
         <section className="space-y-6">
           <div className="text-center sm:text-left space-y-1">
@@ -507,7 +589,7 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
         </section>
       )}
 
-      {/* 5. Frequently Asked Questions Section */}
+      {/* 6. Frequently Asked Questions Section */}
       {tool.faq && tool.faq.length > 0 && (
         <section className="space-y-6">
           <div className="text-center sm:text-left space-y-1">
@@ -535,39 +617,121 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
         </section>
       )}
 
-      {/* 6. Related Tools Section */}
-      {tool.relatedTools && tool.relatedTools.length > 0 && (
-        <section className="space-y-6 pt-4">
-          <div className="text-center sm:text-left space-y-1">
-            <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)]">
-              Explore More Converters
-            </span>
-            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
-              Related Tools
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {tool.relatedTools.map((slug) => {
-              const relTool = TOOLS[slug];
-              if (!relTool) return null;
-              return (
-                <ToolCard
+      {/* 7. Convert other files to TARGET FORMAT */}
+      {tool.toFormat && (() => {
+        const toTargetTools = Object.values(TOOLS).filter(t => !t.isCustomPage && t.toFormat === tool.toFormat && t.slug !== tool.slug);
+        if (toTargetTools.length === 0) return null;
+        return (
+          <section className="space-y-4 pt-4 border-t border-[var(--border-color)]">
+            <div className="space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-wider text-[var(--iloveaudios-red)] block">
+                More {tool.toFormat} Converters
+              </span>
+              <h2 className="text-lg sm:text-xl font-black text-[var(--text-primary)] tracking-tight">
+                Convert Other Files to {tool.toFormat}
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+              {toTargetTools.map((relTool) => (
+                <Link
                   key={relTool.slug}
-                  title={relTool.title}
-                  description={relTool.description}
-                  href={relTool.isCustomPage ? `/tools/${relTool.slug}` : `/tools/${relTool.slug}`}
-                  icon={relTool.icon}
-                  category={relTool.category}
-                  badge={relTool.badge}
-                  fromFormat={relTool.fromFormat}
-                  toFormat={relTool.toFormat}
-                />
-              );
-            })}
-          </div>
-        </section>
-      )}
+                  href={`/tools/${relTool.slug}`}
+                  className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+                >
+                  <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">{relTool.shortTitle || relTool.title}</span>
+                  <ArrowRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* 8. Convert SOURCE FORMAT to other formats */}
+      {tool.fromFormat && (() => {
+        const fromSourceTools = Object.values(TOOLS).filter(t => !t.isCustomPage && t.fromFormat === tool.fromFormat && t.slug !== tool.slug);
+        if (fromSourceTools.length === 0) return null;
+        return (
+          <section className="space-y-4 pt-2">
+            <div className="space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-wider text-blue-500 block">
+                More {tool.fromFormat} Converters
+              </span>
+              <h2 className="text-lg sm:text-xl font-black text-[var(--text-primary)] tracking-tight">
+                Convert {tool.fromFormat} to Other Formats
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+              {fromSourceTools.map((relTool) => (
+                <Link
+                  key={relTool.slug}
+                  href={`/tools/${relTool.slug}`}
+                  className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-blue-500/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+                >
+                  <span className="group-hover:text-blue-500 transition-colors">{relTool.shortTitle || relTool.title}</span>
+                  <ArrowRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* 9. Related Tools Section (including AI Song Finder) */}
+      <section className="space-y-6 pt-4 border-t border-[var(--border-color)]">
+        <div className="text-center sm:text-left space-y-1">
+          <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)]">
+            Explore More Audio Utilities
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+            Related Audio Tools
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {/* Song Finder Feature Card */}
+          <Link href="/tools/song-extractor" className="group block h-full">
+            <div className="h-full relative overflow-hidden glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between border-blue-500/30 bg-blue-500/5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-500">
+                    AI POWERED
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-blue-500 transition-colors">
+                    AI Song Finder from Video
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    Identify background songs from Instagram Reels, TikTok, Facebook, and Snapchat with lyrics & MP3 download.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {tool.relatedTools && tool.relatedTools.map((slug) => {
+            const relTool = TOOLS[slug];
+            if (!relTool || relTool.slug === 'song-extractor') return null;
+            return (
+              <ToolCard
+                key={relTool.slug}
+                title={relTool.title}
+                description={relTool.description}
+                href={`/tools/${relTool.slug}`}
+                icon={relTool.icon}
+                category={relTool.category}
+                badge={relTool.badge}
+                fromFormat={relTool.fromFormat}
+                toFormat={relTool.toFormat}
+              />
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

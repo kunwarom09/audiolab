@@ -14,14 +14,15 @@ export async function generateMetadata({ params }) {
 
   const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
-  const title = `${tool.title} — Free Online Audio Tool`;
+  const title = tool.metaTitle || `${tool.title} – Free Online Audio Tool | iLoveAudios`;
+  const description = tool.metaDescription || tool.description;
   const canonicalUrl = `${siteUrl}/tools/${slug}`;
   const fromFmt = tool.fromFormat?.toLowerCase() || '';
   const toFmt = tool.toFormat?.toLowerCase() || '';
 
   return {
     title,
-    description: tool.description,
+    description,
     keywords: [
       `${fromFmt} to ${toFmt}`,
       `convert ${fromFmt} to ${toFmt}`,
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }) {
     },
     openGraph: {
       title,
-      description: tool.description,
+      description,
       url: canonicalUrl,
       type: 'website',
       siteName: 'iLoveAudios',
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: 'summary_large_image',
       title,
-      description: tool.description
+      description
     }
   };
 }
@@ -79,9 +80,9 @@ export default async function ToolConverterPage({ params }) {
     name: tool.title,
     applicationCategory: 'MultimediaApplication',
     applicationSubCategory: 'Audio/Video Converter',
-    operatingSystem: 'All',
+    operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    description: tool.description,
+    description: tool.metaDescription || tool.description,
     url: `${siteUrl}/tools/${slug}`,
     offers: {
       '@type': 'Offer',

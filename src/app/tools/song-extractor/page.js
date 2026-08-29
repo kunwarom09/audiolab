@@ -6,6 +6,7 @@ import ProgressTracker from '@/components/ProgressTracker';
 import SongResultCard from '@/components/SongResultCard';
 import FaqSection from '@/components/FaqSection';
 import { useApp } from '@/components/AppClientWrapper';
+import Link from 'next/link';
 import { 
   AlertTriangle, 
   Music2, 
@@ -16,7 +17,8 @@ import {
   Film, 
   Volume2, 
   Download, 
-  Layers 
+  Layers,
+  ArrowRight
 } from 'lucide-react';
 
 const InstagramIcon = (props) => (
@@ -585,6 +587,80 @@ export default function SongExtractorPage() {
 
       {/* 7. Frequently Asked Questions */}
       <FaqSection items={SONG_FINDER_FAQS} />
+
+      {/* 8. Cross-Linking: Related Audio & Video Converters */}
+      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
+        <div className="space-y-1">
+          <span className="text-[10px] font-black uppercase tracking-wider text-[var(--iloveaudios-red)] block">
+            Audio Conversion Suite
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+            Convert & Edit Audio Files
+          </h2>
+          <p className="text-xs text-[var(--text-secondary)]">
+            Convert your downloaded songs, voice notes, and video audio streams into any format.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <Link
+            href="/tools/mp4-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/mov-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">MOV to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/opus-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">OPUS to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/wav-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">WAV to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/mp3-to-wav"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">MP3 to WAV</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/flac-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">FLAC to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/m4a-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">M4A to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link
+            href="/tools/webm-to-mp3"
+            className="glass-panel rounded-xl p-3.5 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)]/40 hover:bg-[var(--bg-card-hover)] transition-all flex items-center justify-between text-xs font-bold text-[var(--text-primary)] group"
+          >
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">WebM to MP3</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

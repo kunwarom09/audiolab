@@ -77,11 +77,16 @@ export default function FaqSection({ items }) {
                 </div>
               </button>
 
-              {isOpen && (
-                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border-color)]/50 animate-in fade-in duration-200">
+              <div 
+                id={`faq-answer-${idx}`}
+                className={`overflow-hidden transition-all duration-300 ${
+                  isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border-color)]/50">
                   {item.answer}
                 </div>
-              )}
+              </div>
             </div>
           );
         })}
