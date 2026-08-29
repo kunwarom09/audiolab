@@ -73,6 +73,37 @@ export default function HomePage() {
     }))
   };
 
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'iLoveAudios',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript. Requires HTML5.',
+    softwareVersion: '2.0.0',
+    description: 'Free online audio tools and converters to convert, edit, and identify audio files.',
+    url: siteUrl,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    featureList: [
+      'AI Song Identification & Extraction from Reels, TikTok & Shorts',
+      'MP4 to MP3 Audio Extraction',
+      'MP4 to WAV Lossless Audio Extraction',
+      'MOV to MP3 & MOV to WAV Audio Extraction',
+      'AVI, MKV, WebM, 3GP, WMV to MP3 Converters',
+      'MP3 to WAV & WAV to MP3 Conversion',
+      'FLAC to MP3 & FLAC to WAV Audio Conversion',
+      'M4A to MP3 & M4A to WAV Apple Audio Conversion',
+      'AAC, OGG, WMA, OPUS, M4R Audio Converters',
+      'Studio Quality 320kbps MP3 Bitrate Support',
+      'Synchronized Song Lyrics Lookup',
+      'Fast Cloud-Accelerated Audio Processing'
+    ]
+  };
+
   const filterTabs = [
     { id: 'all', label: 'All' },
     { id: 'AI Tools', label: 'AI Tools' },
@@ -88,6 +119,12 @@ export default function HomePage() {
 
   return (
     <div className="w-full space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webAppSchema).replace(/</g, '\\u003c')
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
