@@ -21,6 +21,7 @@ from limiter import limiter
 from cache import cache_manager
 from storage import storage_service
 from extractor import extractor_instance
+from converter import converter_instance
 
 # Try importing celery app and task
 try:
@@ -276,10 +277,6 @@ async def download_video(
 FALLBACK_JOBS = {}
 
 def sync_conversion_worker(job_id: str, file_id: str, output_format: str, options: dict):
-    from converter import converter_instance
-    from storage import storage_service
-    import tempfile
-    
     local_input_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"uploads/{file_id}")
     output_filename = f"{file_id.split('.')[0]}.{output_format}"
     local_output_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"converted/{output_filename}")
@@ -354,6 +351,11 @@ def sync_merge_worker(job_id: str, file_ids: list, output_format: str, options: 
     object_key = f"converted/{output_filename}"
     storage_service.upload_file(local_output_path, object_key)
     file_size = os.path.getsize(local_output_path)
+    try:
+        if not isinstance(storage_service, LocalStorageService) and os.path.exists(local_output_path):
+            os.remove(local_output_path)
+    except Exception:
+        pass
     download_url = storage_service.generate_presigned_url(object_key, expiration=1800)
     
     FALLBACK_JOBS[job_id] = {
