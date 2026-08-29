@@ -93,7 +93,12 @@ export default function ConverterPageClient({ tool }) {
         reject(new Error('File upload was aborted.'));
       });
 
-      xhr.open('POST', '/api/upload');
+      const backendBase = process.env.NEXT_PUBLIC_BACKEND_API_URL || '';
+      const uploadEndpoint = backendBase 
+        ? `${backendBase.replace(/\/$/, '')}/api/upload` 
+        : '/api/upload';
+
+      xhr.open('POST', uploadEndpoint);
       xhr.send(formData);
     });
   };

@@ -15,8 +15,15 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  const backendBase = process.env.NEXT_PUBLIC_BACKEND_API_URL || '';
+  const directDownloadUrl = backendBase 
+    ? `${backendBase.replace(/\/$/, '')}/api/convert/download/${jobId}` 
+    : `/api/convert/download/${jobId}`;
+
   const handleCopyLink = async () => {
-    const downloadUrl = `${window.location.origin}/api/convert/download/${jobId}`;
+    const downloadUrl = backendBase 
+      ? directDownloadUrl 
+      : `${window.location.origin}/api/convert/download/${jobId}`;
     try {
       await navigator.clipboard.writeText(downloadUrl);
       setCopied(true);
@@ -63,7 +70,7 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
       {/* Main Download Button */}
       <div className="pt-2">
         <a
-          href={`/api/convert/download/${jobId}`}
+          href={directDownloadUrl}
           download
           className="w-full py-4 rounded-2xl btn-shazam text-sm font-extrabold flex items-center justify-center gap-2 cursor-pointer shadow-lg"
         >
