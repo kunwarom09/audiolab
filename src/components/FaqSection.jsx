@@ -40,7 +40,7 @@ export default function FaqSection({ items }) {
   return (
     <section id="faq" className="space-y-8 pt-8 border-t border-[var(--border-color)] max-w-4xl mx-auto">
       <div className="text-center space-y-2 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--audiolab-red)]/10 text-[var(--audiolab-red)] border border-[var(--audiolab-red)]/20 text-xs font-bold">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--iloveaudios-red)]/10 text-[var(--iloveaudios-red)] border border-[var(--iloveaudios-red)]/20 text-xs font-bold">
           <HelpCircle className="w-3.5 h-3.5" />
           <span>Got Questions?</span>
         </div>
@@ -65,12 +65,12 @@ export default function FaqSection({ items }) {
                 type="button"
                 onClick={() => toggleAccordion(idx)}
                 aria-expanded={isOpen}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[var(--text-primary)] hover:text-[var(--audiolab-red)] transition-colors cursor-pointer"
+                className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[var(--text-primary)] hover:text-[var(--iloveaudios-red)] transition-colors cursor-pointer"
               >
                 <h3 className="font-bold text-sm sm:text-base">{item.question}</h3>
                 <div
                   className={`p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-[var(--text-secondary)] transition-transform duration-300 shrink-0 ${
-                    isOpen ? 'rotate-180 bg-[var(--audiolab-red)]/10 text-[var(--audiolab-red)]' : ''
+                    isOpen ? 'rotate-180 bg-[var(--iloveaudios-red)]/10 text-[var(--iloveaudios-red)]' : ''
                   }`}
                 >
                   <ChevronDown className="w-4 h-4" />

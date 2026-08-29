@@ -28,7 +28,7 @@ export default function ToolCard({ title, description, href, icon, category, bad
 
             {/* Status / Category Badge */}
             {badge && (
-              <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-[var(--audiolab-red)]/15 text-[var(--audiolab-red)] border border-[var(--audiolab-red)]/20">
+              <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-[var(--iloveaudios-red)]/15 text-[var(--iloveaudios-red)] border border-[var(--iloveaudios-red)]/20">
                 {badge}
               </span>
             )}
@@ -36,7 +36,7 @@ export default function ToolCard({ title, description, href, icon, category, bad
 
           {/* Tool Titles */}
           <div className="space-y-1 text-left">
-            <h3 className="text-sm font-black text-[var(--text-primary)] tracking-tight group-hover:text-[var(--audiolab-red)] transition-colors duration-200">
+            <h3 className="text-sm font-black text-[var(--text-primary)] tracking-tight group-hover:text-[var(--iloveaudios-red)] transition-colors duration-200">
               {title}
             </h3>
             {fromFormat && toFormat && (

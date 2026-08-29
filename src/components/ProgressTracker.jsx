@@ -73,8 +73,8 @@ export default function ProgressTracker() {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--audiolab-red)] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--audiolab-red)]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--iloveaudios-red)] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--iloveaudios-red)]"></span>
             </span>
             <h3 className="text-base font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
               <span>Finding & Extracting Song...</span>
@@ -95,7 +95,7 @@ export default function ProgressTracker() {
             <div className="audio-bar" style={{ animationDelay: '0.4s' }}></div>
             <div className="audio-bar" style={{ animationDelay: '0.15s' }}></div>
           </div>
-          <span className="px-3 py-1.5 rounded-xl bg-red-500/10 text-[var(--audiolab-red)] border border-red-500/20 font-black text-sm tabular-nums">
+          <span className="px-3 py-1.5 rounded-xl bg-red-500/10 text-[var(--iloveaudios-red)] border border-red-500/20 font-black text-sm tabular-nums">
             {displayPct}%
           </span>
         </div>
@@ -104,7 +104,7 @@ export default function ProgressTracker() {
       {/* Main Overall Progress Bar */}
       <div className="w-full bg-slate-100 dark:bg-slate-800/80 rounded-full h-2 overflow-hidden shadow-inner">
         <div 
-          className="bg-gradient-to-r from-[var(--audiolab-red)] via-rose-500 to-amber-500 h-2 rounded-full transition-all duration-500 ease-out"
+          className="bg-gradient-to-r from-[var(--iloveaudios-red)] via-rose-500 to-amber-500 h-2 rounded-full transition-all duration-500 ease-out"
           style={{ width: `${displayPct}%` }}
         ></div>
       </div>
@@ -133,7 +133,7 @@ export default function ProgressTracker() {
                   isDone
                     ? 'bg-emerald-500 text-white shadow-sm'
                     : isCurrent
-                    ? 'bg-[var(--audiolab-red)] text-white shadow-md shadow-red-500/20 animate-pulse'
+                    ? 'bg-[var(--iloveaudios-red)] text-white shadow-md shadow-red-500/20 animate-pulse'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500'
                 }`}
               >
@@ -159,7 +159,7 @@ export default function ProgressTracker() {
                     {step.title}
                   </p>
                   {isCurrent && (
-                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-red-500/10 text-[var(--audiolab-red)] border border-red-500/20 shrink-0">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-red-500/10 text-[var(--iloveaudios-red)] border border-red-500/20 shrink-0">
                       Active
                     </span>
                   )}

@@ -13,7 +13,7 @@
     --text-primary: #1e293b;
     --text-secondary: #475569;
     --text-muted: #94a3b8;
-    --audiolab-red: #e53e3e;
+    --iloveaudios-red: #e53e3e;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
     --input-bg: #ffffff;
     --input-border: #cbd5e1;
@@ -29,7 +29,7 @@
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --text-muted: #64748b;
-    --audiolab-red: #f56565;
+    --iloveaudios-red: #f56565;
     --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     --input-bg: #24242e;
     --input-border: #3e3e4f;
@@ -78,13 +78,13 @@
 
 .glass-input:focus {
   outline: none;
-  border-color: var(--audiolab-red);
+  border-color: var(--iloveaudios-red);
   box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
 }
 
 /* Solid Red Brand Action Buttons */
 .btn-shazam {
-  background: var(--audiolab-red);
+  background: var(--iloveaudios-red);
   color: #ffffff;
   font-weight: 700;
   transition: all 0.2s ease;

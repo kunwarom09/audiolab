@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.iloveaudios.com";
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 export const metadata = {
@@ -32,7 +32,7 @@ export const metadata = {
     "song finder",
     "iloveaudios",
     "i love audios",
-    "audio lab",
+    "iloveaudios.com",
     "online audio tools"
   ],
   authors: [{ name: "iLoveAudios Engine" }],

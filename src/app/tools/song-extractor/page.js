@@ -154,7 +154,7 @@ export default function SongExtractorPage() {
     }
   };
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
   const appSchema = {

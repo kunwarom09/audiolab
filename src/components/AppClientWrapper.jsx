@@ -30,7 +30,7 @@ export default function AppClientWrapper({ children }) {
       const savedHistory = localStorage.getItem('extractor_history') || localStorage.getItem('reel_song_history');
       const parsedHistory = savedHistory ? JSON.parse(savedHistory) : [];
 
-      const savedConvHistory = localStorage.getItem('iloveaudios_conversion_history') || localStorage.getItem('audiolab_conversion_history');
+      const savedConvHistory = localStorage.getItem('iloveaudios_conversion_history');
       const parsedConvHistory = savedConvHistory ? JSON.parse(savedConvHistory) : [];
 
       queueMicrotask(() => {
@@ -79,7 +79,6 @@ export default function AppClientWrapper({ children }) {
   const handleClearConversionHistory = () => {
     setConversionHistory([]);
     localStorage.removeItem('iloveaudios_conversion_history');
-    localStorage.removeItem('audiolab_conversion_history');
   };
 
   return (

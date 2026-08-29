@@ -77,7 +77,7 @@ export default function ReelInput({ onExtract, isLoading }) {
     <div className="w-full max-w-3xl mx-auto space-y-4">
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative flex items-center bg-white dark:bg-slate-900 rounded-2xl p-2 gap-2 shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
-          <div className="pl-3 text-[var(--audiolab-red)]">
+          <div className="pl-3 text-[var(--iloveaudios-red)]">
             <Search className="w-5 h-5" />
           </div>
 
@@ -115,8 +115,8 @@ export default function ReelInput({ onExtract, isLoading }) {
             disabled={!url.trim() || isLoading}
             className={`px-5 py-3 rounded-xl font-bold text-sm text-white flex items-center gap-2 transition-all shrink-0 ${
               !url.trim() || isLoading
-                ? 'bg-[var(--audiolab-red)] text-white opacity-60 cursor-not-allowed'
-                : 'bg-[var(--audiolab-red)] hover:bg-red-700 text-white shadow-sm hover:scale-[1.01] active:scale-100 cursor-pointer'
+                ? 'bg-[var(--iloveaudios-red)] text-white opacity-60 cursor-not-allowed'
+                : 'bg-[var(--iloveaudios-red)] hover:bg-red-700 text-white shadow-sm hover:scale-[1.01] active:scale-100 cursor-pointer'
             }`}
           >
             {isLoading ? (
@@ -149,7 +149,7 @@ export default function ReelInput({ onExtract, isLoading }) {
               }}
               className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold transition-all flex items-center gap-1 cursor-pointer"
             >
-              <Icon className="w-3 h-3 text-[var(--audiolab-red)]" />
+              <Icon className="w-3 h-3 text-[var(--iloveaudios-red)]" />
               <span>{sample.label}</span>
             </button>
           );
