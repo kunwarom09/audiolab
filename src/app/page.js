@@ -106,6 +106,7 @@ export default function HomePage() {
 
   const filterTabs = [
     { id: 'all', label: 'All' },
+    { id: 'Audio Utilities', label: 'Audio Utilities' },
     { id: 'AI Tools', label: 'AI Tools' },
     { id: 'Audio Converters', label: 'Audio Converters' },
     { id: 'Video to Audio', label: 'Video to Audio' }
@@ -144,7 +145,7 @@ export default function HomePage() {
           Every tool you need to work with Audio in one place
         </h1>
         <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-          Every tool you need to process audio, at your fingertips. All are 100% FREE and easy to use! Convert formats, extract audio from video, look up lyrics, and identify songs with just a few clicks.
+          Every tool you need to process audio, at your fingertips. All are 100% FREE and easy to use! Convert formats, cut and merge songs, boost volume, extract audio from video, and identify songs with just a few clicks.
         </p>
       </section>
 
@@ -285,12 +286,30 @@ export default function HomePage() {
             </ul>
           </div>
 
-          {/* Column 3: AI & Special Tools */}
+          {/* Column 3: Audio Utilities & AI Tools */}
           <div className="space-y-3">
             <h3 className="text-xs font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
-              <span>AI Audio Tools & Special</span>
+              <span>Audio Utilities & AI Tools</span>
             </h3>
             <ul className="space-y-2 text-xs">
+              <li>
+                <a href="/tools/audio-cutter" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                  <span>Audio Cutter & MP3 Trimmer</span>
+                  <span className="text-[10px] text-purple-500 font-bold">NEW</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tools/audio-joiner" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                  <span>Audio Joiner & Song Merger</span>
+                  <span className="text-[10px] text-blue-500 font-bold">NEW</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tools/volume-booster" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                  <span>Audio Volume Booster (200%)</span>
+                  <span className="text-[10px] text-amber-500 font-bold">NEW</span>
+                </a>
+              </li>
               <li>
                 <a href="/tools/song-extractor" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
                   <span>AI Song Finder (Reels & TikTok)</span>
@@ -298,14 +317,14 @@ export default function HomePage() {
                 </a>
               </li>
               <li>
-                <a href="/tools/opus-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
-                  <span>WhatsApp Voice Note to MP3</span>
+                <a href="/tools/mp3-to-m4r" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                  <span>MP3 to iPhone Ringtone (M4R)</span>
                   <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
                 </a>
               </li>
               <li>
-                <a href="/tools/m4r-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
-                  <span>iPhone Ringtone to MP3</span>
+                <a href="/tools/opus-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                  <span>WhatsApp Voice Note to MP3</span>
                   <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
                 </a>
               </li>

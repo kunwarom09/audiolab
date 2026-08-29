@@ -147,6 +147,42 @@ export const FORMAT_DEFINITIONS = {
     mime: 'audio/opus',
     type: 'Ultra-Low Latency Interactive Audio',
     description: 'OPUS is a versatile, royalty-free audio codec standardized by the Internet Engineering Task Force (IETF RFC 6716) in 2012. Combining Skype\'s SILK speech algorithm with Mozilla\'s CELT music coding technology, OPUS scales dynamically from 6 kbps narrowband speech up to 510 kbps pristine stereo audio with ultra-low algorithmic delay (5ms to 20ms). It is the default voice note format for WhatsApp, Telegram, Discord, and WebRTC video conferencing. OPUS files open in VLC Media Player, foobar2000, Audacity, and modern web browsers.'
+  },
+  AIFF: {
+    name: 'AIFF (Audio Interchange File Format)',
+    developer: 'Apple Computer Inc.',
+    year: '1988',
+    extension: '.aiff / .aif',
+    mime: 'audio/aiff',
+    type: 'Uncompressed Lossless Audio (Linear PCM)',
+    description: 'AIFF is an uncompressed, lossless audio file format standard developed by Apple Computer in 1988 based on Electronic Arts\' Interchange File Format (IFF). Like WAV on Windows, AIFF stores raw uncompressed pulse-code modulation (PCM) audio samples, making it a foundation standard for Apple Mac studio recording, professional music engineering, and broadcast audio. AIFF preserves 100% of the acoustic fidelity with zero compression artifacts. AIFF files open natively on macOS and iOS via Apple Music, QuickTime, and across professional DAWs like Logic Pro, Pro Tools, and Audacity.'
+  },
+  AMR: {
+    name: 'AMR (Adaptive Multi-Rate Audio Codec)',
+    developer: '3GPP & ETSI',
+    year: '1999',
+    extension: '.amr',
+    mime: 'audio/amr',
+    type: 'Speech-Optimized Audio Compression',
+    description: 'AMR is an audio compression format optimized for speech coding standardized by the European Telecommunications Standards Institute (ETSI) and 3GPP in 1999. AMR dynamically adapts its encoding bitrate (from 4.75 kbps to 12.2 kbps) based on cellular link conditions. It was the ubiquitous voice recording and MMS audio standard across Nokia, Motorola, and Sony Ericsson mobile phones. AMR files can be opened on modern PCs and smartphones using VLC Media Player, QuickTime, or converted to MP3 for universal playback.'
+  },
+  ALAC: {
+    name: 'ALAC (Apple Lossless Audio Codec)',
+    developer: 'Apple Inc.',
+    year: '2004',
+    extension: '.m4a / .alac',
+    mime: 'audio/x-m4a',
+    type: 'Lossless Audio Compression',
+    description: 'ALAC is an audio coding format developed by Apple in 2004 for lossless data compression of digital music. Stored inside an .m4a container, ALAC compresses PCM audio by approximately 40% to 60% with zero loss of acoustic data, identical in fidelity to FLAC. Apple open-sourced ALAC in 2011. ALAC serves as the backbone for Apple Music Hi-Res Lossless streaming and native iOS music libraries. ALAC files open seamlessly in Apple Music, iTunes, QuickTime, iOS devices, and VLC Media Player.'
+  },
+  M4B: {
+    name: 'M4B (MPEG-4 Audiobook Container)',
+    developer: 'Apple Inc. & ISO',
+    year: '2001',
+    extension: '.m4b',
+    mime: 'audio/x-m4b',
+    type: 'Audiobook Container with Bookmark & Chapter Metadata',
+    description: 'M4B is an audio container format based on MPEG-4 Part 14, used primarily for audiobooks and spoken-word podcasts on Apple Books and Audible. M4B files contain AAC audio alongside chapter markers, images, hyperlinks, and bookmarking metadata that allows playback apps to resume precisely where you left off. M4B files open natively on Apple Books on iOS and macOS, Windows Media Player, VLC Media Player, and specialized audiobook apps.'
   }
 };
 
@@ -1675,5 +1711,444 @@ export const TOOLS = {
       { q: 'What bitrate should I choose for voice notes?', a: '128kbps or 192kbps MP3 provides crystal-clear voice fidelity while keeping file sizes tiny.' }
     ],
     relatedTools: ['ogg-to-mp3', 'webm-to-mp3', 'm4a-to-mp3', 'mp3-to-wav']
+  },
+
+  // ==========================================
+  // ADDITIONAL FORMAT CONVERTERS (7 TOOLS)
+  // ==========================================
+
+  'aiff-to-mp3': {
+    slug: 'aiff-to-mp3',
+    title: 'AIFF to MP3 Converter',
+    shortTitle: 'AIFF → MP3',
+    metaTitle: 'AIFF to MP3 Converter – Free Online Studio Audio to MP3 | iLoveAudios',
+    metaDescription: 'Convert Apple AIFF audio to MP3 online for free. Compress studio recordings to 320kbps MP3 with 90% size reduction. Fast, private & no signup.',
+    description: 'Convert uncompressed Apple AIFF studio audio recordings into universal high-bitrate MP3 audio files with up to 90% file size savings.',
+    introduction: 'AIFF (Audio Interchange File Format) is Apple\'s uncompressed studio recording standard, equivalent to Windows WAV. While AIFF preserves flawless master-grade acoustic quality, an uncompressed 4-minute track takes up over 40MB to 60MB of storage. Converting AIFF to MP3 reduces the file footprint by 85% to 90% while maintaining crisp high-frequency reproduction and dynamic stereo separation, making your Logic Pro and Mac audio tracks ready for easy sharing, emailing, and mobile listening.',
+    fromFormat: 'AIFF',
+    toFormat: 'MP3',
+    icon: 'FileAudio',
+    color: 'from-orange-500 to-amber-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/aiff', 'audio/x-aiff'],
+    howTo: [
+      { step: 1, title: 'Upload AIFF file', text: 'Select your .aiff or .aif studio audio file.' },
+      { step: 2, title: 'Configure bitrate', text: 'Select your desired MP3 quality up to 320kbps.' },
+      { step: 3, title: 'Download MP3', text: 'Save your compressed MP3 file instantly.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert AIFF to MP3?',
+      description: 'AIFF files are massive uncompressed studio recordings that cannot be easily attached to emails or streamed on non-Apple mobile devices without substantial data usage.',
+      benefits: [
+        { title: 'Save 90% Storage Space', text: 'Shrink a 50MB AIFF recording down to a 5MB MP3.' },
+        { title: 'Universal Device Playback', text: 'Play your tracks on Windows, Android, car stereos, and web players.' },
+        { title: 'Preserve Acoustic Clarity', text: '320kbps MP3 encoding delivers near-lossless acoustic fidelity.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Studio 320kbps MP3', description: 'Maximum fidelity audio compression with full frequency spectrum.' },
+      { icon: 'Zap', title: 'Ultra-Fast Transcoding', description: 'Convert multi-channel AIFF files in seconds.' },
+      { icon: 'ShieldCheck', title: '100% Private Processing', description: 'Studio masters are processed securely and deleted automatically.' }
+    ],
+    comparison: {
+      title: 'AIFF vs MP3 Comparison',
+      headers: ['Feature', 'AIFF (Studio Uncompressed)', 'MP3 (Universal Compressed)'],
+      rows: [
+        { feature: 'Audio Type', format1: 'Uncompressed Linear PCM', format2: 'Perceptual Psychoacoustic Lossy' },
+        { feature: 'Typical File Size', format1: '40MB – 60MB per song', format2: '4MB – 9MB per song' },
+        { feature: 'Compatibility', format1: 'Apple macOS, iOS, Professional DAWs', format2: '100% of all digital devices worldwide' }
+      ]
+    },
+    faq: [
+      { q: 'Will converting AIFF to MP3 decrease audio quality?', a: 'AIFF is uncompressed while MP3 uses lossy compression. Choosing 320kbps or 256kbps preserves exceptional acoustic detail that is virtually indistinguishable to the human ear.' },
+      { q: 'What is the maximum upload size for AIFF files?', a: 'You can upload AIFF master files up to 500MB.' },
+      { q: 'Can I convert AIFF files recorded in Logic Pro?', a: 'Yes, all AIFF and AIF audio exports from Logic Pro, Pro Tools, GarageBand, and Audacity are supported.' },
+      { q: 'How long does conversion take?', a: 'Most AIFF tracks convert into MP3 in under 3 seconds.' },
+      { q: 'Are my audio tracks secure?', a: 'Yes, your audio files are encrypted during upload and purged from our servers shortly after conversion.' }
+    ],
+    relatedTools: ['wav-to-mp3', 'flac-to-mp3', 'm4a-to-mp3', 'mp3-to-wav']
+  },
+
+  'amr-to-mp3': {
+    slug: 'amr-to-mp3',
+    title: 'AMR to MP3 Converter',
+    shortTitle: 'AMR → MP3',
+    metaTitle: 'AMR to MP3 Converter – Free Mobile Voice Recording to MP3 | iLoveAudios',
+    metaDescription: 'Convert old mobile AMR voice recordings to standard MP3 online for free. Play voicemails on PC, Mac & iPhone in seconds. 100% private & no signup.',
+    description: 'Convert Nokia and mobile AMR voice notes, voicemails, and audio recordings into universally playable MP3 files.',
+    introduction: 'AMR (Adaptive Multi-Rate) is a legacy speech codec developed for 3G cellular phones (Nokia, Motorola, Sony Ericsson) to record voice memos and transmit MMS messages. Because modern media players on Windows 11, macOS, and iOS do not natively decode AMR audio, legacy voicemails and family voice recordings cannot be played without specialized tools. Converting AMR to MP3 restores access to your archived voice notes across every smartphone, computer, and cloud storage drive.',
+    fromFormat: 'AMR',
+    toFormat: 'MP3',
+    icon: 'FileAudio',
+    color: 'from-amber-600 to-yellow-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/amr', 'audio/3gpp'],
+    howTo: [
+      { step: 1, title: 'Upload AMR file', text: 'Select your .amr voice note or recording.' },
+      { step: 2, title: 'Choose quality', text: 'Select 128kbps or 192kbps for crystal-clear voice clarity.' },
+      { step: 3, title: 'Download MP3', text: 'Download your universally compatible MP3 voice recording.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert AMR to MP3?',
+      description: 'AMR voice notes from legacy phones cannot be opened on modern iPhones, Macs, or Windows PCs without converting to MP3.',
+      benefits: [
+        { title: 'Recover Old Voice Recordings', text: 'Listen to priceless voicemail archives and legacy mobile memos.' },
+        { title: 'Universal Playback', text: 'Play voice notes on iPhone, Android, Mac, and Windows Media Player.' },
+        { title: 'Enhanced Voice Clarity', text: 'Our audio pipeline optimizes sample rates for speech intelligibility.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Speech Enhancement', description: 'Optimized voice decoders for AMR-NB and AMR-WB streams.' },
+      { icon: 'Zap', title: 'Instant Transcoding', description: 'Transcode voice notes into MP3 in 1 second.' },
+      { icon: 'ShieldCheck', title: 'Private & Secure', description: 'Confidential voice notes are never logged or stored.' }
+    ],
+    comparison: {
+      title: 'AMR vs MP3 Comparison',
+      headers: ['Feature', 'AMR (Speech Codec)', 'MP3 (Universal Standard)'],
+      rows: [
+        { feature: 'Target Content', format1: 'Narrowband/Wideband human speech only', format2: 'Full spectrum music, podcasts, speech' },
+        { feature: 'Modern OS Support', format1: 'Limited (often requires third-party plugins)', format2: 'Built natively into 100% of operating systems' },
+        { feature: 'Bitrate Range', format1: '4.75 kbps to 12.2 kbps', format2: '32 kbps to 320 kbps' }
+      ]
+    },
+    faq: [
+      { q: 'How do I open an AMR file on my computer?', a: 'The easiest way is to convert the AMR file to MP3 using iLoveAudios. The resulting MP3 will play in Windows Media Player, Apple Music, or QuickTime without extra software.' },
+      { q: 'Does converting AMR to MP3 improve the sound quality?', a: 'Conversion will not add new frequencies that were not originally captured, but it ensures clean, loud playback across modern speakers and headphones.' },
+      { q: 'Can I convert multiple AMR files at once?', a: 'Yes, you can convert AMR voice files one by one or in succession for free.' },
+      { q: 'Is there a file size limit?', a: 'You can upload AMR files up to 500MB.' },
+      { q: 'Are my private voice memos kept safe?', a: 'Yes, all uploads are protected via TLS encryption and automatically deleted shortly after conversion.' }
+    ],
+    relatedTools: ['3gp-to-mp3', 'opus-to-mp3', 'm4a-to-mp3', 'wav-to-mp3']
+  },
+
+  'alac-to-flac': {
+    slug: 'alac-to-flac',
+    title: 'ALAC to FLAC Converter',
+    shortTitle: 'ALAC → FLAC',
+    metaTitle: 'ALAC to FLAC Converter – Free Apple Lossless to FLAC | iLoveAudios',
+    metaDescription: 'Convert Apple Lossless ALAC audio to open FLAC format online for free. 100% bit-perfect audio fidelity with preserved tags. Fast & no signup.',
+    description: 'Convert Apple Lossless Audio Codec (ALAC) tracks into open, non-proprietary FLAC format with zero quality loss.',
+    introduction: 'ALAC (Apple Lossless Audio Codec) is Apple\'s proprietary lossless audio compression standard used across iTunes and Apple Music. While ALAC provides bit-perfect studio quality inside an M4A container, it is not supported natively by many non-Apple hi-fi streamers, Android media players, and open-source Linux systems. Converting ALAC to FLAC transitions your lossless music library into the world\'s open audiophile standard without altering a single bit of acoustic data.',
+    fromFormat: 'ALAC',
+    toFormat: 'FLAC',
+    icon: 'FileAudio',
+    color: 'from-blue-600 to-indigo-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/m4a', 'audio/x-m4a'],
+    howTo: [
+      { step: 1, title: 'Upload ALAC (.m4a) file', text: 'Select your Apple Lossless audio track.' },
+      { step: 2, title: 'Lossless Transcoding', text: 'Our engine extracts bit-perfect PCM samples.' },
+      { step: 3, title: 'Download FLAC', text: 'Download your open FLAC lossless audio file.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert ALAC to FLAC?',
+      description: 'ALAC is tied to Apple\'s ecosystem, whereas FLAC is the universal standard for audiophile streamers, hi-fi DACs, and cross-platform music servers.',
+      benefits: [
+        { title: '100% Lossless Bit-for-Bit', text: 'Zero compression loss during the conversion process.' },
+        { title: 'Hi-Fi DAC & Streamer Compatibility', text: 'Play on Sonos, Bluesound, Android, and home audiophile setups.' },
+        { title: 'Preserve ID3 & Metadata Tags', text: 'Artist, album, and track metadata are preserved intact.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Bit-Perfect Conversion', description: 'Direct PCM sample transcode with 0 loss of dynamic range.' },
+      { icon: 'Zap', title: 'High-Res Audio Support', description: 'Supports 24-bit/96kHz and 24-bit/192kHz studio tracks.' },
+      { icon: 'ShieldCheck', title: 'Secure & Private', description: 'Lossless files are automatically wiped after download.' }
+    ],
+    comparison: {
+      title: 'ALAC vs FLAC Comparison',
+      headers: ['Feature', 'ALAC (Apple Lossless)', 'FLAC (Free Lossless Codec)'],
+      rows: [
+        { feature: 'Audio Quality', format1: '100% Bit-Perfect Lossless', format2: '100% Bit-Perfect Lossless' },
+        { feature: 'Container Type', format1: 'MPEG-4 Part 14 (.m4a)', format2: 'Native FLAC container (.flac)' },
+        { feature: 'Ecosystem Preference', format1: 'Apple Music, iTunes, iOS, macOS', format2: 'Universal Audiophile, Android, Hi-Fi streamers' }
+      ]
+    },
+    faq: [
+      { q: 'Is there any quality loss when converting ALAC to FLAC?', a: 'None at all. Both ALAC and FLAC are lossless formats. The conversion decompresses the raw PCM data and recompresses it without losing a single bit.' },
+      { q: 'Does this converter support 24-bit Hi-Res audio?', a: 'Yes! High-resolution 24-bit/96kHz and 24-bit/192kHz ALAC tracks are fully supported.' },
+      { q: 'Will my album artwork and metadata be preserved?', a: 'Yes, track titles, artist info, album names, and tags are transferred into the new FLAC container.' },
+      { q: 'What is the upload size limit?', a: 'You can upload lossless tracks up to 500MB.' },
+      { q: 'Is ALAC to FLAC conversion free?', a: 'Yes, 100% free with no subscription or signup required.' }
+    ],
+    relatedTools: ['flac-to-mp3', 'wav-to-flac', 'm4a-to-mp3', 'mp3-to-flac']
+  },
+
+  'm4b-to-mp3': {
+    slug: 'm4b-to-mp3',
+    title: 'M4B to MP3 Converter',
+    shortTitle: 'M4B → MP3',
+    metaTitle: 'M4B to MP3 Converter – Free Audiobook to MP3 Audio | iLoveAudios',
+    metaDescription: 'Convert M4B audiobooks to standard MP3 files online for free. Listen to Audible & Apple audiobooks on any MP3 player. 100% free & no signup.',
+    description: 'Convert M4B audiobook files from Apple Books and Audible into universal MP3 audio files playable on any device.',
+    introduction: 'M4B is a specialized MPEG-4 audiobook container format utilized by Apple Books and audiobook distributors. M4B files package AAC-encoded speech audio with chapter indexes, artwork, and bookmarking timestamps. However, many car stereos, non-Apple MP3 players, and standard audio editing tools cannot decode .m4b files. Converting M4B to MP3 produces a standard MP3 audio file that you can listen to on any phone, computer, or USB drive without compatibility errors.',
+    fromFormat: 'M4B',
+    toFormat: 'MP3',
+    icon: 'FileAudio',
+    color: 'from-purple-500 to-indigo-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/m4b', 'audio/x-m4b', 'audio/mp4'],
+    howTo: [
+      { step: 1, title: 'Upload M4B audiobook', text: 'Select your .m4b audiobook file.' },
+      { step: 2, title: 'Select audio quality', text: 'Choose 128kbps for voice audio or 192kbps for high fidelity.' },
+      { step: 3, title: 'Download MP3', text: 'Save your audiobook in universal MP3 format.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert M4B to MP3?',
+      description: 'M4B audiobooks cannot be opened by standard MP3 players, older car stereos, or non-Apple media software without converting to MP3.',
+      benefits: [
+        { title: 'Universal MP3 Player Support', text: 'Listen to your audiobooks on SanDisk clips, car stereos, and smart speakers.' },
+        { title: 'Cross-Platform Flexibility', text: 'Play seamlessly on Android, Windows, Linux, and Mac.' },
+        { title: 'Audio Editing & Splicing', text: 'Import easily into audio editors and transcription tools.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Speech-Optimized MP3', description: 'Crystal-clear speech compression tailored for audiobooks.' },
+      { icon: 'Zap', title: 'Large File Support', description: 'Easily converts multi-hour audiobook files up to 500MB.' },
+      { icon: 'ShieldCheck', title: 'Private & Secure', description: 'Your audiobook files are never stored or shared.' }
+    ],
+    comparison: {
+      title: 'M4B vs MP3 Comparison',
+      headers: ['Feature', 'M4B (Audiobook Container)', 'MP3 (Universal Standard)'],
+      rows: [
+        { feature: 'Primary Purpose', format1: 'Audiobooks with chapter markers & bookmarks', format2: 'Universal music, spoken word, podcasts' },
+        { feature: 'Device Playback', format1: 'Apple Books, iTunes, specialized apps', format2: '100% of digital devices and car stereos' },
+        { feature: 'Audio Codec', format1: 'MPEG-4 AAC', format2: 'MPEG-1 Layer 3' }
+      ]
+    },
+    faq: [
+      { q: 'Can I convert DRM-free M4B audiobooks to MP3?', a: 'Yes! All non-DRM protected M4B files convert quickly into standard MP3 audio files.' },
+      { q: 'Will the sound quality remain clear?', a: 'Yes, selecting 128kbps or 192kbps MP3 delivers crystal-clear narrator voice reproduction.' },
+      { q: 'How large of an M4B file can I upload?', a: 'You can upload audiobook files up to 500MB in size.' },
+      { q: 'Is M4B to MP3 conversion free?', a: 'Yes, completely free with no limits on the number of conversions.' },
+      { q: 'How long does a long audiobook take to convert?', a: 'Our multi-threaded cloud conversion engine processes multi-hour audiobooks in just a few seconds.' }
+    ],
+    relatedTools: ['m4a-to-mp3', 'aac-to-mp3', 'mp3-to-wav', 'opus-to-mp3']
+  },
+
+  'mp3-to-m4r': {
+    slug: 'mp3-to-m4r',
+    title: 'MP3 to M4R Converter',
+    shortTitle: 'MP3 → M4R',
+    metaTitle: 'MP3 to M4R Converter – Free iPhone Ringtone Maker Online | iLoveAudios',
+    metaDescription: 'Convert MP3 songs to iPhone M4R ringtones online for free. Create custom iPhone ringtones, alarms & text tones in seconds. 100% free.',
+    description: 'Convert any MP3 song, sound effect, or voice recording into an official Apple iPhone M4R ringtone format.',
+    introduction: 'M4R is the exclusive audio format required by Apple iOS to install custom ringtones, text alert tones, and alarm sounds on iPhones. An M4R file is an AAC-encoded audio track formatted to be recognized by iTunes, macOS Finder, and the iOS Settings app. Converting your favorite MP3 music clips to M4R lets you set custom ringtones on your iPhone without paying for ringtone purchases on the iTunes Store.',
+    fromFormat: 'MP3',
+    toFormat: 'M4R',
+    icon: 'FileAudio',
+    color: 'from-pink-500 to-rose-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/mpeg', 'audio/mp3'],
+    badge: 'Popular',
+    howTo: [
+      { step: 1, title: 'Upload MP3 audio', text: 'Select the MP3 song or audio clip you want to turn into a ringtone.' },
+      { step: 2, title: 'Transcode to M4R', text: 'Our engine encodes the audio into Apple\'s official M4R ringtone profile.' },
+      { step: 3, title: 'Sync to iPhone', text: 'Download your .m4r file and sync it to your iPhone via Finder or iTunes.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert MP3 to M4R?',
+      description: 'Apple iPhones do not allow direct setting of MP3 files as ringtones—they require the official .m4r ringtone format.',
+      benefits: [
+        { title: 'Create Custom iPhone Ringtones', text: 'Turn any MP3 song into a unique iPhone call ringtone.' },
+        { title: 'Custom Alarm & Text Alert Chimes', text: 'Personalize notification sounds for individual contacts.' },
+        { title: '100% Free - Skip iTunes Store Fees', text: 'Create unlimited ringtones without paying $1.29 per tone.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Official iPhone AAC Profile', description: 'Outputs certified M4R audio recognized by iOS.' },
+      { icon: 'Zap', title: 'Instant Ringtone Generation', description: 'Convert songs to ringtones in under 1 second.' },
+      { icon: 'ShieldCheck', title: 'Free & Private', description: 'No watermarks, no registration, 100% free.' }
+    ],
+    comparison: {
+      title: 'MP3 vs M4R Comparison',
+      headers: ['Feature', 'MP3 (Standard Audio)', 'M4R (iPhone Ringtone)'],
+      rows: [
+        { feature: 'iOS Ringtone Recognition', format1: 'Cannot be selected in iOS Ringtone Settings', format2: 'Directly installable as custom iPhone ringtone' },
+        { feature: 'Audio Codec', format1: 'MPEG-1 Layer 3', format2: 'MPEG-4 AAC' },
+        { feature: 'Ideal Duration', format1: 'Full length (3–5 minutes)', format2: '30 to 40 seconds recommended' }
+      ]
+    },
+    faq: [
+      { q: 'How do I set an M4R file as my iPhone ringtone?', a: 'Download the .m4r file, connect your iPhone to a Mac or PC, open Finder or iTunes, and drag the .m4r file into your iPhone\'s "Tones" section.' },
+      { q: 'What is the maximum duration for an iPhone ringtone?', a: 'Apple limits iPhone ringtones to 30–40 seconds. For best results, trim your audio before setting it as a ringtone.' },
+      { q: 'Is MP3 to M4R conversion free?', a: 'Yes, 100% free with unlimited conversions.' },
+      { q: 'Can I convert voice notes to iPhone ringtones?', a: 'Yes! Any MP3, WAV, or voice note can be converted to M4R.' },
+      { q: 'Will the ringtone sound loud and clear?', a: 'Yes, our audio pipeline optimizes AAC encoding at 192kbps/256kbps for loud, clear speaker output.' }
+    ],
+    relatedTools: ['m4r-to-mp3', 'mp3-to-wav', 'm4a-to-mp3', 'wav-to-mp3']
+  },
+
+  'wav-to-ogg': {
+    slug: 'wav-to-ogg',
+    title: 'WAV to OGG Converter',
+    shortTitle: 'WAV → OGG',
+    metaTitle: 'WAV to OGG Converter – Free Studio WAV to Ogg Vorbis | iLoveAudios',
+    metaDescription: 'Convert uncompressed WAV audio to OGG Vorbis online for free. High-quality game audio & web streaming format with tiny size. No signup.',
+    description: 'Convert studio WAV audio files into high-efficiency, royalty-free OGG Vorbis format for game development and web streaming.',
+    introduction: 'WAV is the uncompressed studio standard for sound effects and music tracks, but uncompressed WAV files are far too large for web streaming and mobile video games. OGG Vorbis provides open-source, patent-free audio compression with extraordinary dynamic fidelity at a fraction of WAV\'s file size. Converting WAV to OGG allows game developers (Unity, Unreal Engine, Godot) and web designers to stream high-fidelity background music without slowing down load times.',
+    fromFormat: 'WAV',
+    toFormat: 'OGG',
+    icon: 'FileAudio',
+    color: 'from-teal-500 to-emerald-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/wav', 'audio/x-wav'],
+    howTo: [
+      { step: 1, title: 'Upload WAV file', text: 'Select your uncompressed studio WAV audio file.' },
+      { step: 2, title: 'Configure OGG quality', text: 'Select your target bitrate from 128kbps to 320kbps.' },
+      { step: 3, title: 'Download OGG', text: 'Download your optimized OGG Vorbis file.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert WAV to OGG?',
+      description: 'OGG Vorbis is the preferred audio format for game development engines (Unity, Godot) and HTML5 web audio due to superior compression and gapless looping.',
+      benefits: [
+        { title: 'Perfect for Game Engines', text: 'Seamless looping and low memory usage in Unity and Unreal Engine.' },
+        { title: '85% File Size Reduction', text: 'Compress 40MB WAV files down to 4MB OGG tracks.' },
+        { title: 'Royalty-Free & Open-Source', text: 'Free from patent licensing restrictions.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'Vorbis Psychoacoustic Codec', description: 'Warm acoustic reproduction with wide frequency response.' },
+      { icon: 'Zap', title: 'Fast Cloud Transcoding', description: 'Convert multi-track WAV files in seconds.' },
+      { icon: 'ShieldCheck', title: '100% Private & Secure', description: 'Uploaded files are automatically deleted after processing.' }
+    ],
+    comparison: {
+      title: 'WAV vs OGG Comparison',
+      headers: ['Feature', 'WAV (Uncompressed Audio)', 'OGG Vorbis (Compressed)'],
+      rows: [
+        { feature: 'Compression Type', format1: 'Uncompressed Linear PCM', format2: 'Variable Bitrate Lossy Vorbis' },
+        { feature: 'File Size', format1: 'Very Large (10MB/minute)', format2: 'Small (1MB–2MB/minute)' },
+        { feature: 'Game Engine Support', format1: 'Heavy memory footprint', format2: 'Industry standard for game audio assets' }
+      ]
+    },
+    faq: [
+      { q: 'Why do game developers prefer OGG over WAV?', a: 'OGG Vorbis provides near-lossless audio fidelity at 10% of the file size of WAV, allowing video games to load music tracks instantly into RAM.' },
+      { q: 'Is OGG audio supported by web browsers?', a: 'Yes, Google Chrome, Mozilla Firefox, Microsoft Edge, and Opera support native HTML5 OGG audio playback.' },
+      { q: 'What bitrate should I choose for OGG?', a: '192kbps or 256kbps OGG delivers pristine acoustic clarity for music, while 128kbps is perfect for sound effects.' },
+      { q: 'What is the upload file limit?', a: 'You can upload WAV files up to 500MB.' },
+      { q: 'Is WAV to OGG conversion free?', a: 'Yes, 100% free with unlimited conversions.' }
+    ],
+    relatedTools: ['ogg-to-mp3', 'wav-to-mp3', 'mp3-to-ogg', 'flac-to-wav']
+  },
+
+  'wav-to-aac': {
+    slug: 'wav-to-aac',
+    title: 'WAV to AAC Converter',
+    shortTitle: 'WAV → AAC',
+    metaTitle: 'WAV to AAC Converter – Free Studio Audio to High-Res AAC | iLoveAudios',
+    metaDescription: 'Convert WAV audio to high-efficiency AAC format online for free. Crisp sound quality up to 320kbps for Apple devices & YouTube. No signup.',
+    description: 'Convert uncompressed WAV studio audio into high-efficiency Advanced Audio Coding (AAC) format with pristine high-frequency resolution.',
+    introduction: 'AAC (Advanced Audio Coding) is the industry standard lossy compression format designed to succeed MP3. AAC delivers superior audio resolution, enhanced stereo imaging, and transparent high frequencies at lower bitrates than MP3. Converting uncompressed WAV files to AAC creates optimized, lightweight audio tracks tailored for Apple Music, YouTube video soundtracks, Bluetooth streaming, and mobile apps.',
+    fromFormat: 'WAV',
+    toFormat: 'AAC',
+    icon: 'FileAudio',
+    color: 'from-cyan-500 to-blue-500',
+    category: 'Audio Converters',
+    acceptedMimes: ['audio/wav', 'audio/x-wav'],
+    howTo: [
+      { step: 1, title: 'Upload WAV file', text: 'Select your master WAV audio file.' },
+      { step: 2, title: 'Configure AAC bitrate', text: 'Choose your desired quality from 128kbps up to 320kbps.' },
+      { step: 3, title: 'Download AAC', text: 'Save your compressed, high-efficiency AAC audio file.' }
+    ],
+    whyConvert: {
+      title: 'Why Convert WAV to AAC?',
+      description: 'AAC provides superior acoustic fidelity compared to MP3 at equivalent bitrates, making it the preferred format for Apple ecosystem devices and digital streaming.',
+      benefits: [
+        { title: 'Higher Audio Quality than MP3', text: 'Better high-frequency transparency and complex passage resolution.' },
+        { title: 'Apple Music & iOS Native', text: 'Plays seamlessly across iPhone, Mac, Apple Watch, and iPad.' },
+        { title: 'YouTube & Video Soundtrack Standard', text: 'The standard audio format for digital video streaming.' }
+      ]
+    },
+    features: [
+      { icon: 'Sparkles', title: 'High-Efficiency AAC Codec', description: 'Advanced psychoacoustic encoding up to 320kbps.' },
+      { icon: 'Zap', title: 'Fast Multi-Core Processing', description: 'Transcode studio tracks in seconds.' },
+      { icon: 'ShieldCheck', title: '100% Private & Auto-Deleted', description: 'Your master recordings are protected and deleted automatically.' }
+    ],
+    comparison: {
+      title: 'WAV vs AAC Comparison',
+      headers: ['Feature', 'WAV (Uncompressed Audio)', 'AAC (Advanced Audio Coding)'],
+      rows: [
+        { feature: 'Compression Type', format1: 'Uncompressed Linear PCM', format2: 'High-Efficiency Lossy Audio' },
+        { feature: 'File Size', format1: 'Very Large (40MB–60MB per track)', format2: 'Compact (4MB–8MB per track)' },
+        { feature: 'Modern Standard', format1: 'Studio recording & mastering', format2: 'Apple Music, YouTube, Bluetooth LDAC/AAC' }
+      ]
+    },
+    faq: [
+      { q: 'Why choose AAC over MP3 when converting from WAV?', a: 'AAC uses more advanced psychoacoustic filter banks and better stereo coding, producing audibly superior sound at equivalent bitrates.' },
+      { q: 'Will AAC files play on Android and Windows?', a: 'Yes! All modern Android devices, Windows 10/11, and web browsers support AAC audio natively.' },
+      { q: 'What is the recommended bitrate for music?', a: '256kbps or 320kbps AAC delivers transparent sound quality that rivals uncompressed studio masters.' },
+      { q: 'What is the upload size limit?', a: 'You can upload WAV audio files up to 500MB.' },
+      { q: 'Is WAV to AAC conversion free?', a: 'Yes, 100% free with unlimited conversions.' }
+    ],
+    relatedTools: ['aac-to-mp3', 'wav-to-mp3', 'mp3-to-aac', 'wav-to-flac']
+  },
+
+  // ==========================================
+  // DEDICATED AUDIO UTILITIES (3 TOOLS)
+  // ==========================================
+
+  'audio-cutter': {
+    slug: 'audio-cutter',
+    title: 'Audio Cutter – Free Online MP3 Trimmer & Song Splicer',
+    shortTitle: 'Audio Cutter',
+    metaTitle: 'Free Audio Cutter & MP3 Trimmer – Cut Songs Online | iLoveAudios',
+    metaDescription: 'Cut and trim MP3, WAV, M4A & audio files online for free. Select precise start and end times, preview playback, and download instantly. No signup.',
+    description: 'Trim, splice, and cut MP3, WAV, M4A, and video audio files online for free with sub-second accuracy.',
+    icon: 'Scissors',
+    color: 'from-violet-600 to-purple-500',
+    category: 'Audio Utilities',
+    isCustomPage: true,
+    badge: 'New',
+    faq: [
+      { q: 'How do I cut an MP3 or audio file online?', a: 'Upload your audio file, adjust the start and end time markers or type exact timestamps, preview your selection, and click "Cut Audio" to download your trimmed track.' },
+      { q: 'What audio formats can I cut?', a: 'Audio Cutter supports MP3, WAV, FLAC, M4A, AAC, OGG, OPUS, and audio streams from MP4 and MOV videos.' },
+      { q: 'Is there any quality loss when trimming audio?', a: 'No, our audio trimmer processes audio with maximum bitrate preservation so your cut snippet sounds just as crisp as the original.' },
+      { q: 'Can I make iPhone ringtones with Audio Cutter?', a: 'Yes! Trim any song to 30 seconds, export as MP3 or M4R, and set it as your custom iPhone or Android ringtone.' },
+      { q: 'Is this audio cutter free to use?', a: 'Yes, 100% free with unlimited trims and no registration required.' }
+    ],
+    relatedTools: ['audio-joiner', 'volume-booster', 'mp3-to-m4r', 'mp4-to-mp3']
+  },
+
+  'audio-joiner': {
+    slug: 'audio-joiner',
+    title: 'Audio Joiner – Merge Multiple Songs & MP3s Online',
+    shortTitle: 'Audio Joiner',
+    metaTitle: 'Free Audio Joiner – Merge & Combine MP3 Songs Online | iLoveAudios',
+    metaDescription: 'Merge multiple audio files into a single song online for free. Combine MP3, WAV, M4A tracks in any order with seamless playback. 100% free.',
+    description: 'Combine and merge multiple MP3, WAV, and audio tracks into a continuous single audio file with custom track ordering.',
+    icon: 'Layers',
+    color: 'from-blue-600 to-indigo-500',
+    category: 'Audio Utilities',
+    isCustomPage: true,
+    badge: 'New',
+    faq: [
+      { q: 'How do I merge multiple songs into one file?', a: 'Upload 2 or more audio files, drag or arrange them in your preferred playback order, choose your output format (MP3 or WAV), and click "Merge Audio".' },
+      { q: 'Can I combine files of different formats (e.g. MP3 and WAV)?', a: 'Yes! Audio Joiner automatically decodes different audio formats and joins them into a unified output file.' },
+      { q: 'How many tracks can I merge at once?', a: 'You can merge up to 20 tracks simultaneously for free.' },
+      { q: 'Is Audio Joiner free to use?', a: 'Yes, 100% free with no limits on the number of merged files.' },
+      { q: 'Are my uploaded songs kept private?', a: 'Yes, all files are encrypted and automatically deleted from our servers shortly after merging.' }
+    ],
+    relatedTools: ['audio-cutter', 'volume-booster', 'mp4-to-mp3', 'wav-to-mp3']
+  },
+
+  'volume-booster': {
+    slug: 'volume-booster',
+    title: 'Volume Booster – Increase Audio & MP3 Volume Online',
+    shortTitle: 'Volume Booster',
+    metaTitle: 'Free Audio Volume Booster – Boost MP3 & Video Volume Online | iLoveAudios',
+    metaDescription: 'Boost quiet audio, voice notes and video volume by up to 200% online for free. Crystal clear loudness with soft limiting. No signup required.',
+    description: 'Amplify and increase the volume of quiet MP3 songs, voice notes, podcasts, and video audio by up to 200% without distortion.',
+    icon: 'Volume2',
+    color: 'from-amber-500 to-red-500',
+    category: 'Audio Utilities',
+    isCustomPage: true,
+    badge: 'New',
+    faq: [
+      { q: 'How do I increase the volume of a quiet audio file?', a: 'Upload your audio or video file, select your desired boost level (+25%, +50%, +100%, or +200%), and click "Boost Volume" to download the louder file.' },
+      { q: 'Will boosting the volume cause distortion or clipping?', a: 'Our engine applies professional audio soft-limiting and normalization to maximize loudness while preventing harsh clipping.' },
+      { q: 'Can I boost the volume of WhatsApp voice notes and videos?', a: 'Yes! Upload any .opus voice note, MP3, WAV, or MP4 video to boost quiet speech.' },
+      { q: 'Is Volume Booster free to use?', a: 'Yes, 100% free with unlimited boosts and no registration required.' },
+      { q: 'What is the upload size limit?', a: 'You can boost audio files up to 500MB.' }
+    ],
+    relatedTools: ['audio-cutter', 'audio-joiner', 'opus-to-mp3', 'mp4-to-mp3']
   }
 };

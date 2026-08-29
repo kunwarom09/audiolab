@@ -79,6 +79,11 @@ class ConvertRequest(BaseModel):
     output_format: str
     options: Optional[dict] = {}
 
+class MergeRequest(BaseModel):
+    file_ids: list
+    output_format: Optional[str] = "mp3"
+    options: Optional[dict] = {}
+
 # API Routes
 @app.get("/")
 @app.get("/api/health")
@@ -318,6 +323,51 @@ def sync_conversion_worker(job_id: str, file_id: str, output_format: str, option
         }
     }
 
+def sync_merge_worker(job_id: str, file_ids: list, output_format: str, options: dict):
+    from storage import LocalStorageService
+    input_paths = []
+    
+    for fid in file_ids:
+        local_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"uploads/{fid}")
+        if not os.path.exists(local_path):
+            try:
+                storage_service.download_file(f"uploads/{fid}", local_path)
+            except Exception as e:
+                logger.error(f"Failed to fetch uploaded file {fid}: {e}")
+                FALLBACK_JOBS[job_id] = {"status": "failed", "error": f"Failed to download input file: {fid}", "progress": 0, "result": None}
+                return
+        input_paths.append(local_path)
+        
+    output_filename = f"merged_{uuid.uuid4().hex[:8]}.{output_format}"
+    local_output_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"converted/{output_filename}")
+    os.makedirs(os.path.dirname(local_output_path), exist_ok=True)
+    
+    FALLBACK_JOBS[job_id] = {"status": "processing", "progress": 40, "result": None}
+    
+    success = converter_instance.join_files(input_paths, local_output_path, options)
+    
+    if not success:
+        FALLBACK_JOBS[job_id] = {"status": "failed", "error": "Audio join processing failed.", "progress": 0, "result": None}
+        return
+        
+    FALLBACK_JOBS[job_id]["progress"] = 90
+    object_key = f"converted/{output_filename}"
+    storage_service.upload_file(local_output_path, object_key)
+    file_size = os.path.getsize(local_output_path)
+    download_url = storage_service.generate_presigned_url(object_key, expiration=1800)
+    
+    FALLBACK_JOBS[job_id] = {
+        "status": "completed",
+        "progress": 100,
+        "result": {
+            "success": True,
+            "job_id": job_id,
+            "file_size": file_size,
+            "output_filename": output_filename,
+            "download_url": download_url
+        }
+    }
+
 @app.post("/api/upload")
 @limiter.limit(settings.RATE_LIMIT_UPLOAD)
 async def upload_file(request: Request, file: UploadFile = File(...)):
@@ -358,7 +408,8 @@ async def start_conversion(request: Request, body: ConvertRequest, background_ta
     if not file_id or not output_format:
         raise HTTPException(status_code=400, detail="Missing file_id or output_format.")
         
-    if output_format not in ['mp3', 'wav']:
+    supported_formats = ['mp3', 'wav', 'flac', 'm4a', 'aac', 'ogg', 'm4r']
+    if output_format not in supported_formats:
         raise HTTPException(status_code=400, detail=f"Unsupported output format: {output_format}")
         
     if CELERY_AVAILABLE:
@@ -379,6 +430,27 @@ async def start_conversion(request: Request, body: ConvertRequest, background_ta
         "result": None
     }
     background_tasks.add_task(sync_conversion_worker, job_id, file_id, output_format, body.options)
+    return {
+        "success": True,
+        "job_id": job_id,
+        "status": "processing"
+    }
+
+@app.post("/api/merge")
+@limiter.limit(settings.RATE_LIMIT_CONVERT)
+async def start_merge(request: Request, body: MergeRequest, background_tasks: BackgroundTasks):
+    file_ids = body.file_ids
+    if not file_ids or len(file_ids) < 2:
+        raise HTTPException(status_code=400, detail="At least 2 files are required to merge.")
+        
+    output_format = (body.output_format or "mp3").strip().lower()
+    job_id = str(uuid.uuid4())
+    FALLBACK_JOBS[job_id] = {
+        "status": "processing",
+        "progress": 15,
+        "result": None
+    }
+    background_tasks.add_task(sync_merge_worker, job_id, file_ids, output_format, body.options)
     return {
         "success": True,
         "job_id": job_id,

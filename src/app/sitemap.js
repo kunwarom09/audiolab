@@ -28,7 +28,11 @@ export default function sitemap() {
     'm4a-to-mp3',
     'mp4-to-wav',
     'opus-to-mp3',
-    'mov-to-mp3'
+    'mov-to-mp3',
+    'audio-cutter',
+    'audio-joiner',
+    'volume-booster',
+    'mp3-to-m4r'
   ]);
 
   // Add conversion tools dynamically
