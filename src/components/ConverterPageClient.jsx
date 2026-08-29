@@ -231,13 +231,20 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-8 animate-in fade-in duration-300">
       
-      {/* Back breadcrumb navigation */}
-      <div className="flex items-center gap-2 text-xs font-bold text-[var(--text-secondary)]">
-        <Link href="/" className="hover:text-[#0088ff] flex items-center gap-1.5 cursor-pointer">
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to All Tools</span>
+      {/* Full SEO Breadcrumb navigation */}
+      <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-2 text-xs font-semibold text-[var(--text-secondary)]">
+        <Link href="/" className="hover:text-[var(--iloveaudios-red)] transition-colors flex items-center gap-1">
+          <span>Home</span>
         </Link>
-      </div>
+        <span className="text-[var(--text-muted)] font-normal">/</span>
+        <Link href="/#tools-suite" className="hover:text-[var(--iloveaudios-red)] transition-colors">
+          {tool.category || 'Converters'}
+        </Link>
+        <span className="text-[var(--text-muted)] font-normal">/</span>
+        <span className="text-[var(--text-primary)] font-bold truncate max-w-[220px] sm:max-w-none">
+          {tool.title}
+        </span>
+      </nav>
 
       {/* Tool Header Details */}
       <div className="space-y-2 text-center sm:text-left">

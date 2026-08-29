@@ -20,14 +20,26 @@ export default function sitemap() {
     }
   ];
 
+  const highPrioritySlugs = new Set([
+    'mp4-to-mp3',
+    'wav-to-mp3',
+    'mp3-to-wav',
+    'flac-to-mp3',
+    'm4a-to-mp3',
+    'mp4-to-wav',
+    'opus-to-mp3',
+    'mov-to-mp3'
+  ]);
+
   // Add conversion tools dynamically
   Object.keys(TOOLS).forEach((slug) => {
     if (slug !== 'song-extractor') {
+      const isHigh = highPrioritySlugs.has(slug);
       routes.push({
         url: `${baseUrl}/tools/${slug}`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
+        changeFrequency: isHigh ? 'daily' : 'weekly',
+        priority: isHigh ? 0.9 : 0.8,
       });
     }
   });

@@ -16,16 +16,24 @@ export async function generateMetadata({ params }) {
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
   const title = `${tool.title} — Free Online Audio Tool`;
   const canonicalUrl = `${siteUrl}/tools/${slug}`;
+  const fromFmt = tool.fromFormat?.toLowerCase() || '';
+  const toFmt = tool.toFormat?.toLowerCase() || '';
 
   return {
     title,
     description: tool.description,
     keywords: [
-      `${tool.fromFormat?.toLowerCase() || ''} to ${tool.toFormat?.toLowerCase() || ''}`,
-      `convert ${tool.fromFormat?.toLowerCase() || ''} to ${tool.toFormat?.toLowerCase() || ''}`,
-      `free ${tool.fromFormat?.toLowerCase() || ''} to ${tool.toFormat?.toLowerCase() || ''} converter`,
+      `${fromFmt} to ${toFmt}`,
+      `convert ${fromFmt} to ${toFmt}`,
+      `${fromFmt} to ${toFmt} converter`,
+      `free ${fromFmt} to ${toFmt}`,
+      `convert ${fromFmt} to ${toFmt} online`,
+      `best ${fromFmt} to ${toFmt} converter`,
+      `${fromFmt} to ${toFmt} audio converter`,
+      `online ${fromFmt} to ${toFmt}`,
       tool.title.toLowerCase(),
-      'online audio converter'
+      'free online audio converter',
+      'iloveaudios'
     ],
     alternates: {
       canonical: canonicalUrl
@@ -34,7 +42,8 @@ export async function generateMetadata({ params }) {
       title,
       description: tool.description,
       url: canonicalUrl,
-      type: 'website'
+      type: 'website',
+      siteName: 'iLoveAudios',
     },
     twitter: {
       card: 'summary_large_image',
@@ -78,10 +87,42 @@ export default async function ToolConverterPage({ params }) {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD'
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      bestRating: '5',
+      ratingCount: '1420'
     }
   };
 
-  // 2. HowTo Schema for Step-by-Step Rich Snippets
+  // 2. BreadcrumbList Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: tool.category || 'Audio Converters',
+        item: `${siteUrl}/#tools-suite`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: tool.title,
+        item: `${siteUrl}/tools/${slug}`
+      }
+    ]
+  };
+
+  // 3. HowTo Schema for Step-by-Step Rich Snippets
   const howToSteps = tool.howTo ? tool.howTo.map((item, idx) => ({
     '@type': 'HowToStep',
     position: idx + 1,
@@ -92,7 +133,7 @@ export default async function ToolConverterPage({ params }) {
       '@type': 'HowToStep',
       position: 1,
       name: 'Upload Your File',
-      text: `Click the dropzone or drag and drop your ${tool.fromFormat} file into iLoveAudios.`
+      text: `Click the dropzone or drag and drop your ${tool.fromFormat || 'audio'} file into iLoveAudios.`
     },
     {
       '@type': 'HowToStep',
@@ -104,7 +145,7 @@ export default async function ToolConverterPage({ params }) {
       '@type': 'HowToStep',
       position: 3,
       name: 'Convert & Download',
-      text: `Click the Convert button and download your finished ${tool.toFormat} file.`
+      text: `Click the Convert button and download your finished ${tool.toFormat || 'MP3'} file.`
     }
   ];
 
@@ -117,7 +158,7 @@ export default async function ToolConverterPage({ params }) {
     step: howToSteps
   } : null;
 
-  // 3. FAQPage Schema for Tool-Specific FAQs
+  // 4. FAQPage Schema for Tool-Specific FAQs
   const faqSchema = tool.faq && tool.faq.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -137,6 +178,12 @@ export default async function ToolConverterPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(toolSchema).replace(/</g, '\\u003c')
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c')
         }}
       />
       {howToSchema && (

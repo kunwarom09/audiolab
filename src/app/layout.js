@@ -121,18 +121,18 @@ export default function RootLayout({ children }) {
       priceCurrency: 'USD',
     },
     featureList: [
-      'AI Song Identification & Extraction from Reels/Shorts',
-      'MP3 to WAV Conversion',
-      'WAV to MP3 Conversion',
-      'FLAC to MP3 Conversion',
-      'AAC to MP3 Conversion',
-      'OGG to MP3 Conversion',
-      'M4A to MP3 Conversion',
+      'AI Song Identification & Extraction from Reels, TikTok & Shorts',
       'MP4 to MP3 Audio Extraction',
-      'MOV to MP3 Audio Extraction',
-      'AVI to MP3 Audio Extraction',
-      'MKV to MP3 Audio Extraction',
-      'WebM to MP3 Audio Extraction'
+      'MP4 to WAV Lossless Audio Extraction',
+      'MOV to MP3 & MOV to WAV Audio Extraction',
+      'AVI, MKV, WebM, 3GP, WMV to MP3 Converters',
+      'MP3 to WAV & WAV to MP3 Conversion',
+      'FLAC to MP3 & FLAC to WAV Audio Conversion',
+      'M4A to MP3 & M4A to WAV Apple Audio Conversion',
+      'AAC, OGG, WMA, OPUS, M4R Audio Converters',
+      'Studio Quality 320kbps MP3 Bitrate Support',
+      'Synchronized Song Lyrics Lookup',
+      'Fast Cloud-Accelerated Audio Processing'
     ]
   };
 

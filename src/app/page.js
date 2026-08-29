@@ -132,7 +132,7 @@ export default function HomePage() {
       </div>
 
       {/* Dynamic Tools Grid Workspace */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+      <section id="tools-suite" className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {filteredTools.map((tool) => (
             <ToolCard
@@ -197,6 +197,84 @@ export default function HomePage() {
       {/* FAQ accordion */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12 border-t border-[var(--border-color)]">
         <FaqSection />
+      </section>
+
+      {/* Comprehensive SEO Directory / Topical Authority Cloud */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-[var(--border-color)] space-y-8">
+        <div className="space-y-1">
+          <span className="text-[10px] font-black uppercase tracking-wider text-[var(--iloveaudios-red)] block">
+            All Converters & Tools
+          </span>
+          <h2 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
+            Explore All Free Online Audio Tools
+          </h2>
+          <p className="text-xs text-[var(--text-secondary)]">
+            Instant browser-based audio and video conversion. No software installation needed.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {/* Column 1: Video to Audio */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
+              <span>Video to Audio Converters</span>
+            </h3>
+            <ul className="space-y-2 text-xs">
+              {Object.values(TOOLS).filter(t => t.category === 'Video to Audio').map(t => (
+                <li key={t.slug}>
+                  <a href={`/tools/${t.slug}`} className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                    <span>{t.title}</span>
+                    <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 2: Audio Converters */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+              <span>Audio Format Converters</span>
+            </h3>
+            <ul className="space-y-2 text-xs">
+              {Object.values(TOOLS).filter(t => t.category === 'Audio Converters').map(t => (
+                <li key={t.slug}>
+                  <a href={`/tools/${t.slug}`} className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                    <span>{t.title}</span>
+                    <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: AI & Special Tools */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+              <span>AI Audio Tools & Special</span>
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a href="/tools/song-extractor" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                  <span>AI Song Finder (Reels & TikTok)</span>
+                  <span className="text-[10px] text-[var(--iloveaudios-red)]">★</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tools/opus-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                  <span>WhatsApp Voice Note to MP3</span>
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tools/m4r-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                  <span>iPhone Ringtone to MP3</span>
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
     </div>
   );
