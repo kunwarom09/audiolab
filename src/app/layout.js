@@ -20,7 +20,7 @@ export const metadata = {
     default: "iLoveAudios — Free Online Audio Tools & Converters",
     template: "%s | iLoveAudios",
   },
-  description: "Free web-based audio converter and editor tool suite. Convert MP3, WAV, FLAC, M4A, MP4, WebM to other formats. Identify songs, view lyrics, and more.",
+  description: "Convert audio & video files online for free up to 320kbps. Identify songs from Instagram Reels & TikTok, extract MP3s, and convert MP4, WAV, FLAC, M4A & OPUS with no signup.",
   keywords: [
     "audio converter",
     "audio converter online",
