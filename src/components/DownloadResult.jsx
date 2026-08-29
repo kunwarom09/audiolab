@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, CheckCircle, RefreshCw, Copy, Check, Clock } from 'lucide-react';
 
-export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttlSeconds = 1800 }) {
+export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttlSeconds = 1800, backendApiUrl }) {
   const [copied, setCopied] = useState(false);
   const [timeLeft, setTimeLeft] = useState(ttlSeconds);
 
@@ -15,7 +15,10 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const backendBase = process.env.NEXT_PUBLIC_BACKEND_API_URL || '';
+  const backendBase = backendApiUrl 
+    || process.env.NEXT_PUBLIC_BACKEND_API_URL 
+    || (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') ? 'https://audiolab-dc5o.onrender.com' : '');
+
   const directDownloadUrl = backendBase 
     ? `${backendBase.replace(/\/$/, '')}/api/convert/download/${jobId}` 
     : `/api/convert/download/${jobId}`;

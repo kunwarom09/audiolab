@@ -155,7 +155,10 @@ export default async function ToolConverterPage({ params }) {
           }}
         />
       )}
-      <ConverterPageClient tool={tool} />
+      <ConverterPageClient 
+        tool={tool} 
+        backendApiUrl={process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_BACKEND_API_URL || 'https://audiolab-dc5o.onrender.com'} 
+      />
     </>
   );
 }

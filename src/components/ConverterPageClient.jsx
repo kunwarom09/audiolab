@@ -31,7 +31,7 @@ const featureIcons = {
   Smartphone
 };
 
-export default function ConverterPageClient({ tool }) {
+export default function ConverterPageClient({ tool, backendApiUrl }) {
   const [step, setStep] = useState('upload'); // upload | settings | converting | completed
   const [file, setFile] = useState(null);
   const [settings, setSettings] = useState({
@@ -47,6 +47,17 @@ export default function ConverterPageClient({ tool }) {
   const [fileSize, setFileSize] = useState(null);
   const [convertedFileName, setConvertedFileName] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const getBackendUrl = (path) => {
+    const base = backendApiUrl 
+      || process.env.NEXT_PUBLIC_BACKEND_API_URL 
+      || (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') ? 'https://audiolab-dc5o.onrender.com' : '');
+    
+    if (base) {
+      return `${base.replace(/\/$/, '')}${path}`;
+    }
+    return path;
+  };
 
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
@@ -93,12 +104,7 @@ export default function ConverterPageClient({ tool }) {
         reject(new Error('File upload was aborted.'));
       });
 
-      const backendBase = process.env.NEXT_PUBLIC_BACKEND_API_URL || '';
-      const uploadEndpoint = backendBase 
-        ? `${backendBase.replace(/\/$/, '')}/api/upload` 
-        : '/api/upload';
-
-      xhr.open('POST', uploadEndpoint);
+      xhr.open('POST', getBackendUrl('/api/upload'));
       xhr.send(formData);
     });
   };
@@ -128,7 +134,7 @@ export default function ConverterPageClient({ tool }) {
       setProgress(55);
       setStatus('converting');
       
-      const convertRes = await fetch('/api/convert', {
+      const convertRes = await fetch(getBackendUrl('/api/convert'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -165,7 +171,7 @@ export default function ConverterPageClient({ tool }) {
         }
 
         try {
-          const statusRes = await fetch(`/api/convert/jobs/${jobUUID}`);
+          const statusRes = await fetch(getBackendUrl(`/api/convert/jobs/${jobUUID}`));
           if (!statusRes.ok) return;
 
           const statusData = await statusRes.json();
@@ -330,6 +336,7 @@ export default function ConverterPageClient({ tool }) {
           fileName={convertedFileName}
           fileSize={fileSize}
           onReset={handleReset}
+          backendApiUrl={backendApiUrl}
         />
       )}
 
