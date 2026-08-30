@@ -20,7 +20,7 @@ export const metadata = {
     default: "iLoveAudios — Free Online Audio Tools & Converters",
     template: "%s | iLoveAudios",
   },
-  description: "Convert audio & video files online for free up to 320kbps. Identify songs from Instagram Reels & TikTok, extract MP3s, and convert MP4, WAV, FLAC, M4A & OPUS with no signup.",
+  description: "Free online audio converter & song finder. Convert MP4, WAV, FLAC to MP3 up to 320kbps, trim audio, and identify songs with no signup.",
   keywords: [
     "audio converter",
     "audio converter online",
@@ -50,7 +50,7 @@ export const metadata = {
   },
   openGraph: {
     title: "iLoveAudios — Free Online Audio Tools & Converters",
-    description: "Convert audio formats, extract audio from videos, search lyrics, and identify songs with iLoveAudios browser-based suite.",
+    description: "Free online audio converter & song finder. Convert MP4, WAV, FLAC to MP3 up to 320kbps, trim audio, and identify songs with no signup.",
     url: siteUrl,
     siteName: "iLoveAudios",
     locale: "en_US",
@@ -59,7 +59,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "iLoveAudios — Free Online Audio Tools & Converters",
-    description: "Free web-based audio converter and editor tool suite.",
+    description: "Free online audio converter & song finder. Convert MP4, WAV, FLAC to MP3 up to 320kbps, trim audio, and identify songs with no signup.",
   },
   icons: {
     icon: [
@@ -111,6 +111,11 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="YpwmWLxkPcG4Tcx0budEkw"
+          async
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

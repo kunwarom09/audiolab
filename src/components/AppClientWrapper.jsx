@@ -107,8 +107,38 @@ export default function AppClientWrapper({ children }) {
           {children}
         </main>
 
-        <footer className="w-full border-t border-[var(--border-color)] py-8 text-center text-xs text-[var(--text-muted)] bg-[var(--bg-card)]">
-          <p>iLoveAudios &copy; 2026 — Secure & Fast Audio Platform</p>
+        <footer className="w-full border-t border-[var(--border-color)] py-8 px-4 sm:px-6 text-center text-xs text-[var(--text-muted)] bg-[var(--bg-card)] space-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
+            <span className="font-semibold text-[var(--text-secondary)]">Standards & Engine:</span>
+            <a
+              href="https://ffmpeg.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+            >
+              <span>FFmpeg</span>
+              <span className="text-[9px]">↗</span>
+            </a>
+            <a
+              href="https://www.w3.org/TR/webaudio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+            >
+              <span>W3C Web Audio API</span>
+              <span className="text-[9px]">↗</span>
+            </a>
+            <a
+              href="https://id3.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+            >
+              <span>ID3 Standards</span>
+              <span className="text-[9px]">↗</span>
+            </a>
+          </div>
+          <p>iLoveAudios &copy; 2026 — Secure, Free & Fast Audio Platform</p>
         </footer>
 
         <ExtractionHistory

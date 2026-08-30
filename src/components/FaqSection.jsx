@@ -67,7 +67,7 @@ export default function FaqSection({ items }) {
                 aria-expanded={isOpen}
                 className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[var(--text-primary)] hover:text-[var(--iloveaudios-red)] transition-colors cursor-pointer"
               >
-                <h3 className="font-bold text-sm sm:text-base">{item.question}</h3>
+                <span className="font-bold text-sm sm:text-base">{item.question}</span>
                 <div
                   className={`p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-[var(--text-secondary)] transition-transform duration-300 shrink-0 ${
                     isOpen ? 'rotate-180 bg-[var(--iloveaudios-red)]/10 text-[var(--iloveaudios-red)]' : ''

@@ -142,10 +142,10 @@ export default function HomePage() {
       {/* Centered Minimalist Hero Header */}
       <section className="pt-16 pb-8 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-4">
         <h1 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
-          Every tool you need to work with Audio in one place
+          Free Online Audio Tools & Converters
         </h1>
         <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-          Every tool you need to process audio, at your fingertips. All are 100% FREE and easy to use! Convert formats, cut and merge songs, boost volume, extract audio from video, and identify songs with just a few clicks.
+          Every tool you need to process, edit, and convert audio in one place. 100% free online audio tools and converters to extract MP3 from video, identify songs from Reels and TikTok, trim and merge audio tracks, and boost volume with studio-quality 320kbps results.
         </p>
       </section>
 
@@ -195,7 +195,7 @@ export default function HomePage() {
             Features
           </span>
           <h2 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
-            Why Use iLoveAudios?
+            Why Use iLoveAudios Free Audio Tools?
           </h2>
         </div>
 
@@ -206,7 +206,7 @@ export default function HomePage() {
             </div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Professional Quality</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Support up to 320kbps MP3 exports and lossless WAV formats using professional-grade conversion filters.
+              Support up to 320kbps MP3 audio exports and lossless WAV formats using professional-grade online audio converters.
             </p>
           </div>
 
@@ -216,7 +216,7 @@ export default function HomePage() {
             </div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Fast & Reliable</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Equipped with a robust parallel worker queue to render large audio and video files quickly.
+              Equipped with a high-speed audio converter worker engine to process and extract audio from large files in seconds.
             </p>
           </div>
 
@@ -226,7 +226,7 @@ export default function HomePage() {
             </div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Safe & Confidential</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Uploaded files are validated, securely stored via signed URLs, and auto-cleaned shortly after conversion.
+              Uploaded audio files are processed in secure isolated storage and automatically deleted shortly after conversion.
             </p>
           </div>
         </div>
