@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.iloveaudios.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://iloveaudios.com";
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 export const metadata = {
