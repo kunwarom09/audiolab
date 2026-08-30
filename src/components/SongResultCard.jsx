@@ -1,7 +1,21 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Play, Pause, Disc, Calendar, Tag, Download, Check, ExternalLink, Video } from 'lucide-react';
+import { 
+  Play, 
+  Pause, 
+  Disc, 
+  Calendar, 
+  Tag, 
+  Download, 
+  Check, 
+  ExternalLink, 
+  Video, 
+  Copy, 
+  Share2, 
+  RotateCcw,
+  Sparkles
+} from 'lucide-react';
 import LyricsViewer from './LyricsViewer';
 import OfficialVideoCard from './OfficialVideoCard';
 
@@ -17,21 +31,56 @@ const SpotifyIcon = (props) => (
   </svg>
 );
 
-export default function SongResultCard({ data }) {
+export default function SongResultCard({ data, onReset }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [isDownloadingVideo, setIsDownloadingVideo] = useState(false);
   const [downloadVideoSuccess, setDownloadVideoSuccess] = useState(false);
+  const [copiedInfo, setCopiedInfo] = useState(false);
+  const [sharedSuccess, setSharedSuccess] = useState(false);
   const audioRef = useRef(null);
 
   if (!data || !data.song) return null;
 
-  const { song, official_video, reel_source, spotify } = data;
+  const { song, official_video, reel_source, spotify, media_info } = data;
   const spotifyUrl = spotify?.url || song?.spotify_url || `https://open.spotify.com/search/${encodeURIComponent(`${song.artist} ${song.title}`)}`;
   const isReelUrl = reel_source?.url && (reel_source.url.startsWith('http://') || reel_source.url.startsWith('https://'));
   const youtubeUrl = official_video?.url || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${song.artist} ${song.title} official music video`)}`;
+
+  const handleCopySongInfo = async () => {
+    try {
+      await navigator.clipboard.writeText(`${song.artist} - ${song.title}`);
+      setCopiedInfo(true);
+      setTimeout(() => setCopiedInfo(false), 2500);
+    } catch (err) {
+      console.warn('Copy failed:', err);
+    }
+  };
+
+  const handleShare = async () => {
+    const shareText = `🎵 Found this song with ILoveAudios Song Finder: ${song.artist} - ${song.title}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${song.artist} - ${song.title}`,
+          text: shareText,
+          url: window.location.href,
+        });
+        return;
+      } catch (err) {
+        // Fallback to clipboard if user dismissed share dialog
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setSharedSuccess(true);
+      setTimeout(() => setSharedSuccess(false), 2500);
+    } catch (err) {
+      console.warn('Share clipboard fallback failed:', err);
+    }
+  };
 
   // Dynamic MusicRecording Schema.org JSON-LD for Search Engines
   const musicSchema = {
@@ -202,6 +251,12 @@ export default function SongResultCard({ data }) {
           <div className="flex-1 space-y-4 text-center md:text-left w-full">
             <div className="space-y-1">
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                {media_info?.analyzed_segment && (
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1 whitespace-nowrap">
+                    <Sparkles className="w-3 h-3 shrink-0" />
+                    <span>Segment {media_info.analyzed_segment}</span>
+                  </span>
+                )}
                 {song.genre && (
                   <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs font-semibold flex items-center gap-1 whitespace-nowrap">
                     <Tag className="w-3 h-3 shrink-0" />
@@ -222,6 +277,40 @@ export default function SongResultCard({ data }) {
               <p className="text-lg font-bold text-[#0088ff]">
                 {song.artist}
               </p>
+
+              {/* Utility Quick Actions Bar (Copy / Share / Reset) */}
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={handleCopySongInfo}
+                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  title="Copy artist and title to clipboard"
+                >
+                  {copiedInfo ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedInfo ? 'Copied to Clipboard!' : 'Copy Info'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  title="Share this song result"
+                >
+                  {sharedSuccess ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
+                  <span>{sharedSuccess ? 'Link Copied!' : 'Share'}</span>
+                </button>
+
+                {onReset && (
+                  <button
+                    type="button"
+                    onClick={onReset}
+                    className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-[var(--iloveaudios-red)] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Find Another</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Additional Attributes Grid */}

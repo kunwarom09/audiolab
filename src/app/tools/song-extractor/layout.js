@@ -1,37 +1,36 @@
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 export const metadata = {
-  title: 'Free AI Song Finder – Identify Songs from Reels, TikTok & Videos | iLoveAudios',
-  description: 'Identify songs from Instagram Reels, TikTok, Facebook Reels & Shorts in seconds. 100% free, no signup, get full lyrics, artist info & MP3 download.',
+  title: 'Free AI Song Finder – Identify Any Song from Video, Audio & Reels | iLoveAudios',
+  description: 'Find the song behind any video or audio clip. Paste a video link, upload a media file, or record live music to identify the song and artist in seconds.',
   keywords: [
     'song finder',
-    'song finder from video',
-    'song finder from reel',
+    'find song from video',
     'identify song from video',
-    'identify song from Instagram Reel',
+    'song finder from reel',
+    'find song from Instagram Reel',
     'find song from TikTok',
     'find song from Facebook Reel',
-    'identify music from video',
-    'find background song from video',
-    'music finder online free',
-    'song identifier online',
-    'find a song by video link'
+    'identify song from audio file',
+    'record to identify song',
+    'identify background music',
+    'song identifier online free'
   ],
   alternates: {
     canonical: `${siteUrl}/tools/song-extractor`,
   },
   openGraph: {
-    title: 'Free AI Song Finder – Identify Songs from Reels, TikTok & Videos | iLoveAudios',
-    description: 'Identify songs from Instagram Reels, TikTok, Facebook Reels & Shorts in seconds. 100% free, no signup, get full lyrics, artist info & MP3 download.',
+    title: 'Free AI Song Finder – Identify Any Song from Video, Audio & Reels | iLoveAudios',
+    description: 'Find the song behind any video or audio clip. Paste a video link, upload a media file, or record live music to identify the song and artist in seconds.',
     url: `${siteUrl}/tools/song-extractor`,
     type: 'website',
     siteName: 'iLoveAudios',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free AI Song Finder – Identify Songs from Reels, TikTok & Videos | iLoveAudios',
-    description: 'Identify songs from Instagram Reels, TikTok, Facebook Reels & Shorts in seconds. 100% free, no signup, get full lyrics, artist info & MP3 download.',
+    title: 'Free AI Song Finder – Identify Any Song from Video, Audio & Reels | iLoveAudios',
+    description: 'Find the song behind any video or audio clip. Paste a video link, upload a media file, or record live music to identify the song and artist in seconds.',
   },
 };
 
@@ -45,18 +44,12 @@ export default function SongExtractorLayout({ children }) {
     applicationSubCategory: 'Music Recognition Tool',
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    description: 'Free online tool to identify background music and songs from Instagram Reels, TikTok, Facebook Reels, and Snapchat video links.',
+    description: 'Free online tool to identify background music and songs from video links (Instagram, TikTok, Facebook, Snapchat), uploaded video/audio files, or live microphone recording.',
     url: `${siteUrl}/tools/song-extractor`,
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD'
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      bestRating: '5',
-      ratingCount: '2840'
     }
   };
 

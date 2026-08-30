@@ -26,7 +26,7 @@ from converter import converter_instance
 # Try importing celery app and task
 try:
     from celery_app import celery_app
-    from tasks import extract_song_task, download_mp3_task
+    from tasks import extract_song_task, download_mp3_task, identify_file_task
     from converter_tasks import convert_audio_task
     CELERY_AVAILABLE = cache_manager.is_connected
 except Exception as e:
@@ -63,6 +63,12 @@ except Exception as e:
 # Request / Response Schemas
 class ExtractRequest(BaseModel):
     url: str
+    async_mode: Optional[bool] = True
+
+class IdentifyFileRequest(BaseModel):
+    file_id: str
+    start_time: Optional[float] = None
+    duration: Optional[float] = None
     async_mode: Optional[bool] = True
 
 class AuthVerifyRequest(BaseModel):
@@ -139,6 +145,54 @@ async def extract_song(request: Request, body: ExtractRequest):
     except Exception as e:
         logger.error(f"Synchronous extraction error for '{url}': {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/identify-file")
+@limiter.limit(settings.RATE_LIMIT_EXTRACT)
+async def identify_file(request: Request, body: IdentifyFileRequest):
+    file_id = body.file_id.strip()
+    if not file_id:
+        raise HTTPException(status_code=400, detail="Missing file_id for song identification.")
+
+    logger.info(f"Received file identification request for file_id: {file_id} (start_time={body.start_time})")
+
+    # 1. Resolve local path
+    local_input_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"uploads/{file_id}")
+    if not os.path.exists(local_input_path):
+        try:
+            storage_service.download_file(f"uploads/{file_id}", local_input_path)
+        except Exception as e:
+            logger.error(f"Uploaded file not found: {file_id} ({e})")
+            raise HTTPException(status_code=404, detail="Uploaded file not found or expired. Please upload again.")
+
+    # 2. Async Queue Mode via Celery
+    if body.async_mode and CELERY_AVAILABLE:
+        try:
+            task = identify_file_task.delay(file_id, body.start_time, body.duration)
+            logger.info(f"Enqueued file identification task ID: {task.id}")
+            return {
+                "success": True,
+                "status": "queued",
+                "job_id": task.id,
+                "message": "File identification job submitted successfully."
+            }
+        except Exception as e:
+            logger.warning(f"Failed to enqueue Celery task ({e}). Falling back to synchronous processing.")
+
+    # 3. Synchronous Direct Execution Fallback
+    try:
+        result = await extractor_instance.process_audio_file(
+            local_input_path, 
+            start_time=body.start_time, 
+            duration=body.duration
+        )
+        if result.get("success"):
+            return JSONResponse(content=result, status_code=200)
+        else:
+            return JSONResponse(content=result, status_code=200) # 200 with success: false for actionable recovery UI
+    except Exception as e:
+        logger.error(f"Synchronous file identification error for '{file_id}': {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/api/jobs/{job_id}")
 def get_job_status(job_id: str):

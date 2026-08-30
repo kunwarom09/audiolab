@@ -52,3 +52,29 @@ def download_mp3_task(self, title: str, artist: str, video_url: str = None):
     except Exception as e:
         logger.error(f"Task {self.request.id} MP3 Download failed: {e}")
         return {"success": False, "error": str(e)}
+
+@celery_app.task(bind=True, name="tasks.identify_file_task")
+def identify_file_task(self, file_id: str, start_time: float = None, duration: float = None):
+    logger.info(f"Task {self.request.id} started identifying file: {file_id} (start_time={start_time}, duration={duration})")
+    import tempfile
+    local_input_path = os.path.join(tempfile.gettempdir(), "song_extractor_storage", f"uploads/{file_id}")
+    if not os.path.exists(local_input_path):
+        try:
+            storage_service.download_file(f"uploads/{file_id}", local_input_path)
+        except Exception as e:
+            logger.error(f"Failed to fetch uploaded file {file_id}: {e}")
+            return {"success": False, "error": f"Uploaded file not found: {file_id}"}
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        result = loop.run_until_complete(extractor_instance.process_audio_file(local_input_path, start_time=start_time, duration=duration))
+    except Exception as e:
+        logger.error(f"Task {self.request.id} file identification failed: {e}")
+        return {"success": False, "error": str(e)}
+    finally:
+        loop.close()
+
+    logger.info(f"Task {self.request.id} finished identifying file.")
+    return result
+

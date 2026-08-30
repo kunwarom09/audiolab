@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import ToolCard from '@/components/ToolCard';
 import FaqSection from '@/components/FaqSection';
 import { TOOLS } from '@/lib/toolsConfig';
-import { Music2, ShieldCheck, Zap } from 'lucide-react';
+import { Music2, ShieldCheck, Zap, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -56,7 +57,7 @@ export default function HomePage() {
     ]
   };
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
   const itemListSchema = {
@@ -139,13 +140,59 @@ export default function HomePage() {
         }}
       />
 
-      {/* Centered Minimalist Hero Header */}
-      <section className="pt-16 pb-8 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-4">
-        <h1 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
-          Free Online Audio Tools & Converters
-        </h1>
-        <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-          Every tool you need to process, edit, and convert audio in one place. 100% free online audio tools and converters to extract MP3 from video, identify songs from Reels and TikTok, trim and merge audio tracks, and boost volume with studio-quality 320kbps results.
+      {/* Flagship Product Hero: Song Finder Spotlight */}
+      <section className="pt-10 sm:pt-14 pb-8 max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="shazam-hero-card p-6 sm:p-10 md:p-12 rounded-3xl text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 text-[var(--iloveaudios-red)] border border-red-500/20 text-xs font-black uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Featured Audio Tool</span>
+          </div>
+
+          <div className="space-y-3 max-w-3xl mx-auto">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
+              Find the Song Behind Any Video
+            </h1>
+            <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+              Paste a video link, upload an audio/video clip, or record live music to identify the song and artist in seconds.
+            </p>
+          </div>
+
+          {/* 3 Input Methods Preview Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-2xl mx-auto">
+            <div className="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 shadow-xs">
+              <span className="text-[var(--iloveaudios-red)] font-black">🔗</span>
+              <span>Paste Link (Instagram, TikTok, FB, Snap)</span>
+            </div>
+            <div className="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 shadow-xs">
+              <span className="text-blue-500 font-black">📁</span>
+              <span>Upload Clip (MP4, MOV, MP3, WAV)</span>
+            </div>
+            <div className="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 shadow-xs">
+              <span className="text-emerald-500 font-black">🎙️</span>
+              <span>Record Audio (Browser Mic)</span>
+            </div>
+          </div>
+
+          {/* Direct CTA */}
+          <div className="pt-2">
+            <Link
+              href="/tools/song-extractor"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-black text-sm text-white bg-[var(--iloveaudios-red)] hover:bg-red-700 shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-100 cursor-pointer"
+            >
+              <span>Launch Song Finder</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Secondary Header: Complete Audio Tool Suite */}
+      <section className="pt-4 pb-4 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-2 border-t border-[var(--border-color)]">
+        <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          Complete Online Audio Tools & Converters
+        </h2>
+        <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+          100% free online audio converters and utilities to extract MP3 from video, cut and merge audio tracks, and boost volume with studio-quality results.
         </p>
       </section>
 

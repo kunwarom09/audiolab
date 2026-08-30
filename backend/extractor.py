@@ -993,4 +993,191 @@ class SongExtractor:
                 except Exception as e:
                     print(f"Error removing temp audio file: {e}")
 
+    def get_media_duration(self, file_path: str) -> float:
+        """
+        Extract total duration of media file in seconds using ffprobe.
+        """
+        import subprocess
+        try:
+            cmd = [
+                'ffprobe',
+                '-v', 'error',
+                '-show_entries', 'format=duration',
+                '-of', 'default=noprint_wrappers=1:nokey=1',
+                file_path
+            ]
+            ffmpeg_dir = get_ffmpeg_dir()
+            env = os.environ.copy()
+            if ffmpeg_dir and ffmpeg_dir not in env.get("PATH", ""):
+                env["PATH"] = f"{ffmpeg_dir}:{env.get('PATH', '')}"
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True, env=env)
+            output = result.stdout.strip()
+            if output:
+                return float(output)
+        except Exception as e:
+            print(f"Failed to probe duration for {file_path}: {e}")
+        return 0.0
+
+    def slice_audio(self, input_path: str, start_time: float, duration: float = 15.0) -> str:
+        """
+        Extracts a clean audio segment from input audio/video file for acoustic recognition.
+        """
+        import subprocess
+        temp_dir = tempfile.gettempdir()
+        unique_id = str(uuid.uuid4())[:8]
+        output_path = os.path.join(temp_dir, f"slice_{unique_id}.mp3")
+        ffmpeg_dir = get_ffmpeg_dir()
+        
+        cmd = ['ffmpeg', '-y', '-threads', '0']
+        if start_time is not None and start_time > 0:
+            cmd.extend(['-ss', str(start_time)])
+        cmd.extend(['-i', input_path, '-t', str(duration), '-vn', '-acodec', 'libmp3lame', '-ar', '44100', '-ab', '192k', output_path])
+        
+        env = os.environ.copy()
+        if ffmpeg_dir and ffmpeg_dir not in env.get("PATH", ""):
+            env["PATH"] = f"{ffmpeg_dir}:{env.get('PATH', '')}"
+            
+        res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+        if res.returncode == 0 and os.path.exists(output_path):
+            return output_path
+        raise Exception(f"Failed to extract audio segment from media: {res.stderr[:200]}")
+
+    async def process_audio_file(self, file_path: str, start_time: Optional[float] = None, duration: Optional[float] = None) -> dict:
+        """
+        Processes an uploaded audio or video file, or recorded microphone audio clip.
+        Supports single or multi-segment acoustic recognition.
+        """
+        total_duration = self.get_media_duration(file_path)
+        temp_slices = []
+
+        try:
+            segments_to_try = []
+
+            if start_time is not None:
+                dur = min(duration or 15.0, 30.0)
+                segments_to_try.append((max(0.0, float(start_time)), dur))
+            else:
+                if total_duration <= 0.0 or total_duration <= 20.0:
+                    segments_to_try.append((0.0, min(total_duration or 15.0, 15.0) if total_duration > 0 else 15.0))
+                else:
+                    segments_to_try.append((5.0, 15.0))
+                    if total_duration >= 30.0:
+                        segments_to_try.append((20.0, 15.0))
+                    segments_to_try.append((0.0, 15.0))
+
+            matched_track = None
+            analyzed_window_str = ""
+
+            for seg_start, seg_dur in segments_to_try:
+                try:
+                    slice_path = self.slice_audio(file_path, seg_start, seg_dur)
+                    temp_slices.append(slice_path)
+                    
+                    shazam_data = await self.recognize_song_from_audio(slice_path)
+                    track = shazam_data.get('track', {})
+                    if track:
+                        matched_track = track
+                        start_min, start_sec = divmod(int(seg_start), 60)
+                        end_min, end_sec = divmod(int(seg_start + seg_dur), 60)
+                        analyzed_window_str = f"{start_min:02d}:{start_sec:02d} - {end_min:02d}:{end_sec:02d}"
+                        break
+                except Exception as seg_err:
+                    print(f"Segment recognition attempt ({seg_start}s) failed: {seg_err}")
+                    continue
+
+            if not matched_track:
+                return {
+                    'success': False,
+                    'message': "We couldn't identify the song from this section.",
+                    'media_info': {
+                        'total_duration': total_duration,
+                        'can_retry_different_section': total_duration > 20.0,
+                    },
+                    'recovery_options': [
+                        'try_another_section' if total_duration > 20.0 else None,
+                        'upload_clearer_clip',
+                        'record_live',
+                        'search_by_text'
+                    ]
+                }
+
+            song_title = matched_track.get('title', 'Unknown Title')
+            artist_name = matched_track.get('subtitle', 'Unknown Artist')
+
+            images = matched_track.get('images', {})
+            cover_art = images.get('coverarthdq') or images.get('coverart') or images.get('background')
+
+            sections = matched_track.get('sections', [])
+            lyrics = None
+            album = None
+            genre = matched_track.get('genres', {}).get('primary')
+            label = None
+            release_year = None
+
+            for section in sections:
+                if section.get('type') == 'LYRICS':
+                    lyric_lines = section.get('text', [])
+                    if lyric_lines:
+                        lyrics = "\n".join(lyric_lines)
+                elif section.get('type') == 'SONG':
+                    metadata = section.get('metadata', [])
+                    for item in metadata:
+                        title_key = item.get('title', '').lower()
+                        if title_key == 'album':
+                            album = item.get('text')
+                        elif title_key == 'label':
+                            label = item.get('text')
+                        elif title_key == 'released':
+                            release_year = item.get('text')
+
+            if not lyrics:
+                lyrics = self.get_lrclib_lyrics(song_title, artist_name)
+
+            official_video = self.search_official_youtube_video(song_title, artist_name)
+            spotify_link = self.generate_spotify_link(song_title, artist_name, track=matched_track)
+
+            if not lyrics and official_video:
+                lyrics = self.extract_lyrics_from_description(official_video.get('description'))
+
+            preview_url = None
+            hub = matched_track.get('hub', {})
+            actions = hub.get('actions', [])
+            for action in actions:
+                if action.get('type') == 'uri' and 'uri' in action:
+                    preview_url = action.get('uri')
+                    break
+
+            return {
+                'success': True,
+                'song': {
+                    'title': song_title,
+                    'artist': artist_name,
+                    'album': album or 'Single',
+                    'genre': genre or 'Music',
+                    'release_year': release_year,
+                    'label': label,
+                    'cover_art': cover_art,
+                    'preview_url': preview_url,
+                    'lyrics': lyrics,
+                    'shazam_url': matched_track.get('url'),
+                    'spotify_url': spotify_link.get('url'),
+                },
+                'official_video': official_video,
+                'spotify': spotify_link,
+                'media_info': {
+                    'total_duration': total_duration,
+                    'analyzed_segment': analyzed_window_str or 'Full clip',
+                    'input_type': 'file'
+                }
+            }
+
+        finally:
+            for s_path in temp_slices:
+                if s_path and os.path.exists(s_path):
+                    try:
+                        os.remove(s_path)
+                    except Exception as e:
+                        print(f"Error removing temp slice {s_path}: {e}")
+
 extractor_instance = SongExtractor()
+

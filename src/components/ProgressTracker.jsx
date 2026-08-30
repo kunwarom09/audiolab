@@ -11,32 +11,32 @@ const YouTubeIcon = (props) => (
 
 const STEPS = [
   {
-    title: 'Connecting & Demuxing Audio Stream',
-    desc: 'Extracting clean audio track from the provided video URL',
+    title: 'Input Received & Verifying Audio Stream',
+    desc: 'Extracting and isolating audio stream from the media source',
     icon: Download,
     pct: 25,
-    duration: 2000
+    duration: 1800
   },
   {
-    title: 'Acoustic Fingerprinting (Shazam AI Engine)',
-    desc: 'Generating frequency spectrum and landmark hash fingerprint',
+    title: 'Acoustic Landmark Fingerprinting',
+    desc: 'Generating frequency spectrum and audio landmark hashes',
     icon: Radio,
     pct: 55,
-    duration: 2500
+    duration: 2200
   },
   {
-    title: 'Matching Song Metadata & Line-by-Line Lyrics',
-    desc: 'Querying global music catalogs and synchronized lyrics database',
+    title: 'Music Catalog Recognition',
+    desc: 'Matching acoustic fingerprint against music database',
     icon: FileText,
     pct: 80,
     duration: 2000
   },
   {
-    title: 'Locating Official YouTube Video & MP3 Stream',
-    desc: 'Assembling high-definition video embed and high-bitrate audio',
+    title: 'Fetching Song Metadata & Lyrics',
+    desc: 'Retrieving official track info, synchronized lyrics, and listening links',
     icon: YouTubeIcon,
     pct: 95,
-    duration: 2000
+    duration: 1800
   }
 ];
 

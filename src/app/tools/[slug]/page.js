@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
   const title = tool.metaTitle || `${tool.title} – Free Online Audio Tool | iLoveAudios`;
   const description = tool.metaDescription || tool.description;
@@ -70,7 +70,7 @@ export default async function ToolConverterPage({ params }) {
     notFound();
   }
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://iloveaudios.com';
+  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
   const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
   // 1. SoftwareApplication Schema
