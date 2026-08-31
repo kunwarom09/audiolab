@@ -5,11 +5,12 @@ import asyncio
 import tempfile
 import re
 import urllib.parse
+import subprocess
+import shutil
+from typing import Optional, List, Dict, Any, Tuple, Union
 import requests
 import yt_dlp
 import static_ffmpeg
-
-import shutil
 
 # Ensure static ffmpeg binary paths are set up before importing Shazam / pydub
 try:
@@ -29,24 +30,98 @@ def get_ffmpeg_dir():
         pass
     return None
 
+def get_cookie_file():
+    """
+    Checks for user-provided or auto-discovered cookies.txt
+    """
+    env_cookie = os.environ.get("INSTAGRAM_COOKIES_FILE") or os.environ.get("COOKIES_FILE")
+    if env_cookie and os.path.exists(env_cookie):
+        return os.path.abspath(env_cookie)
+    
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        os.path.join(current_dir, "cookies.txt"),
+        os.path.join(current_dir, "instagram_cookies.txt"),
+        os.path.join(current_dir, "..", "cookies.txt"),
+        os.path.abspath("cookies.txt"),
+        os.path.abspath("backend/cookies.txt"),
+    ]
+    for c in candidates:
+        if os.path.exists(c) and os.path.getsize(c) > 0:
+            return os.path.abspath(c)
+    return None
+
+def get_browser_cookie_opts():
+    """
+    Detects local browser cookie profiles if available
+    """
+    brave_snap = os.path.expanduser("~/snap/brave/current/.config/BraveSoftware/Brave-Browser/Default")
+    if os.path.exists(brave_snap):
+        return ('brave', brave_snap, None, None)
+    return None
+
 from shazamio import Shazam
 
 class SongExtractor:
     def __init__(self):
         self.shazam = Shazam()
 
+    def download_tiktok_direct(self, reel_url: str):
+        """
+        Fallback for TikTok video & audio extraction via TikWM API.
+        """
+        try:
+            api_url = "https://www.tikwm.com/api/"
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+            }
+            res = requests.post(api_url, data={'url': reel_url, 'count': 12, 'cursor': 0, 'web': 1, 'hd': 1}, headers=headers, timeout=12)
+            if res.status_code == 200:
+                data = res.json()
+                if data.get('code') == 0:
+                    item = data.get('data', {})
+                    audio_url = item.get('music')
+                    title = item.get('title') or "TikTok Audio"
+                    uploader = item.get('author', {}).get('nickname') or "TikTok Creator"
+                    
+                    if audio_url:
+                        temp_dir = tempfile.gettempdir()
+                        unique_id = str(uuid.uuid4())[:8]
+                        audio_path = os.path.join(temp_dir, f"tiktok_{unique_id}.mp3")
+                        
+                        audio_res = requests.get(audio_url, headers=headers, timeout=15)
+                        if audio_res.status_code == 200:
+                            with open(audio_path, 'wb') as f:
+                                f.write(audio_res.content)
+                            return audio_path, {
+                                'title': title,
+                                'uploader': uploader,
+                                'webpage_url': reel_url
+                            }
+        except Exception as e:
+            print(f"TikTok direct extraction error: {e}")
+        return None, None
+
     def download_reel_audio(self, reel_url: str):
         """
-        Downloads audio stream from Reel, TikTok, Snapchat, or Video URL using yt-dlp.
+        Downloads audio stream from Reel, TikTok, Snapchat, or Video URL using yt-dlp / fallbacks.
         Returns (audio_path, video_info_dict).
         """
         temp_dir = tempfile.gettempdir()
         unique_id = str(uuid.uuid4())[:8]
         output_template = os.path.join(temp_dir, f"reel_song_{unique_id}.%(ext)s")
         ffmpeg_dir = get_ffmpeg_dir()
+        cookie_file = get_cookie_file()
+        browser_cookies = get_browser_cookie_opts() if not cookie_file else None
+
+        # Check if URL is TikTok and attempt fast direct download
+        if 'tiktok.com' in reel_url:
+            tt_audio, tt_info = self.download_tiktok_direct(reel_url)
+            if tt_audio and os.path.exists(tt_audio):
+                return tt_audio, tt_info
 
         user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
         ]
@@ -58,7 +133,10 @@ class SongExtractor:
                 'format': 'bestaudio/best',
                 'outtmpl': output_template,
                 'ffmpeg_location': ffmpeg_dir,
-                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'extractor_args': {
+                    'youtube': {'player_client': ['android', 'ios', 'web']},
+                    'instagram': {'api': 'graphql'}
+                },
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
@@ -74,6 +152,11 @@ class SongExtractor:
                     'Accept-Language': 'en-US,en;q=0.5',
                 }
             }
+
+            if cookie_file:
+                ydl_opts['cookiefile'] = cookie_file
+            elif browser_cookies:
+                ydl_opts['cookiesfrombrowser'] = browser_cookies
 
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -92,6 +175,12 @@ class SongExtractor:
                 last_exception = e
                 continue
 
+        # If yt-dlp failed for TikTok, retry TikWM
+        if 'tiktok.com' in reel_url:
+            tt_audio, tt_info = self.download_tiktok_direct(reel_url)
+            if tt_audio and os.path.exists(tt_audio):
+                return tt_audio, tt_info
+
         raise last_exception or Exception("Failed to download audio from provided reel/video link.")
 
     def download_reel_video(self, reel_url: str, title: str = "video", artist: str = "unknown") -> str:
@@ -104,9 +193,11 @@ class SongExtractor:
         unique_id = str(uuid.uuid4())[:8]
         output_template = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.%(ext)s")
         ffmpeg_dir = get_ffmpeg_dir()
+        cookie_file = get_cookie_file()
+        browser_cookies = get_browser_cookie_opts() if not cookie_file else None
 
         user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
         ]
@@ -119,7 +210,10 @@ class SongExtractor:
                 'outtmpl': output_template,
                 'merge_output_format': 'mp4',
                 'ffmpeg_location': ffmpeg_dir,
-                'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+                'extractor_args': {
+                    'youtube': {'player_client': ['android', 'ios', 'web']},
+                    'instagram': {'api': 'graphql'}
+                },
                 'quiet': True,
                 'no_warnings': True,
                 'nocheckcertificate': True,
@@ -130,6 +224,11 @@ class SongExtractor:
                     'Accept-Language': 'en-US,en;q=0.5',
                 }
             }
+
+            if cookie_file:
+                ydl_opts['cookiefile'] = cookie_file
+            elif browser_cookies:
+                ydl_opts['cookiesfrombrowser'] = browser_cookies
 
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -147,6 +246,25 @@ class SongExtractor:
             except Exception as e:
                 last_exception = e
                 continue
+
+        # TikTok direct video download fallback
+        if 'tiktok.com' in reel_url:
+            try:
+                api_url = "https://www.tikwm.com/api/"
+                headers = {'User-Agent': 'Mozilla/5.0'}
+                res = requests.post(api_url, data={'url': reel_url, 'hd': 1}, headers=headers, timeout=12)
+                if res.status_code == 200:
+                    data = res.json()
+                    play_url = data.get('data', {}).get('play') or data.get('data', {}).get('wmplay')
+                    if play_url:
+                        vid_res = requests.get(play_url, headers=headers, timeout=20)
+                        if vid_res.status_code == 200:
+                            video_path = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.mp4")
+                            with open(video_path, 'wb') as f:
+                                f.write(vid_res.content)
+                            return video_path
+            except Exception as e:
+                print(f"TikTok direct video download fallback failed: {e}")
 
         raise last_exception or Exception("Failed to download video from provided link.")
 
@@ -869,16 +987,34 @@ class SongExtractor:
                 print(f"Audio download failed for {reel_url}: {download_err}")
                 
                 extracted_query = self.extract_platform_query(reel_url)
-                if extracted_query and len(extracted_query.strip()) > 0:
+                if extracted_query and len(extracted_query.strip()) > 0 and len(extracted_query.strip()) < 80:
                     fallback_result = self.search_song_by_query(extracted_query, reel_url)
                     if fallback_result:
                         return fallback_result
 
-                fallback_result = self.search_song_by_query(reel_url, reel_url)
-                if fallback_result:
-                    return fallback_result
+                is_ig = 'instagram.com' in reel_url
+                is_tt = 'tiktok.com' in reel_url
+                platform_name = 'Instagram' if is_ig else ('TikTok' if is_tt else 'Video Link')
+                
+                msg = (
+                    "Instagram protects this Reel behind an authentication login wall, preventing direct server downloads. "
+                    "You can identify the song in seconds by uploading the video clip (MP4/MOV) or recording the audio live!"
+                    if is_ig else
+                    "Could not extract audio directly from this link. Please ensure the video is public, or try uploading the media file directly."
+                )
 
-                raise Exception("Could not extract audio directly from this link. Please ensure the post is public, or try searching by song name.")
+                return {
+                    'success': False,
+                    'error_type': 'PLATFORM_RESTRICTED' if is_ig else 'DOWNLOAD_FAILED',
+                    'platform': platform_name,
+                    'message': msg,
+                    'media_info': {
+                        'webpage_url': reel_url,
+                        'is_platform_restricted': is_ig,
+                        'platform': platform_name
+                    },
+                    'recovery_options': ['upload_clearer_clip', 'record_live', 'search_text']
+                }
 
             # Step 2: Shazam Audio Fingerprint Recognition
             shazam_data = await self.recognize_song_from_audio(audio_path)
@@ -1053,17 +1189,25 @@ class SongExtractor:
         try:
             segments_to_try = []
 
-            if start_time is not None:
+            # 1. If explicit timestamp is requested (and > 0), prioritize it
+            if start_time is not None and start_time > 0:
                 dur = min(duration or 15.0, 30.0)
-                segments_to_try.append((max(0.0, float(start_time)), dur))
+                segments_to_try.append((float(start_time), dur))
+            
+            # 2. Add smart candidate windows across the clip
+            if total_duration <= 0.0 or total_duration <= 25.0:
+                # Short audio clip (like recorded audio or short video)
+                segments_to_try.append((0.0, min(total_duration or 20.0, 20.0) if total_duration > 0 else 20.0))
+                if total_duration > 10.0:
+                    segments_to_try.append((3.0, 15.0))
             else:
-                if total_duration <= 0.0 or total_duration <= 20.0:
-                    segments_to_try.append((0.0, min(total_duration or 15.0, 15.0) if total_duration > 0 else 15.0))
-                else:
-                    segments_to_try.append((5.0, 15.0))
-                    if total_duration >= 30.0:
-                        segments_to_try.append((20.0, 15.0))
-                    segments_to_try.append((0.0, 15.0))
+                # Medium/long audio or video clip
+                segments_to_try.append((0.0, 15.0))
+                segments_to_try.append((5.0, 15.0))
+                if total_duration >= 30.0:
+                    segments_to_try.append((15.0, 15.0))
+                if total_duration >= 60.0:
+                    segments_to_try.append((35.0, 15.0))
 
             matched_track = None
             analyzed_window_str = ""

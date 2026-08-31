@@ -61,10 +61,15 @@ export default function MediaInputArea({
   initialFile = null
 }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'link' | 'upload' | 'record'
+  const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
   
+  if (initialTab !== prevInitialTab) {
+    setPrevInitialTab(initialTab);
+    setActiveTab(initialTab);
+  }
+
   // Link state
   const [url, setUrl] = useState('');
-  const [detectedPlatform, setDetectedPlatform] = useState(null);
 
   // Upload state
   const [selectedFile, setSelectedFile] = useState(initialFile);
@@ -97,28 +102,24 @@ export default function MediaInputArea({
     { label: 'Snapchat Spotlight', icon: SnapchatIcon, url: 'https://www.snapchat.com/spotlight/dua-lipa-houdini' }
   ];
 
-  // Auto-detect platform from URL
-  useEffect(() => {
-    if (!url || !url.trim()) {
-      setDetectedPlatform(null);
-      return;
-    }
+  // Auto-detect platform from URL derived in render
+  const detectedPlatform = React.useMemo(() => {
+    if (!url || !url.trim()) return null;
     const val = url.toLowerCase().trim();
     if (val.includes('instagram.com')) {
-      setDetectedPlatform({ name: 'Instagram', icon: InstagramIcon, color: 'text-pink-500' });
+      return { name: 'Instagram', icon: InstagramIcon, color: 'text-pink-500' };
     } else if (val.includes('tiktok.com')) {
-      setDetectedPlatform({ name: 'TikTok', icon: TikTokIcon, color: 'text-cyan-400' });
+      return { name: 'TikTok', icon: TikTokIcon, color: 'text-cyan-400' };
     } else if (val.includes('facebook.com') || val.includes('fb.watch')) {
-      setDetectedPlatform({ name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500' });
+      return { name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500' };
     } else if (val.includes('snapchat.com')) {
-      setDetectedPlatform({ name: 'Snapchat', icon: SnapchatIcon, color: 'text-yellow-400' });
+      return { name: 'Snapchat', icon: SnapchatIcon, color: 'text-yellow-400' };
     } else if (val.includes('youtube.com/shorts') || val.includes('youtu.be')) {
-      setDetectedPlatform({ name: 'YouTube Shorts', icon: YouTubeIcon, color: 'text-red-500' });
+      return { name: 'YouTube Shorts', icon: YouTubeIcon, color: 'text-red-500' };
     } else if (val.startsWith('http://') || val.startsWith('https://')) {
-      setDetectedPlatform({ name: 'Video URL', icon: Link2, color: 'text-slate-400' });
-    } else {
-      setDetectedPlatform(null);
+      return { name: 'Video URL', icon: Link2, color: 'text-slate-400' };
     }
+    return null;
   }, [url]);
 
   // Handle URL submit

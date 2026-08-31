@@ -141,10 +141,15 @@ async def extract_song(request: Request, body: ExtractRequest):
             cache_manager.set(url, result)
             return JSONResponse(content=result, status_code=200)
         else:
-            return JSONResponse(content=result, status_code=422)
+            return JSONResponse(content=result, status_code=200)
     except Exception as e:
         logger.error(f"Synchronous extraction error for '{url}': {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        return JSONResponse(content={
+            "success": False,
+            "error_type": "EXTRACTION_ERROR",
+            "message": str(e),
+            "recovery_options": ["upload_clearer_clip", "record_live", "search_text"]
+        }, status_code=200)
 
 @app.post("/api/identify-file")
 @limiter.limit(settings.RATE_LIMIT_EXTRACT)

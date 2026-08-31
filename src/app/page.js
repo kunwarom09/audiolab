@@ -338,40 +338,40 @@ export default function HomePage() {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="/tools/audio-cutter" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                <Link href="/tools/audio-cutter" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
                   <span>Audio Cutter & MP3 Trimmer</span>
                   <span className="text-[10px] text-purple-500 font-bold">NEW</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tools/audio-joiner" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                <Link href="/tools/audio-joiner" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
                   <span>Audio Joiner & Song Merger</span>
                   <span className="text-[10px] text-blue-500 font-bold">NEW</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tools/volume-booster" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                <Link href="/tools/volume-booster" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
                   <span>Audio Volume Booster (200%)</span>
                   <span className="text-[10px] text-amber-500 font-bold">NEW</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tools/song-extractor" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
+                <Link href="/tools/song-extractor" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group font-bold">
                   <span>AI Song Finder (Reels & TikTok)</span>
                   <span className="text-[10px] text-[var(--iloveaudios-red)]">★</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tools/mp3-to-m4r" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                <Link href="/tools/mp3-to-m4r" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
                   <span>MP3 to iPhone Ringtone (M4R)</span>
                   <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/tools/opus-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
+                <Link href="/tools/opus-to-mp3" className="text-[var(--text-secondary)] hover:text-[var(--iloveaudios-red)] transition-colors flex items-center justify-between group">
                   <span>WhatsApp Voice Note to MP3</span>
                   <span className="text-[10px] opacity-0 group-hover:opacity-100 text-[var(--iloveaudios-red)] transition-opacity">→</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

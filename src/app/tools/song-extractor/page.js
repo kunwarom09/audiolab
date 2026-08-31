@@ -256,6 +256,7 @@ export default function SongExtractorPage() {
             <FailedRecognitionCard 
               message={result.message}
               mediaInfo={result.media_info}
+              errorType={result.error_type}
               onRetrySection={handleRetryAnotherSection}
               onSwitchToUpload={() => {
                 setInputTab('upload');

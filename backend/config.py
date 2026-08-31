@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE_GUEST: int = 1024 * 1024 * 1024  # 1GB (1024MB)
     MAX_UPLOAD_SIZE_PREMIUM: int = 1024 * 1024 * 1024  # 1GB (1024MB)
 
+    # Optional Cookie File for yt-dlp & Instagram/YouTube downloads
+    COOKIES_FILE: str = os.getenv("COOKIES_FILE", "")
+    INSTAGRAM_COOKIES_FILE: str = os.getenv("INSTAGRAM_COOKIES_FILE", "")
+
     class Config:
         env_file = ".env.local"
         extra = "ignore"
