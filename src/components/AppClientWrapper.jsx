@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
+import Link from 'next/link';
 import Header from './Header';
 import ExtractionHistory from './ExtractionHistory';
 
@@ -107,38 +108,86 @@ export default function AppClientWrapper({ children }) {
           {children}
         </main>
 
-        <footer className="w-full border-t border-[var(--border-color)] py-8 px-4 sm:px-6 text-center text-xs text-[var(--text-muted)] bg-[var(--bg-card)] space-y-3">
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
-            <span className="font-semibold text-[var(--text-secondary)]">Standards & Engine:</span>
-            <a
-              href="https://ffmpeg.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-            >
-              <span>FFmpeg</span>
-              <span className="text-[9px]">↗</span>
-            </a>
-            <a
-              href="https://www.w3.org/TR/webaudio/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-            >
-              <span>W3C Web Audio API</span>
-              <span className="text-[9px]">↗</span>
-            </a>
-            <a
-              href="https://id3.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-            >
-              <span>ID3 Standards</span>
-              <span className="text-[9px]">↗</span>
-            </a>
+        <footer className="w-full border-t border-[var(--border-color)] py-10 px-4 sm:px-6 text-xs text-[var(--text-muted)] bg-[var(--bg-card)] space-y-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
+            {/* Column 1: Brand & Mission */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5 font-black text-sm text-[var(--text-primary)]">
+                <span>iLove<span className="text-[var(--iloveaudios-red)]">Audios</span></span>
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">
+                Free online audio tools, format converters, and AI music identification. Fast, private, and browser-based.
+              </p>
+            </div>
+
+            {/* Column 2: Popular Tools */}
+            <div className="space-y-2">
+              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Popular Tools</span>
+              <ul className="space-y-1 text-[11px]">
+                <li><Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors">AI Song Finder</Link></li>
+                <li><Link href="/tools/mp4-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3</Link></li>
+                <li><Link href="/tools/audio-cutter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Cutter & Trimmer</Link></li>
+                <li><Link href="/tools/audio-joiner" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Joiner & Merger</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: More Utilities */}
+            <div className="space-y-2">
+              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Audio Utilities</span>
+              <ul className="space-y-1 text-[11px]">
+                <li><Link href="/tools/volume-booster" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Volume Booster</Link></li>
+                <li><Link href="/tools/opus-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">WhatsApp Voice to MP3</Link></li>
+                <li><Link href="/tools/wav-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">WAV to MP3</Link></li>
+                <li><Link href="/tools/flac-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">FLAC to MP3</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Trust & Legal */}
+            <div className="space-y-2">
+              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Company & Trust</span>
+              <ul className="space-y-1 text-[11px]">
+                <li><Link href="/about" className="hover:text-[var(--iloveaudios-red)] transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-[var(--iloveaudios-red)] transition-colors">Contact & Support</Link></li>
+                <li><Link href="/privacy" className="hover:text-[var(--iloveaudios-red)] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-[var(--iloveaudios-red)] transition-colors">Terms of Service</Link></li>
+              </ul>
+            </div>
           </div>
-          <p>iLoveAudios &copy; 2026 — Secure, Free & Fast Audio Platform</p>
+
+          {/* Bottom Bar */}
+          <div className="pt-6 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <span className="font-semibold text-[var(--text-secondary)]">Standards & Engine:</span>
+              <a
+                href="https://ffmpeg.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+              >
+                <span>FFmpeg</span>
+                <span className="text-[9px]">↗</span>
+              </a>
+              <a
+                href="https://www.w3.org/TR/webaudio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+              >
+                <span>W3C Web Audio API</span>
+                <span className="text-[9px]">↗</span>
+              </a>
+              <a
+                href="https://id3.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
+              >
+                <span>ID3 Standards</span>
+                <span className="text-[9px]">↗</span>
+              </a>
+            </div>
+            <p>iLoveAudios &copy; 2026 — Secure, Free & Fast Audio Platform</p>
+          </div>
         </footer>
 
         <ExtractionHistory

@@ -256,11 +256,14 @@ export default function VolumeBoosterPage() {
 
       {/* Educational Guide (SEO Optimized) */}
       <section className="space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-1">
+        <div className="space-y-2">
           <span className="text-[10px] font-black uppercase tracking-wider text-amber-500">Step-by-Step Guide</span>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
             How to Make Audio & Videos Louder Online
           </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+            To boost the volume of a quiet audio or video file online for free, upload your MP3, WAV, M4A, or MP4 file into the booster above, choose your boost multiplier (+25% to +200%), and click Boost Volume Now. Our smart audio limiter maximizes gain without distortion, delivering a louder, clearer file in seconds.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -284,7 +287,7 @@ export default function VolumeBoosterPage() {
             <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-sm">3</div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Download Louder Track</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Click "Boost Volume Now" to download your enhanced, crystal-clear audio file.
+              Click &quot;Boost Volume Now&quot; to download your enhanced, crystal-clear audio file.
             </p>
           </div>
         </div>
@@ -308,7 +311,7 @@ export default function VolumeBoosterPage() {
           <div className="glass-panel rounded-2xl p-5 space-y-2">
             <Mic className="w-6 h-6 text-blue-500" />
             <h3 className="text-sm font-black text-[var(--text-primary)]">Podcast Interviews</h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Boost quiet guest microphone feeds to match the host\'s loudness level.</p>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Boost quiet guest microphone feeds to match the host&apos;s loudness level.</p>
           </div>
           <div className="glass-panel rounded-2xl p-5 space-y-2">
             <Headphones className="w-6 h-6 text-purple-500" />
@@ -339,7 +342,7 @@ export default function VolumeBoosterPage() {
               <span>How do I increase the volume of a quiet audio file?</span>
             </h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed pl-5">
-              Upload your audio or video file, select your desired boost level (+25%, +50%, +100%, or +200%), and click "Boost Volume" to download the louder file.
+              Upload your audio or video file, select your desired boost level (+25%, +50%, +100%, or +200%), and click &quot;Boost Volume&quot; to download the louder file.
             </p>
           </div>
 

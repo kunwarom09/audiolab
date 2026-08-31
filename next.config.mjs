@@ -28,6 +28,28 @@ const nextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'microphone=(self), camera=(), geolocation=(), browsing-topics=()',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.ahrefs.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' data: blob: https:",
+              "media-src 'self' blob: data: https:",
+              "connect-src 'self' https://audiolab-dc5o.onrender.com https://accounts.google.com https://analytics.ahrefs.com blob: data:",
+              "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com",
+              "worker-src 'self' blob:",
+            ].join('; '),
+          },
         ],
       },
     ];

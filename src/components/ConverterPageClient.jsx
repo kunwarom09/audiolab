@@ -360,13 +360,16 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
       {/* 1. How to Convert Section */}
       {tool.howTo && tool.howTo.length > 0 && (
         <section className="pt-10 border-t border-[var(--border-color)] space-y-6">
-          <div className="text-center sm:text-left space-y-1">
+          <div className="text-center sm:text-left space-y-2">
             <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
               Step-by-Step Guide
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
-              How to Convert {tool.fromFormat || 'MP4'} to {tool.toFormat || 'MP3'}
+              How to Convert {tool.fromFormat || 'MP4'} to {tool.toFormat || 'MP3'} Online
             </h2>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+              To convert {tool.fromFormat || 'your file'} to {tool.toFormat || 'MP3'} online for free, upload your {tool.fromFormat || 'source'} file into the dropzone above, choose your preferred bitrate quality (up to 320kbps), and click Convert. Your converted {tool.toFormat || 'audio'} file will be ready for high-speed download in seconds.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

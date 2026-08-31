@@ -229,7 +229,7 @@ export const TOOLS = {
         a: 'If Shazam recognition cannot find an acoustic match (e.g. background voiceover is too loud), our engine automatically analyzes captions and video text to search lyrics databases for matching titles.'
       }
     ],
-    relatedTools: ['mp4-to-mp3', 'mov-to-mp3', 'opus-to-mp3', 'wav-to-mp3']
+    relatedTools: ['mp4-to-mp3', 'audio-cutter', 'volume-booster', 'audio-joiner', 'opus-to-mp3']
   },
 
   // ==========================================
@@ -292,7 +292,7 @@ export const TOOLS = {
       { q: 'Can I convert MP4 to MP3 on an iPhone or Android phone?', a: 'Yes! iLoveAudios works seamlessly in mobile browsers (Safari, Chrome, Firefox). You can select videos directly from your camera roll.' },
       { q: 'What bitrate should I choose for my MP3 output?', a: 'We recommend 320kbps for music and concert soundtracks, 192kbps for podcasts and interviews, and 128kbps for voice memos and audiobooks to minimize file size.' }
     ],
-    relatedTools: ['mp4-to-wav', 'mov-to-mp3', 'webm-to-mp3', 'avi-to-mp3', 'wav-to-mp3', 'song-extractor']
+    relatedTools: ['audio-cutter', 'volume-booster', 'mp4-to-wav', 'wav-to-mp3', 'opus-to-mp3', 'song-extractor']
   },
 
   'mp4-to-wav': {
@@ -821,7 +821,7 @@ export const TOOLS = {
       { q: 'What is the maximum upload file size?', a: 'You can upload MP3 files up to 500MB per conversion.' },
       { q: 'Are my audio files stored on your servers?', a: 'No. All files are encrypted and automatically deleted from our servers shortly after processing.' }
     ],
-    relatedTools: ['wav-to-mp3', 'flac-to-wav', 'm4a-to-wav', 'mp3-to-flac', 'mp4-to-wav']
+    relatedTools: ['wav-to-mp3', 'audio-cutter', 'audio-joiner', 'flac-to-wav', 'volume-booster', 'song-extractor']
   },
 
   'wav-to-mp3': {
@@ -875,7 +875,7 @@ export const TOOLS = {
       { q: 'Are my audio files kept private?', a: 'Yes, all files are encrypted during upload and deleted from temporary servers shortly after processing.' },
       { q: 'Can I convert 24-bit or 32-bit WAV files?', a: 'Yes! Our backend FFmpeg engine downsamples 24-bit and 32-bit float WAVs smoothly into high-bitrate MP3.' }
     ],
-    relatedTools: ['mp3-to-wav', 'flac-to-mp3', 'm4a-to-mp3', 'mp4-to-mp3', 'wav-to-flac']
+    relatedTools: ['mp3-to-wav', 'audio-cutter', 'volume-booster', 'flac-to-mp3', 'opus-to-mp3', 'song-extractor']
   },
 
   'flac-to-mp3': {
@@ -1710,7 +1710,7 @@ export const TOOLS = {
       { q: 'What is the upload size limit?', a: 'You can upload OPUS files up to 500MB.' },
       { q: 'What bitrate should I choose for voice notes?', a: '128kbps or 192kbps MP3 provides crystal-clear voice fidelity while keeping file sizes tiny.' }
     ],
-    relatedTools: ['ogg-to-mp3', 'webm-to-mp3', 'm4a-to-mp3', 'mp3-to-wav']
+    relatedTools: ['volume-booster', 'audio-cutter', 'mp4-to-mp3', 'm4a-to-mp3', 'mp3-to-wav', 'song-extractor']
   },
 
   // ==========================================

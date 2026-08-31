@@ -48,12 +48,6 @@ export default function AudioCutterLayout({ children }) {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD'
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      bestRating: '5',
-      ratingCount: '1940'
     }
   };
 

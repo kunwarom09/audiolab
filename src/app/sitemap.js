@@ -1,20 +1,47 @@
 import { TOOLS } from '@/lib/toolsConfig';
 import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
+// Static deployment date ensuring stable lastModified timestamps
+const RELEASE_DATE = new Date('2026-08-31T00:00:00.000Z');
+
 export default function sitemap() {
   // Base paths
   const routes = [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      lastModified: RELEASE_DATE,
       changeFrequency: 'daily',
       priority: 1.0,
     },
     {
       url: getCanonicalUrl('/tools/song-extractor'),
-      lastModified: new Date(),
+      lastModified: RELEASE_DATE,
       changeFrequency: 'daily',
       priority: 0.9,
+    },
+    {
+      url: getCanonicalUrl('/about'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: getCanonicalUrl('/contact'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: getCanonicalUrl('/privacy'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: getCanonicalUrl('/terms'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     }
   ];
 
@@ -39,7 +66,7 @@ export default function sitemap() {
       const isHigh = highPrioritySlugs.has(slug);
       routes.push({
         url: getCanonicalUrl(`/tools/${slug}`),
-        lastModified: new Date(),
+        lastModified: RELEASE_DATE,
         changeFrequency: isHigh ? 'daily' : 'weekly',
         priority: isHigh ? 0.9 : 0.8,
       });

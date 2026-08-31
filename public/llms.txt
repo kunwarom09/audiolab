@@ -1,0 +1,61 @@
+# iLoveAudios (llms.txt)
+
+> iLoveAudios is a fast, free, and secure online platform for audio format conversion, audio editing utilities, and AI music identification. All tools run directly in the browser with cloud-accelerated processing and automatic file deletion after conversion.
+
+## Platform Capabilities
+- **AI Song Finder**: Identify background songs and artists from Instagram Reels, TikTok videos, Facebook Reels, Snapchat Spotlight, uploaded audio clips, or microphone recording.
+- **Audio Format Converters**: Convert between MP3, WAV, FLAC, M4A, AAC, OGG, OPUS, WMA, AIFF, ALAC, and M4R formats with custom bitrate up to 320kbps.
+- **Video to Audio Extraction**: Extract audio streams from MP4, MOV, WebM, AVI, MKV, 3GP, and WMV videos.
+- **Audio Editing Utilities**: Trim/cut audio snippets, merge multiple tracks, and boost audio volume up to 200%.
+
+## Main Website & Core Tools
+- [Homepage](https://www.iloveaudios.com/): Free online audio tool suite and featured Song Finder.
+- [AI Song Finder](https://www.iloveaudios.com/tools/song-extractor): Identify songs and artists from Reels, TikTok, YouTube Shorts, or audio clips with synchronized lyrics and MP3 download.
+- [Audio Cutter & MP3 Trimmer](https://www.iloveaudios.com/tools/audio-cutter): Cut and trim audio files with millisecond accuracy.
+- [Audio Joiner & Song Merger](https://www.iloveaudios.com/tools/audio-joiner): Combine and merge multiple audio tracks into a continuous single file.
+- [Audio Volume Booster](https://www.iloveaudios.com/tools/volume-booster): Increase volume of quiet audio, voice notes, and videos up to 200% with soft limiting.
+
+## Video to Audio Converters
+- [MP4 to MP3 Converter](https://www.iloveaudios.com/tools/mp4-to-mp3): Extract high-quality MP3 audio from MP4 video files.
+- [MP4 to WAV Converter](https://www.iloveaudios.com/tools/mp4-to-wav): Extract lossless, uncompressed WAV audio from MP4 video.
+- [MOV to MP3 Converter](https://www.iloveaudios.com/tools/mov-to-mp3): Convert Apple QuickTime MOV videos to MP3 audio.
+- [MOV to WAV Converter](https://www.iloveaudios.com/tools/mov-to-wav): Extract uncompressed WAV audio from QuickTime MOV files.
+- [WebM to MP3 Converter](https://www.iloveaudios.com/tools/webm-to-mp3): Convert HTML5 WebM videos to MP3 audio.
+- [WebM to WAV Converter](https://www.iloveaudios.com/tools/webm-to-wav): Convert WebM video and audio to lossless WAV format.
+- [AVI to MP3 Converter](https://www.iloveaudios.com/tools/avi-to-mp3): Extract MP3 audio from Microsoft AVI video files.
+- [MKV to MP3 Converter](https://www.iloveaudios.com/tools/mkv-to-mp3): Extract audio tracks from Matroska MKV video containers.
+- [3GP to MP3 Converter](https://www.iloveaudios.com/tools/3gp-to-mp3): Convert legacy mobile phone 3GP recordings to MP3.
+- [WMV to MP3 Converter](https://www.iloveaudios.com/tools/wmv-to-mp3): Convert Windows Media Video files to MP3 audio.
+
+## Audio Format Converters
+- [MP3 to WAV Converter](https://www.iloveaudios.com/tools/mp3-to-wav): Convert MP3 audio to uncompressed WAV format.
+- [WAV to MP3 Converter](https://www.iloveaudios.com/tools/wav-to-mp3): Compress uncompressed WAV files into MP3 up to 320kbps.
+- [FLAC to MP3 Converter](https://www.iloveaudios.com/tools/flac-to-mp3): Convert lossless FLAC audio to portable MP3 tracks.
+- [FLAC to WAV Converter](https://www.iloveaudios.com/tools/flac-to-wav): Decompress FLAC files into bit-perfect standard WAV audio.
+- [M4A to MP3 Converter](https://www.iloveaudios.com/tools/m4a-to-mp3): Convert Apple iTunes and Voice Memo M4A audio to MP3.
+- [M4A to WAV Converter](https://www.iloveaudios.com/tools/m4a-to-wav): Convert Apple M4A tracks to uncompressed WAV audio.
+- [AAC to MP3 Converter](https://www.iloveaudios.com/tools/aac-to-mp3): Convert Advanced Audio Coding (AAC) files to MP3.
+- [OGG to MP3 Converter](https://www.iloveaudios.com/tools/ogg-to-mp3): Convert OGG Vorbis audio to MP3 format.
+- [OGG to WAV Converter](https://www.iloveaudios.com/tools/ogg-to-wav): Convert OGG audio streams to lossless WAV tracks.
+- [OPUS to MP3 Converter](https://www.iloveaudios.com/tools/opus-to-mp3): Convert WhatsApp voice notes, Discord, and Telegram OPUS audio to MP3.
+- [WMA to MP3 Converter](https://www.iloveaudios.com/tools/wma-to-mp3): Convert Windows Media Audio (WMA) files to MP3.
+- [MP3 to M4R Ringtone](https://www.iloveaudios.com/tools/mp3-to-m4r): Convert songs into custom iPhone ringtones (M4R format).
+- [M4R to MP3 Converter](https://www.iloveaudios.com/tools/m4r-to-mp3): Convert iPhone ringtone files back to standard MP3.
+- [AIFF to MP3 Converter](https://www.iloveaudios.com/tools/aiff-to-mp3): Convert Apple AIFF uncompressed studio audio to MP3.
+- [AMR to MP3 Converter](https://www.iloveaudios.com/tools/amr-to-mp3): Convert voice recordings from Adaptive Multi-Rate (AMR) to MP3.
+- [ALAC to FLAC Converter](https://www.iloveaudios.com/tools/alac-to-flac): Convert Apple Lossless (ALAC) to open-source FLAC format.
+- [M4B to MP3 Converter](https://www.iloveaudios.com/tools/m4b-to-mp3): Convert M4B audiobooks to standard MP3 audio files.
+- [MP3 to FLAC Converter](https://www.iloveaudios.com/tools/mp3-to-flac): Package MP3 audio into FLAC format.
+- [MP3 to AAC Converter](https://www.iloveaudios.com/tools/mp3-to-aac): Convert MP3 tracks to high-efficiency AAC audio.
+- [MP3 to OGG Converter](https://www.iloveaudios.com/tools/mp3-to-ogg): Convert MP3 audio to open-source OGG Vorbis format.
+- [MP3 to M4A Converter](https://www.iloveaudios.com/tools/mp3-to-m4a): Convert MP3 tracks into Apple M4A container format.
+- [WAV to FLAC Converter](https://www.iloveaudios.com/tools/wav-to-flac): Losslessly compress studio WAV tracks into FLAC.
+- [WAV to M4A Converter](https://www.iloveaudios.com/tools/wav-to-m4a): Convert WAV files to Apple AAC/M4A format.
+- [WAV to OGG Converter](https://www.iloveaudios.com/tools/wav-to-ogg): Convert WAV files to OGG Vorbis format.
+- [WAV to AAC Converter](https://www.iloveaudios.com/tools/wav-to-aac): Convert WAV files to Advanced Audio Coding (AAC).
+
+## Company & Legal
+- [About Us](https://www.iloveaudios.com/about): Mission, technology standards, and engine overview.
+- [Contact Us](https://www.iloveaudios.com/contact): Support, feedback, and privacy inquiry channels.
+- [Privacy Policy](https://www.iloveaudios.com/privacy): Details on temporary file processing, automatic deletion, and user privacy.
+- [Terms of Service](https://www.iloveaudios.com/terms): Terms of service, permitted use, and service disclaimers.

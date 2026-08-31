@@ -310,11 +310,14 @@ export default function AudioJoinerPage() {
 
       {/* Educational Guide (SEO Optimized) */}
       <section className="space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-1">
+        <div className="space-y-2">
           <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">Step-by-Step Guide</span>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
-            How to Combine & Merge Audio Tracks
+            How to Combine & Merge Audio Tracks Online
           </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+            To combine and merge multiple audio tracks into a single file, upload two or more audio files into the merger above, arrange your preferred playback sequence, choose your export format (MP3 or WAV), and click Merge Tracks. Your continuous merged audio file is ready for download in seconds.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -338,7 +341,7 @@ export default function AudioJoinerPage() {
             <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-sm">3</div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Merge & Save</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Click "Merge Tracks" to generate and download a single unified audio file.
+              Click &quot;Merge Tracks&quot; to generate and download a single unified audio file.
             </p>
           </div>
         </div>
@@ -393,7 +396,7 @@ export default function AudioJoinerPage() {
               <span>How do I merge multiple songs into one file?</span>
             </h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed pl-5">
-              Upload 2 or more audio files, arrange them in your preferred playback order, choose your output format (MP3 or WAV), and click "Merge Audio".
+              Upload 2 or more audio files, arrange them in your preferred playback order, choose your output format (MP3 or WAV), and click &quot;Merge Audio&quot;.
             </p>
           </div>
 

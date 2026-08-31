@@ -297,13 +297,16 @@ export default function SongExtractorPage() {
 
       {/* 3. Three Ways to Find Any Song */}
       <section className="max-w-5xl mx-auto space-y-6 pt-4">
-        <div className="text-center sm:text-left space-y-1">
+        <div className="text-center sm:text-left space-y-2">
           <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
             3 Ways to Identify Music
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
             How to Use Song Finder
           </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+            To identify any song with iLoveAudios, paste a public video link from Instagram Reels, TikTok, Facebook, or Snapchat into the search box, upload an audio/video file, or record live music with your browser microphone. Our AI recognition engine identifies the verified track title, artist name, lyrics, and MP3 download in seconds.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

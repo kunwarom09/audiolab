@@ -51,17 +51,32 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
             <span>AI Song Finder</span>
             <span className="px-1.5 py-0.2 rounded text-[8px] font-black bg-[var(--iloveaudios-red)]/15 text-[var(--iloveaudios-red)]">AI</span>
           </Link>
-          
-          {/* Converters Dropdown */}
+
+          {/* Audio Utilities Direct Link */}
           <div className="relative group py-2">
             <Link href="/#tools-suite" className="hover:text-[var(--iloveaudios-red)] transition-colors flex items-center gap-1 cursor-pointer">
-              <span>Converters</span>
+              <span>Tools & Utilities</span>
               <span className="text-[10px] transition-transform group-hover:rotate-180">▾</span>
             </Link>
 
             {/* Dropdown panel */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 p-3 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-              <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)] px-2.5 py-1">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 w-96 p-3.5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+              <div className="text-[10px] font-black uppercase tracking-wider text-purple-500 px-2.5 py-1">
+                Audio Editing Utilities
+              </div>
+              <div className="grid grid-cols-3 gap-1 pt-1 pb-2 border-b border-[var(--border-color)]">
+                <Link href="/tools/audio-cutter" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-purple-600 transition-colors">
+                  Audio Cutter
+                </Link>
+                <Link href="/tools/audio-joiner" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-purple-600 transition-colors">
+                  Audio Joiner
+                </Link>
+                <Link href="/tools/volume-booster" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-purple-600 transition-colors">
+                  Volume Booster
+                </Link>
+              </div>
+
+              <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)] px-2.5 pt-2.5 pb-1">
                 Popular Converters
               </div>
               <div className="grid grid-cols-2 gap-1 pt-1">
@@ -78,22 +93,16 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
                 <Link href="/tools/flac-to-mp3" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
                   FLAC to MP3
                 </Link>
+                <Link href="/tools/opus-to-mp3" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
+                  WhatsApp to MP3
+                </Link>
                 <Link href="/tools/m4a-to-mp3" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
                   M4A to MP3
-                </Link>
-                <Link href="/tools/mov-to-mp3" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
-                  MOV to MP3
-                </Link>
-                <Link href="/tools/opus-to-mp3" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
-                  OPUS to MP3
-                </Link>
-                <Link href="/tools/mp4-to-wav" className="px-2.5 py-2 rounded-xl text-[11px] font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--iloveaudios-red)] transition-colors">
-                  MP4 to WAV
                 </Link>
               </div>
               <div className="mt-2 pt-2 border-t border-[var(--border-color)] px-2 text-center">
                 <Link href="/#tools-suite" className="text-[10px] font-bold text-[var(--iloveaudios-red)] hover:underline">
-                  View All 25+ Converters →
+                  View All 39+ Audio Tools →
                 </Link>
               </div>
             </div>
@@ -150,27 +159,48 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
       {/* Mobile Menu Panel */}
       {isMenuOpen && (
         <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--bg-header)] animate-fadeIn">
-          <div className="px-4 py-4 flex flex-col gap-3 text-xs font-bold text-[var(--text-secondary)]">
+          <div className="px-4 py-4 flex flex-col gap-2.5 text-xs font-bold text-[var(--text-secondary)]">
             <Link 
               href="/" 
-              className="hover:text-[var(--iloveaudios-red)] transition-colors py-2 border-b border-[var(--border-color)]/30"
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
               href="/tools/song-extractor" 
-              className="hover:text-[var(--iloveaudios-red)] transition-colors py-2 border-b border-[var(--border-color)]/30"
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
               onClick={() => setIsMenuOpen(false)}
             >
               AI Song Finder
             </Link>
             <Link 
-              href="/#tools-suite" 
-              className="hover:text-[var(--iloveaudios-red)] transition-colors py-2"
+              href="/tools/audio-cutter" 
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
               onClick={() => setIsMenuOpen(false)}
             >
-              Converters
+              Audio Cutter
+            </Link>
+            <Link 
+              href="/tools/audio-joiner" 
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Audio Joiner
+            </Link>
+            <Link 
+              href="/tools/volume-booster" 
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Volume Booster
+            </Link>
+            <Link 
+              href="/#tools-suite" 
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              All 39+ Converters
             </Link>
           </div>
         </div>

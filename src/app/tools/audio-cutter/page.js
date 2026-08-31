@@ -40,14 +40,17 @@ export default function AudioCutterPage() {
 
   const audioRef = useRef(null);
 
-  useEffect(() => {
-    if (file) {
-      const url = URL.createObjectURL(file);
+  const handleFileSelect = (selectedFile) => {
+    if (selectedFile) {
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+      const url = URL.createObjectURL(selectedFile);
       setAudioUrl(url);
+      setFile(selectedFile);
       setStep('edit');
-      return () => URL.revokeObjectURL(url);
     }
-  }, [file]);
+  };
 
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
@@ -196,7 +199,7 @@ export default function AudioCutterPage() {
       <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-[var(--border-color)] shadow-xl space-y-6">
         {step === 'upload' && (
           <FileDropzone
-            onFileSelected={(f) => setFile(f)}
+            onFileSelected={handleFileSelect}
             fromFormat="AUDIO"
             acceptedMimes={['audio/*', 'video/mp4', 'video/quicktime']}
           />
@@ -372,11 +375,14 @@ export default function AudioCutterPage() {
 
       {/* Rich Educational Guide (SEO Optimized) */}
       <section className="space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-1">
+        <div className="space-y-2">
           <span className="text-[10px] font-black uppercase tracking-wider text-purple-500">Step-by-Step Guide</span>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
             How to Cut Audio Files Online for Free
           </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+            To cut or trim an audio file online for free, upload your MP3, WAV, or audio track into the cutter above, select your desired start and end times, choose your export format (MP3, WAV, or M4R ringtone), and click Cut Audio Now. Your trimmed track is processed with sub-second precision and ready for instant download.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -400,7 +406,7 @@ export default function AudioCutterPage() {
             <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black text-sm">3</div>
             <h3 className="text-sm font-black text-[var(--text-primary)]">Cut & Download</h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Click "Cut Audio Now" to save your high-quality trimmed MP3, WAV, or M4R ringtone.
+              Click &quot;Cut Audio Now&quot; to save your high-quality trimmed MP3, WAV, or M4R ringtone.
             </p>
           </div>
         </div>
@@ -455,7 +461,7 @@ export default function AudioCutterPage() {
               <span>How do I cut an MP3 or audio file online?</span>
             </h3>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed pl-5">
-              Upload your audio file, adjust the start and end time markers or type exact timestamps, preview your selection, and click "Cut Audio" to download your trimmed track.
+              Upload your audio file, adjust the start and end time markers or type exact timestamps, preview your selection, and click &quot;Cut Audio&quot; to download your trimmed track.
             </p>
           </div>
 

@@ -34,7 +34,7 @@ export const metadata = {
     "iloveaudios.com",
     "online audio tools"
   ],
-  authors: [{ name: "iLoveAudios Engine" }],
+  authors: [{ name: "iLoveAudios Team" }],
   creator: "iLoveAudios",
   publisher: "iLoveAudios",
   applicationName: "iLoveAudios",
@@ -44,9 +44,9 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-placeholder",
-  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
     title: "iLoveAudios — Free Online Audio Tools & Converters",
     description: "Free online audio converter & song finder. Convert MP4, WAV, FLAC to MP3 up to 320kbps, trim audio, and identify songs with no signup.",
