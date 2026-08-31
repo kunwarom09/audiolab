@@ -208,88 +208,8 @@ export default function SongExtractorPage() {
     }
   };
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-  const siteUrl = rawSiteUrl.replace(/\/+$/, '');
-
-  const appSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Song Finder – Identify Any Song from Video, Audio & Reels',
-    applicationCategory: 'MultimediaApplication',
-    applicationSubCategory: 'Music Identification Engine',
-    operatingSystem: 'All',
-    browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    description: 'Find the song behind any video or audio clip. Paste a social media video link, upload a video or audio file, or record live music to identify the song and artist in seconds.',
-    url: `${siteUrl}/tools/song-extractor`,
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    }
-  };
-
-  const howToSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: 'How to Identify Any Song Using ILoveAudios Song Finder',
-    description: 'Step-by-step guide to identify songs from video URLs, uploaded audio/video clips, or live browser recording.',
-    totalTime: 'PT15S',
-    step: [
-      {
-        '@type': 'HowToStep',
-        position: 1,
-        name: 'Choose your input method',
-        text: 'Paste a video URL (Instagram, TikTok, Facebook, Snapchat), upload a video/audio file, or click Record to capture live music.'
-      },
-      {
-        '@type': 'HowToStep',
-        position: 2,
-        name: 'Analyze the acoustic fingerprint',
-        text: 'ILoveAudios extracts the audio frequencies and matches the landmark hash against millions of indexed tracks.'
-      },
-      {
-        '@type': 'HowToStep',
-        position: 3,
-        name: 'Get song details and lyrics',
-        text: 'View the verified song title, artist, album artwork, synchronized lyrics, official YouTube video, and high-quality MP3.'
-      }
-    ]
-  };
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: SONG_FINDER_FAQS.map(item => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer
-      }
-    }))
-  };
-
   return (
     <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 md:py-12 space-y-12 animate-in fade-in duration-300">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(appSchema).replace(/</g, '\\u003c')
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(howToSchema).replace(/</g, '\\u003c')
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c')
-        }}
-      />
-
       {/* 1. Hero Card (Unified Multi-Input: Link, Upload, Record) */}
       <div id="hero">
         <HeroCard 

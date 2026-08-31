@@ -1,7 +1,5 @@
 import React from 'react';
-
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
   title: 'Free Audio Volume Booster – Boost MP3 & Video Volume Online | iLoveAudios',
@@ -18,12 +16,12 @@ export const metadata = {
     'iloveaudios'
   ],
   alternates: {
-    canonical: `${siteUrl}/tools/volume-booster`,
+    canonical: getCanonicalUrl('/tools/volume-booster'),
   },
   openGraph: {
     title: 'Free Audio Volume Booster – Boost MP3 & Video Volume Online | iLoveAudios',
     description: 'Boost quiet audio, voice notes and video volume by up to 200% online for free. Crystal clear loudness with soft limiting. No signup required.',
-    url: `${siteUrl}/tools/volume-booster`,
+    url: getCanonicalUrl('/tools/volume-booster'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
@@ -44,7 +42,7 @@ export default function VolumeBoosterLayout({ children }) {
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: 'Free online tool to increase and boost the volume of quiet audio, MP3, and video files by up to 200% without distortion.',
-    url: `${siteUrl}/tools/volume-booster`,
+    url: getCanonicalUrl('/tools/volume-booster'),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -62,9 +60,9 @@ export default function VolumeBoosterLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
-      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${siteUrl}/#tools-suite` },
-      { '@type': 'ListItem', position: 3, name: 'Volume Booster', item: `${siteUrl}/tools/volume-booster` }
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${SITE_URL}/#tools-suite` },
+      { '@type': 'ListItem', position: 3, name: 'Volume Booster', item: getCanonicalUrl('/tools/volume-booster') }
     ]
   };
 

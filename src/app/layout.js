@@ -12,8 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.iloveaudios.com";
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL } from "@/lib/siteConfig";
 
 export const metadata = {
   title: {
@@ -41,7 +40,7 @@ export const metadata = {
   applicationName: "iLoveAudios",
   category: "technology",
   manifest: "/manifest.json",
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: "/",
   },
@@ -51,7 +50,7 @@ export const metadata = {
   openGraph: {
     title: "iLoveAudios — Free Online Audio Tools & Converters",
     description: "Free online audio converter & song finder. Convert MP4, WAV, FLAC to MP3 up to 320kbps, trim audio, and identify songs with no signup.",
-    url: siteUrl,
+    url: SITE_URL,
     siteName: "iLoveAudios",
     locale: "en_US",
     type: "website",
@@ -83,26 +82,19 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const currentSiteUrl = siteUrl;
-
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'iLoveAudios',
-    url: currentSiteUrl,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${currentSiteUrl}/tools/{search_term_string}`,
-      'query-input': 'required name=search_term_string'
-    }
+    url: SITE_URL,
   };
 
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'iLoveAudios',
-    url: currentSiteUrl,
-    logo: `${currentSiteUrl}/icon.svg`
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon.svg`
   };
 
   return (

@@ -1,5 +1,4 @@
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL } from '@/lib/siteConfig';
 
 export default function robots() {
   return {
@@ -22,8 +21,8 @@ export default function robots() {
         crawlDelay: 2,
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
 

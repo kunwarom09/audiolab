@@ -165,13 +165,13 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
             >
               AI Song Finder
             </Link>
-            <a 
+            <Link 
               href="/#tools-suite" 
               className="hover:text-[var(--iloveaudios-red)] transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Converters
-            </a>
+            </Link>
           </div>
         </div>
       )}

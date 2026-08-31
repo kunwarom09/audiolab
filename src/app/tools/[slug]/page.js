@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { TOOLS } from '@/lib/toolsConfig';
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 import ConverterPageClient from '@/components/ConverterPageClient';
 
 // Generate metadata dynamically per tool slug for SEO optimization
@@ -12,11 +13,9 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-  const siteUrl = rawSiteUrl.replace(/\/+$/, '');
   const title = tool.metaTitle || `${tool.title} – Free Online Audio Tool | iLoveAudios`;
   const description = tool.metaDescription || tool.description;
-  const canonicalUrl = `${siteUrl}/tools/${slug}`;
+  const canonicalUrl = getCanonicalUrl(`/tools/${slug}`);
   const fromFmt = tool.fromFormat?.toLowerCase() || '';
   const toFmt = tool.toFormat?.toLowerCase() || '';
 
@@ -70,9 +69,6 @@ export default async function ToolConverterPage({ params }) {
     notFound();
   }
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-  const siteUrl = rawSiteUrl.replace(/\/+$/, '');
-
   // 1. SoftwareApplication Schema
   const toolSchema = {
     '@context': 'https://schema.org',
@@ -83,7 +79,7 @@ export default async function ToolConverterPage({ params }) {
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: tool.metaDescription || tool.description,
-    url: `${siteUrl}/tools/${slug}`,
+    url: getCanonicalUrl(`/tools/${slug}`),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -106,19 +102,19 @@ export default async function ToolConverterPage({ params }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: siteUrl
+        item: SITE_URL
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: tool.category || 'Audio Converters',
-        item: `${siteUrl}/#tools-suite`
+        item: `${SITE_URL}/#tools-suite`
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: tool.title,
-        item: `${siteUrl}/tools/${slug}`
+        item: getCanonicalUrl(`/tools/${slug}`)
       }
     ]
   };

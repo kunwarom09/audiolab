@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ToolCard from '@/components/ToolCard';
 import FaqSection from '@/components/FaqSection';
 import { TOOLS } from '@/lib/toolsConfig';
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 import { Music2, ShieldCheck, Zap, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
@@ -57,9 +58,6 @@ export default function HomePage() {
     ]
   };
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-  const siteUrl = rawSiteUrl.replace(/\/+$/, '');
-
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -70,7 +68,7 @@ export default function HomePage() {
       position: idx + 1,
       name: tool.title,
       description: tool.description,
-      url: `${siteUrl}/tools/${tool.slug}`
+      url: getCanonicalUrl(`/tools/${tool.slug}`)
     }))
   };
 
@@ -83,7 +81,7 @@ export default function HomePage() {
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     softwareVersion: '2.0.0',
     description: 'Free online audio tools and converters to convert, edit, and identify audio files.',
-    url: siteUrl,
+    url: SITE_URL,
     offers: {
       '@type': 'Offer',
       price: '0',

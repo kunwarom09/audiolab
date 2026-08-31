@@ -1,7 +1,5 @@
 import React from 'react';
-
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
   title: 'Free Audio Joiner – Merge & Combine MP3 Songs Online | iLoveAudios',
@@ -18,12 +16,12 @@ export const metadata = {
     'iloveaudios'
   ],
   alternates: {
-    canonical: `${siteUrl}/tools/audio-joiner`,
+    canonical: getCanonicalUrl('/tools/audio-joiner'),
   },
   openGraph: {
     title: 'Free Audio Joiner – Merge & Combine MP3 Songs Online | iLoveAudios',
     description: 'Merge multiple audio files into a single song online for free. Combine MP3, WAV, M4A tracks in any order with seamless playback. 100% free.',
-    url: `${siteUrl}/tools/audio-joiner`,
+    url: getCanonicalUrl('/tools/audio-joiner'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
@@ -44,7 +42,7 @@ export default function AudioJoinerLayout({ children }) {
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: 'Free online tool to combine and merge multiple MP3, WAV, and audio tracks into a continuous single file.',
-    url: `${siteUrl}/tools/audio-joiner`,
+    url: getCanonicalUrl('/tools/audio-joiner'),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -62,9 +60,9 @@ export default function AudioJoinerLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
-      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${siteUrl}/#tools-suite` },
-      { '@type': 'ListItem', position: 3, name: 'Audio Joiner', item: `${siteUrl}/tools/audio-joiner` }
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${SITE_URL}/#tools-suite` },
+      { '@type': 'ListItem', position: 3, name: 'Audio Joiner', item: getCanonicalUrl('/tools/audio-joiner') }
     ]
   };
 

@@ -1,7 +1,5 @@
 import React from 'react';
-
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
   title: 'Free Audio Cutter & MP3 Trimmer – Cut Songs Online | iLoveAudios',
@@ -19,12 +17,12 @@ export const metadata = {
     'iloveaudios'
   ],
   alternates: {
-    canonical: `${siteUrl}/tools/audio-cutter`,
+    canonical: getCanonicalUrl('/tools/audio-cutter'),
   },
   openGraph: {
     title: 'Free Audio Cutter & MP3 Trimmer – Cut Songs Online | iLoveAudios',
     description: 'Cut and trim MP3, WAV, M4A & audio files online for free. Select precise start and end times, preview playback, and download instantly. No signup.',
-    url: `${siteUrl}/tools/audio-cutter`,
+    url: getCanonicalUrl('/tools/audio-cutter'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
@@ -45,7 +43,7 @@ export default function AudioCutterLayout({ children }) {
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: 'Free online tool to trim, cut, and splice MP3, WAV, and audio files with sub-second accuracy.',
-    url: `${siteUrl}/tools/audio-cutter`,
+    url: getCanonicalUrl('/tools/audio-cutter'),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -63,9 +61,9 @@ export default function AudioCutterLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
-      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${siteUrl}/#tools-suite` },
-      { '@type': 'ListItem', position: 3, name: 'Audio Cutter', item: `${siteUrl}/tools/audio-cutter` }
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Audio Utilities', item: `${SITE_URL}/#tools-suite` },
+      { '@type': 'ListItem', position: 3, name: 'Audio Cutter', item: getCanonicalUrl('/tools/audio-cutter') }
     ]
   };
 

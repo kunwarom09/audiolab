@@ -1,19 +1,17 @@
 import { TOOLS } from '@/lib/toolsConfig';
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export default function sitemap() {
-  const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-  const baseUrl = rawBaseUrl.replace(/\/+$/, '');
-
   // Base paths
   const routes = [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/tools/song-extractor`,
+      url: getCanonicalUrl('/tools/song-extractor'),
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
@@ -40,7 +38,7 @@ export default function sitemap() {
     if (slug !== 'song-extractor') {
       const isHigh = highPrioritySlugs.has(slug);
       routes.push({
-        url: `${baseUrl}/tools/${slug}`,
+        url: getCanonicalUrl(`/tools/${slug}`),
         lastModified: new Date(),
         changeFrequency: isHigh ? 'daily' : 'weekly',
         priority: isHigh ? 0.9 : 0.8,

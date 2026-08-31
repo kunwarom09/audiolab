@@ -1,5 +1,4 @@
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.iloveaudios.com';
-const siteUrl = rawSiteUrl.replace(/\/+$/, '');
+import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
   title: 'Free AI Song Finder – Identify Any Song from Video, Audio & Reels | iLoveAudios',
@@ -18,12 +17,12 @@ export const metadata = {
     'song identifier online free'
   ],
   alternates: {
-    canonical: `${siteUrl}/tools/song-extractor`,
+    canonical: getCanonicalUrl('/tools/song-extractor'),
   },
   openGraph: {
     title: 'Free AI Song Finder – Identify Any Song from Video, Audio & Reels | iLoveAudios',
     description: 'Find the song behind any video or audio clip. Paste a video link, upload a media file, or record live music to identify the song and artist in seconds.',
-    url: `${siteUrl}/tools/song-extractor`,
+    url: getCanonicalUrl('/tools/song-extractor'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
@@ -45,7 +44,7 @@ export default function SongExtractorLayout({ children }) {
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     description: 'Free online tool to identify background music and songs from video links (Instagram, TikTok, Facebook, Snapchat), uploaded video/audio files, or live microphone recording.',
-    url: `${siteUrl}/tools/song-extractor`,
+    url: getCanonicalUrl('/tools/song-extractor'),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -62,19 +61,19 @@ export default function SongExtractorLayout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: siteUrl
+        item: SITE_URL
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'AI Tools',
-        item: `${siteUrl}/#tools-suite`
+        item: `${SITE_URL}/#tools-suite`
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'AI Song Finder',
-        item: `${siteUrl}/tools/song-extractor`
+        item: getCanonicalUrl('/tools/song-extractor')
       }
     ]
   };
