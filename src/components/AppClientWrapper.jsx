@@ -125,6 +125,7 @@ export default function AppClientWrapper({ children }) {
               <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Popular Tools</span>
               <ul className="space-y-1 text-[11px]">
                 <li><Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors">AI Song Finder</Link></li>
+                <li><Link href="/converters" className="hover:text-[var(--iloveaudios-red)] transition-colors font-semibold text-[var(--iloveaudios-red)]">Audio Converters Hub</Link></li>
                 <li><Link href="/tools/mp4-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3</Link></li>
                 <li><Link href="/tools/audio-cutter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Cutter & Trimmer</Link></li>
                 <li><Link href="/tools/audio-joiner" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Joiner & Merger</Link></li>

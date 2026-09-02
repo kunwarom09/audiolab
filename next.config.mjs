@@ -18,6 +18,21 @@ const nextConfig = {
         destination: 'https://www.iloveaudios.com/:path*',
         permanent: true,
       },
+      {
+        source: '/tools/song-finder',
+        destination: '/tools/song-extractor',
+        permanent: true,
+      },
+      {
+        source: '/tools/ai-song-finder',
+        destination: '/tools/song-extractor',
+        permanent: true,
+      },
+      {
+        source: '/tools/music-identifier',
+        destination: '/tools/song-extractor',
+        permanent: true,
+      },
     ];
   },
   async headers() {

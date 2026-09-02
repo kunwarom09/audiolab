@@ -193,10 +193,10 @@ export const FORMAT_DEFINITIONS = {
 export const TOOLS = {
   'song-extractor': {
     slug: 'song-extractor',
-    title: 'AI Song Finder – Identify Any Song from Reels & Videos',
+    title: 'Free AI Song Finder & Music Identifier',
     shortTitle: 'AI Song Finder',
-    metaTitle: 'Free AI Song Finder – Identify Songs from Reels, TikTok & Videos | iLoveAudios',
-    metaDescription: 'Identify songs from Instagram Reels, TikTok, Facebook Reels & Shorts in seconds. 100% free, no signup, get full lyrics, artist info & MP3 download.',
+    metaTitle: 'Free AI Song Finder – Identify Songs from Video Link & Audio Online | iLoveAudios',
+    metaDescription: 'Free AI song finder & music identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics, artist info & MP3 download.',
     description: 'Identify songs used in Instagram Reels, TikTok videos, Facebook Reels, Snapchat Spotlight, and YouTube Shorts. Extract acoustic fingerprints and look up song title, artist, album, full lyrics, and MP3 audio instantly.',
     icon: 'Music2',
     color: 'from-blue-600 to-cyan-500',
@@ -238,10 +238,10 @@ export const TOOLS = {
 
   'mp4-to-mp3': {
     slug: 'mp4-to-mp3',
-    title: 'MP4 to MP3 Converter',
+    title: 'Free Online MP4 to MP3 Converter',
     shortTitle: 'MP4 → MP3',
-    metaTitle: 'MP4 to MP3 Converter – Free Online Video to Audio | iLoveAudios',
-    metaDescription: 'Convert MP4 to MP3 online for free. Extract high-quality 320kbps audio from video in seconds. No signup required, secure & 100% free.',
+    metaTitle: 'Free MP4 to MP3 Converter – Fast 320kbps Audio Online | iLoveAudios',
+    metaDescription: 'Convert MP4 to MP3 online for free in seconds. Extract high-quality 320kbps audio from video with no signup, no file limits, and instant MP3 download.',
     description: 'Extract high-quality MP3 audio tracks from MP4 video files online for free with studio bitrates up to 320kbps.',
     introduction: 'Converting MP4 to MP3 allows you to extract the audio stream from video recordings while discarding heavy visual video frames. Because visual video typically consumes over 85% to 95% of an MP4 file\'s total data, converting a 100MB MP4 video produces a crisp 5MB to 10MB MP3 file. This makes MP4 to MP3 conversion ideal for creating offline podcast episodes from webinars, saving live concert soundtracks, and archiving lecture recordings for portable mobile playback.',
     fromFormat: 'MP4',
@@ -351,10 +351,10 @@ export const TOOLS = {
 
   'mov-to-mp3': {
     slug: 'mov-to-mp3',
-    title: 'MOV to MP3 Converter',
+    title: 'Free MOV to MP3 Converter',
     shortTitle: 'MOV → MP3',
-    metaTitle: 'MOV to MP3 Converter – Free Online Apple Video to Audio | iLoveAudios',
-    metaDescription: 'Convert Apple QuickTime MOV videos to MP3 audio online for free. Extract iPhone video audio in seconds at up to 320kbps. Fast, private & free.',
+    metaTitle: 'Free MOV to MP3 Converter – Extract Audio from iPhone Videos | iLoveAudios',
+    metaDescription: 'Convert Apple QuickTime MOV videos to MP3 audio online for free. Extract audio from iPhone videos in seconds at up to 320kbps. Fast, secure & free.',
     description: 'Convert Apple QuickTime MOV video recordings from iPhone and Mac into high-quality MP3 audio files.',
     introduction: 'Apple iPhones, iPads, and Mac computers record high-resolution video in the QuickTime MOV container format. A brief 2-minute 4K MOV video recording can easily exceed 500MB. Converting MOV to MP3 strips out the massive video frames and encodes the soundtrack into a lightweight 3MB to 6MB MP3 file. This allows you to listen to iPhone voice memos, concert clips, interviews, and screen recordings on non-Apple devices, Windows PCs, and car audio systems.',
     fromFormat: 'MOV',
@@ -826,10 +826,10 @@ export const TOOLS = {
 
   'wav-to-mp3': {
     slug: 'wav-to-mp3',
-    title: 'WAV to MP3 Converter',
+    title: 'Free WAV to MP3 Converter',
     shortTitle: 'WAV → MP3',
-    metaTitle: 'WAV to MP3 Converter – Free Online Studio Audio Compression | iLoveAudios',
-    metaDescription: 'Convert studio WAV files to high-quality MP3 audio up to 320kbps for free online. Reduce file size by 90% with pristine sound. No signup.',
+    metaTitle: 'Free WAV to MP3 Converter – Fast Audio Compression (320kbps) | iLoveAudios',
+    metaDescription: 'Convert studio WAV files to high-quality MP3 audio up to 320kbps for free online. Reduce file size by 90% with pristine sound & instant download.',
     description: 'Convert large uncompressed WAV files into compact, high-quality MP3 audio at up to 320kbps.',
     introduction: 'Uncompressed WAV audio files recorded in studio sessions are massive, typically consuming 10MB per minute of audio (around 40MB to 60MB for a single song). Converting WAV to MP3 applies psychoacoustic compression to reduce file size by up to 90% while maintaining near-CD acoustic transparency when encoded at 320kbps or 192kbps. This makes WAV to MP3 conversion essential for sharing music demos via email, uploading podcasts to hosting platforms, and saving space on mobile devices.',
     fromFormat: 'WAV',
@@ -880,10 +880,10 @@ export const TOOLS = {
 
   'flac-to-mp3': {
     slug: 'flac-to-mp3',
-    title: 'FLAC to MP3 Converter',
+    title: 'Free FLAC to MP3 320kbps Converter',
     shortTitle: 'FLAC → MP3',
-    metaTitle: 'FLAC to MP3 Converter – Free Online Lossless Audio Compression | iLoveAudios',
-    metaDescription: 'Convert lossless FLAC audio to MP3 format online for free. Up to 320kbps with preserved ID3 tags. Fast, secure, mobile-friendly & no signup.',
+    metaTitle: 'Free FLAC to MP3 320kbps Converter – Lossless to High-Fidelity Audio | iLoveAudios',
+    metaDescription: 'Convert lossless FLAC audio to MP3 format online for free up to 320kbps with preserved ID3 tags. Fast, private, mobile-friendly & no signup required.',
     description: 'Compress lossless FLAC files into universally compatible MP3 audio format with full metadata preservation.',
     introduction: 'Free Lossless Audio Codec (FLAC) preserves exact studio master recordings bit-for-bit, but results in substantial file sizes (typically 30MB to 80MB per song) and is unsupported by Apple Music, iTunes, and many car stereos. Converting FLAC to MP3 shrinks file size by over 75% while producing near-lossless 320kbps audio. This allows you to sync your lossless music collection to iPhones, iPads, Android devices, and portable MP3 players with full ID3 metadata tags intact.',
     fromFormat: 'FLAC',
@@ -1037,10 +1037,10 @@ export const TOOLS = {
 
   'ogg-to-mp3': {
     slug: 'ogg-to-mp3',
-    title: 'OGG to MP3 Converter',
+    title: 'Free OGG to MP3 Converter',
     shortTitle: 'OGG → MP3',
-    metaTitle: 'OGG to MP3 Converter – Free Online Vorbis Audio Conversion | iLoveAudios',
-    metaDescription: 'Convert OGG Vorbis audio tracks to universal MP3 format online for free. Support up to 320kbps. Fast, private, mobile-friendly & no signup.',
+    metaTitle: 'Free OGG to MP3 Converter Online – High Quality (Up to 320kbps) | iLoveAudios',
+    metaDescription: 'Convert OGG Vorbis audio tracks to universal MP3 format online for free. Fast 320kbps conversion for iPhone, Android, and car stereos. No signup, 100% free.',
     description: 'Convert OGG Vorbis audio files into universally compatible MP3 format for iPhone, iTunes, and car stereos.',
     introduction: 'OGG Vorbis is an open-source, patent-free audio format heavily utilized in PC video games, Linux systems, and Spotify streaming. However, OGG files cannot be opened by Apple devices (iPhone, iPad, Mac QuickTime, Apple Music) or standard USB car stereos. Converting OGG to MP3 unlocks universal playback, allowing you to listen to game sound effects, ripped music, and voice tracks on all Apple and Android devices.',
     fromFormat: 'OGG',
@@ -1141,10 +1141,10 @@ export const TOOLS = {
 
   'm4a-to-mp3': {
     slug: 'm4a-to-mp3',
-    title: 'M4A to MP3 Converter',
+    title: 'Free M4A to MP3 Converter',
     shortTitle: 'M4A → MP3',
-    metaTitle: 'M4A to MP3 Converter – Free Online Apple Voice Memo & Audio Tool | iLoveAudios',
-    metaDescription: 'Convert Apple M4A audio files and iPhone Voice Memos to MP3 online for free. Up to 320kbps. Fast, secure, mobile-friendly & no signup.',
+    metaTitle: 'Free M4A to MP3 Converter – Fast Apple Voice Memo to MP3 | iLoveAudios',
+    metaDescription: 'Convert Apple M4A audio and iPhone Voice Memos to MP3 online for free. Fast 320kbps studio sound, mobile-friendly, secure & zero software installation.',
     description: 'Convert Apple MPEG-4 M4A audio files and iPhone Voice Memos into universally compatible MP3 tracks.',
     introduction: 'M4A is Apple\'s standard audio container format, used by default for iPhone Voice Memos, Apple Music downloads, and iTunes library tracks. While M4A works seamlessly across the Apple ecosystem, it frequently fails to open on Windows PCs, older car stereos, Android phones, or inside PowerPoint presentations. Converting M4A to MP3 provides universal compatibility, enabling you to share and play your voice notes and music everywhere.',
     fromFormat: 'M4A',

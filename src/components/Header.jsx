@@ -51,6 +51,9 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
             <span>AI Song Finder</span>
             <span className="px-1.5 py-0.2 rounded text-[8px] font-black bg-[var(--iloveaudios-red)]/15 text-[var(--iloveaudios-red)]">AI</span>
           </Link>
+          <Link href="/converters" className="hover:text-[var(--iloveaudios-red)] transition-colors">
+            Converters
+          </Link>
 
           {/* Audio Utilities Direct Link */}
           <div className="relative group py-2">
@@ -173,6 +176,13 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
               onClick={() => setIsMenuOpen(false)}
             >
               AI Song Finder
+            </Link>
+            <Link 
+              href="/converters" 
+              className="hover:text-[var(--iloveaudios-red)] transition-colors py-1.5 border-b border-[var(--border-color)]/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Audio Converters Hub
             </Link>
             <Link 
               href="/tools/audio-cutter" 

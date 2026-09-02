@@ -271,6 +271,23 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
         </div>
       )}
 
+      {/* Contextual Discovery Banner for Video Converters */}
+      {tool.category === 'Video to Audio' && (
+        <div className="p-3.5 sm:p-4 rounded-2xl border border-blue-500/20 bg-blue-500/5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm text-[var(--text-primary)]">
+            <Sparkles className="w-4 h-4 text-blue-500 shrink-0" />
+            <span>Looking for the song playing in this video? Identify the track, artist, and full lyrics instantly.</span>
+          </div>
+          <Link
+            href="/tools/song-extractor"
+            className="text-xs font-black text-blue-500 hover:text-blue-600 hover:underline flex items-center gap-1 shrink-0"
+          >
+            <span>Try AI Song Finder</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      )}
+
       {/* Error Alert Box */}
       {errorMessage && (
         <div className="rounded-2xl p-4.5 border border-red-800/80 bg-red-950/90 text-red-100 shadow-2xl shadow-red-950/50 backdrop-blur-md flex items-start gap-3.5 animate-in fade-in">
@@ -706,7 +723,7 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-blue-500 transition-colors">
-                    AI Song Finder from Video
+                    Free AI Song Finder & Music Identifier
                   </h3>
                   <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                     Identify background songs from Instagram Reels, TikTok, Facebook, and Snapchat with lyrics & MP3 download.

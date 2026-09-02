@@ -17,11 +17,11 @@ export default function HeroCard({
         {/* Song Finder Hero Title */}
         <div className="space-y-3 max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-tight">
-            Find the Song Behind Any Video
+            Free AI Song Finder & Music Identifier
           </h1>
 
           <p className="text-[var(--text-secondary)] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Paste a video link, upload an audio or video clip, or record live music to identify the song and artist in seconds.
+            Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.
           </p>
         </div>
 

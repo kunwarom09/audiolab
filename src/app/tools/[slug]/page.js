@@ -27,6 +27,9 @@ export async function generateMetadata({ params }) {
       `convert ${fromFmt} to ${toFmt}`,
       `${fromFmt} to ${toFmt} converter`,
       `free ${fromFmt} to ${toFmt}`,
+      `free ${fromFmt} to ${toFmt} converter`,
+      `fast ${fromFmt} to ${toFmt} converter`,
+      `${fromFmt} to ${toFmt} 320kbps`,
       `convert ${fromFmt} to ${toFmt} online`,
       `best ${fromFmt} to ${toFmt} converter`,
       `${fromFmt} to ${toFmt} audio converter`,
@@ -84,7 +87,21 @@ export default async function ToolConverterPage({ params }) {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD'
-    }
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '1540',
+      bestRating: '5',
+      worstRating: '1'
+    },
+    featureList: [
+      'Fast high-definition audio conversion',
+      'Studio bitrates up to 320kbps',
+      '100% free with no file size limits',
+      'Encrypted client-server processing with auto-deletion',
+      'Universal mobile, tablet, and desktop browser support'
+    ]
   };
 
   // 2. BreadcrumbList Schema

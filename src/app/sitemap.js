@@ -20,6 +20,24 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
+      url: getCanonicalUrl('/converters'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: getCanonicalUrl('/guides/how-to-find-song-from-tiktok-or-reel'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: getCanonicalUrl('/guides/mp4-vs-m4a-vs-mov-audio-converter'),
+      lastModified: RELEASE_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: getCanonicalUrl('/about'),
       lastModified: RELEASE_DATE,
       changeFrequency: 'monthly',

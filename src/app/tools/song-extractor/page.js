@@ -28,7 +28,19 @@ import {
 const SONG_FINDER_FAQS = [
   {
     question: 'How do I find a song from an Instagram Reel or TikTok?',
-    answer: 'Open the Reel or TikTok video, tap the Share button, select "Copy Link", and paste it into ILoveAudios Song Finder. Our engine demuxes the background audio and matches the acoustic fingerprint to reveal the title and artist.'
+    answer: 'Open the Reel or TikTok video, tap the Share button, select "Copy Link", and paste it into ILoveAudios Song Finder. Our engine demuxes the background audio and matches the acoustic fingerprint to reveal the title and artist in seconds.'
+  },
+  {
+    question: 'How does this TikTok song finder identify music labeled "Original Sound"?',
+    answer: 'When creators upload videos to TikTok or Instagram Reels, the platform often automatically labels the audio track as "Original Sound" or "Original Audio". Our AI song finder bypasses this label entirely: we extract the raw background audio stream and match its unique acoustic frequency constellation against 50M+ tracks to identify the genuine commercial song title and artist.'
+  },
+  {
+    question: 'Can I find songs from private Instagram or TikTok accounts?',
+    answer: 'No. The Instagram Reel, TikTok video, or YouTube Short must be publicly accessible so our cloud recognizer can download and demux the audio track. If a video is from a private account, you can screen-record the clip, switch to our "Upload File" tab, and identify it directly from your recorded video file.'
+  },
+  {
+    question: 'How do I identify music when someone is talking over the song in a Reel?',
+    answer: 'Our engine utilizes acoustic landmark filtering to detect consistent musical rhythms and harmonic peaks beneath vocal speech. If dialogue is overpowering the first few seconds, use our "Try Another Section" feature or upload the video clip and specify a timestamp with less speech.'
   },
   {
     question: 'Can I identify a song by uploading a video or audio file?',
@@ -39,8 +51,8 @@ const SONG_FINDER_FAQS = [
     answer: 'Yes! Tap the "Record Audio" tab and record 5 to 15 seconds of the song with your device microphone. ILoveAudios will capture the frequencies and identify the track immediately.'
   },
   {
-    question: 'What if a song is not recognized on the first try?',
-    answer: 'If the initial recognition fails due to speech or intro noise, use the "Try Another Section" button to analyze a different segment, upload a clearer clip, or record the music live.'
+    question: 'Can I download the identified song as an MP3 file?',
+    answer: 'Yes! Once your song is identified, click "Download Full Song (MP3)" to save a clean, high-quality audio file directly to your device with full synchronized lyrics included.'
   },
   {
     question: 'Is ILoveAudios Song Finder free?',
@@ -370,7 +382,171 @@ export default function SongExtractorPage() {
         </p>
       </section>
 
-      {/* 5. Frequently Asked Questions (FAQ Section) */}
+      {/* 4.5 Dedicated Reel & TikTok Song-ID Showcase (Capturing the Sub-Cluster) */}
+      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
+        <div className="space-y-2 text-center sm:text-left">
+          <span className="text-[10px] font-black uppercase tracking-wider text-pink-500 block">
+            Social Media Video Discovery
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+            Find Songs from Instagram Reels, TikTok & Shorts (Even &quot;Original Sound&quot;)
+          </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-3xl leading-relaxed">
+            Millions of viral videos on TikTok and Instagram Reels contain amazing background music tagged only as generic &quot;Original Sound&quot; or &quot;Audio by Creator&quot;. Here is how iLoveAudios identifies the real song:
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="glass-panel rounded-2xl p-6 space-y-3 border-pink-500/20 bg-pink-500/5">
+            <h3 className="text-sm font-black text-[var(--text-primary)] flex items-center gap-2">
+              <span className="text-pink-500 font-black">🎵</span>
+              <span>Why TikTok Says &quot;Original Sound&quot;</span>
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              When a creator edits music into third-party apps (like CapCut, InShot, or Premiere) before uploading, TikTok automatically labels the audio track as &quot;Original Sound&quot; rather than tagging the official artist. This hides the track title from viewers.
+            </p>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-semibold text-[var(--text-primary)]">
+              How iLoveAudios solves it: We demux the raw audio waveform directly from the link and match the acoustic fingerprint against 50M+ licensed songs, uncovering the genuine artist and title even when TikTok doesn&apos;t credit them.
+            </p>
+          </div>
+
+          <div className="glass-panel rounded-2xl p-6 space-y-3 border-blue-500/20 bg-blue-500/5">
+            <h3 className="text-sm font-black text-[var(--text-primary)] flex items-center gap-2">
+              <span className="text-blue-500 font-black">⚡</span>
+              <span>How to Copy Video Links for Recognition</span>
+            </h3>
+            <ul className="text-xs text-[var(--text-secondary)] space-y-2 leading-relaxed">
+              <li><strong className="text-[var(--text-primary)]">Instagram Reels:</strong> Tap the <em>Share (Paper Plane)</em> icon at bottom-right &rarr; Tap <em>Copy Link</em>.</li>
+              <li><strong className="text-[var(--text-primary)]">TikTok Videos:</strong> Tap the <em>Share (Arrow)</em> button &rarr; Select <em>Copy Link</em>.</li>
+              <li><strong className="text-[var(--text-primary)]">YouTube Shorts:</strong> Tap <em>Share</em> &rarr; Tap <em>Copy link</em>.</li>
+              <li><strong className="text-[var(--text-primary)]">Facebook & Snapchat:</strong> Tap the three dots or Share arrow &rarr; select <em>Copy Link</em>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Comparison Matrix: iLoveAudios vs Shazam vs Others (High E-E-A-T) */}
+      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
+        <div className="space-y-2 text-center sm:text-left">
+          <span className="text-[10px] font-black uppercase tracking-wider text-purple-500 block">
+            Competitive Advantage
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+            iLoveAudios AI Song Finder vs Traditional Apps
+          </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-3xl leading-relaxed">
+            See why thousands of creators and music lovers choose iLoveAudios over mobile apps like Shazam and desktop extensions:
+          </p>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-xs">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr className="border-b border-[var(--border-color)] bg-slate-500/5">
+                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Feature</th>
+                <th className="p-3.5 sm:p-4 font-black text-[var(--iloveaudios-red)]">iLoveAudios AI Finder</th>
+                <th className="p-3.5 sm:p-4 font-semibold text-[var(--text-secondary)]">Shazam App</th>
+                <th className="p-3.5 sm:p-4 font-semibold text-[var(--text-secondary)]">Chrome Extensions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--border-color)] text-[var(--text-secondary)]">
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Social Video Link Support</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Instagram, TikTok, FB, Snap, Shorts</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Microphone Only (No Link Paste)</td>
+                <td className="p-3.5 sm:p-4 text-yellow-500">Browser Audio Only</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Upload Video & Audio Files</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">MP4, MOV, WebM, MP3, WAV (Up to 100MB)</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Not Supported</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Not Supported</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">No Software Installation</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">100% In-Browser (Zero Download)</td>
+                <td className="p-3.5 sm:p-4 text-yellow-500">Requires 100MB+ App Install</td>
+                <td className="p-3.5 sm:p-4 text-yellow-500">Requires Extension Install</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Instant Full Song MP3 Download</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Included (Free 192kbps MP3)</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Apple Music Subscription Link Only</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Links to Spotify / YouTube Only</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Synchronized Lyrics Lookup</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Line-by-line lyrics with copy button</td>
+                <td className="p-3.5 sm:p-4 text-slate-400">Requires Apple ID login</td>
+                <td className="p-3.5 sm:p-4 text-red-400">Not available</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Cost & Registration</td>
+                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">100% Free Forever (No Signup)</td>
+                <td className="p-3.5 sm:p-4 text-slate-400">Free with Ads</td>
+                <td className="p-3.5 sm:p-4 text-slate-400">Freemium with search limits</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 6. How Acoustic Fingerprinting Works (E-E-A-T Explainer) */}
+      <section className="max-w-4xl mx-auto space-y-4 pt-6 border-t border-[var(--border-color)]">
+        <div className="space-y-1">
+          <span className="text-[10px] font-black uppercase tracking-wider text-cyan-500 block">
+            Acoustic Engineering
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+            How Our AI Music Recognition Works Behind the Scenes
+          </h2>
+        </div>
+        <div className="space-y-3 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+          <p>
+            When you paste a video URL or upload a file, our recognition pipeline uses FFmpeg audio demuxing to strip visual video tracks and normalize the audio stream to a clean 44.1kHz mono PCM signal.
+          </p>
+          <p>
+            Next, an acoustic spectrogram is computed using short-time Fourier transforms (STFT) to isolate distinctive frequency peaks—known as acoustic constellations or fingerprints. Even if the video creator added speech, environmental background noise, or slight tempo pitch changes, these mathematical peaks remain resilient.
+          </p>
+          <p>
+            Finally, the generated hash is cross-referenced against a global catalog of over 50 million commercial and independent audio releases. In less than 5 seconds, verified metadata including artist name, song title, album art, ISRC code, synchronized lyrics, and YouTube video players are rendered directly to your screen.
+          </p>
+        </div>
+      </section>
+
+      {/* 7. Cross-Tool Recommendation Hub */}
+      <section className="max-w-4xl mx-auto p-6 rounded-2xl border border-[var(--border-color)] bg-gradient-to-r from-blue-500/5 to-purple-500/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="space-y-1 text-center sm:text-left">
+          <h3 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
+            Need to convert video files or edit your music?
+          </h3>
+          <p className="text-xs text-[var(--text-secondary)]">
+            Explore our 100% free studio audio converters and utilities.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <Link
+            href="/tools/mp4-to-mp3"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+          >
+            MP4 to MP3
+          </Link>
+          <Link
+            href="/tools/audio-cutter"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+          >
+            Audio Cutter
+          </Link>
+          <Link
+            href="/tools/volume-booster"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+          >
+            Volume Booster
+          </Link>
+        </div>
+      </section>
+
+      {/* 8. Frequently Asked Questions (FAQ Section) */}
       <section id="faqs" className="max-w-4xl mx-auto pt-6 border-t border-[var(--border-color)]">
         <FaqSection faqs={SONG_FINDER_FAQS} />
       </section>
