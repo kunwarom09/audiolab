@@ -17,7 +17,7 @@ export default function sitemap() {
       url: getCanonicalUrl('/tools/song-extractor'),
       lastModified: RELEASE_DATE,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1.0,
     },
     {
       url: getCanonicalUrl('/converters'),
