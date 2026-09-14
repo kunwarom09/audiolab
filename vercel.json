@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "iloveaudios.com"
+        }
+      ],
+      "destination": "https://www.iloveaudios.com/:path*",
+      "permanent": true
+    }
+  ]
+}

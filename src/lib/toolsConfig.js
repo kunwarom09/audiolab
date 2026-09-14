@@ -205,8 +205,8 @@ export const TOOLS = {
     badge: 'Popular',
     faq: [
       {
-        q: 'How do I find a song from an Instagram Reel or TikTok video?',
-        a: 'Copy the public video or reel link from Instagram, TikTok, Facebook, or Snapchat. Paste it into the iLoveAudios search box and click "Find Song". Our acoustic recognition engine isolates the background audio and returns the exact track title, artist name, album, lyrics, and music video.'
+        q: 'How do I find a song from an Instagram Reel, TikTok, or YouTube Shorts video?',
+        a: 'Copy the public video or reel link from Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat. Paste it into the iLoveAudios search box and click "Find Song". Our acoustic recognition engine isolates the background audio and returns the exact track title, artist name, album, lyrics, and music video.'
       },
       {
         q: 'Does this song finder work on videos without music credit titles?',
@@ -2090,14 +2090,14 @@ export const TOOLS = {
     slug: 'audio-cutter',
     title: 'Audio Cutter – Free Online MP3 Trimmer & Song Splicer',
     shortTitle: 'Audio Cutter',
-    metaTitle: 'Free Audio Cutter & MP3 Trimmer – Cut Songs Online | iLoveAudios',
-    metaDescription: 'Cut and trim MP3, WAV, M4A & audio files online for free. Select precise start and end times, preview playback, and download instantly. No signup.',
+    metaTitle: 'Free MP3 & Audio Cutter – Trim Songs Online | iLoveAudios',
+    metaDescription: 'Cut and trim MP3 & audio files online free. Trim songs, splice voice memos, and make custom ringtones with sub-second precision. No signup, 100% browser-based.',
     description: 'Trim, splice, and cut MP3, WAV, M4A, and video audio files online for free with sub-second accuracy.',
     icon: 'Scissors',
     color: 'from-violet-600 to-purple-500',
     category: 'Audio Utilities',
     isCustomPage: true,
-    badge: 'New',
+    badge: 'Popular',
     faq: [
       { q: 'How do I cut an MP3 or audio file online?', a: 'Upload your audio file, adjust the start and end time markers or type exact timestamps, preview your selection, and click "Cut Audio" to download your trimmed track.' },
       { q: 'What audio formats can I cut?', a: 'Audio Cutter supports MP3, WAV, FLAC, M4A, AAC, OGG, OPUS, and audio streams from MP4 and MOV videos.' },

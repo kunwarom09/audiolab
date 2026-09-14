@@ -47,6 +47,10 @@ export default function Header({ onOpenHistory, historyCount, isDarkMode, onTogg
         {/* Center Nav Links (Desktop only) */}
         <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-[var(--text-secondary)]">
           <Link href="/" className="hover:text-[var(--iloveaudios-red)] transition-colors">Home</Link>
+          <Link href="/tools/audio-cutter" className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1">
+            <span>Audio Cutter</span>
+            <span className="px-1.5 py-0.2 rounded text-[8px] font-black bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/20">HOT</span>
+          </Link>
           <Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors flex items-center gap-1">
             <span>AI Song Finder</span>
             <span className="px-1.5 py-0.2 rounded text-[8px] font-black bg-[var(--iloveaudios-red)]/15 text-[var(--iloveaudios-red)]">AI</span>

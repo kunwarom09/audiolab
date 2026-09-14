@@ -6,7 +6,7 @@ import ToolCard from '@/components/ToolCard';
 import FaqSection from '@/components/FaqSection';
 import { TOOLS } from '@/lib/toolsConfig';
 import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
-import { Music2, ShieldCheck, Zap, Sparkles, ArrowRight } from 'lucide-react';
+import { Music2, ShieldCheck, Zap, Sparkles, ArrowRight, Scissors } from 'lucide-react';
 
 export default function HomePage() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -118,7 +118,7 @@ export default function HomePage() {
   });
 
   return (
-    <div className="w-full space-y-12">
+    <div className="w-full flex flex-col gap-10 sm:gap-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -159,7 +159,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-2xl mx-auto">
             <div className="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 shadow-xs">
               <span className="text-[var(--iloveaudios-red)] font-black">🔗</span>
-              <span>Paste Link (Instagram, TikTok, FB, Snap)</span>
+              <span>Paste Link (Instagram, TikTok, Shorts, FB, Snap)</span>
             </div>
             <div className="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 shadow-xs">
               <span className="text-blue-500 font-black">📁</span>
@@ -184,8 +184,50 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Trending Utility Spotlight: Audio Cutter & MP3 Trimmer */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 w-full">
+        <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-purple-50 via-indigo-50/50 to-white dark:from-purple-950/40 dark:via-purple-900/25 dark:to-slate-900/70 border border-purple-200/90 dark:border-purple-500/30 backdrop-blur-sm flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-purple-500/5 dark:shadow-purple-950/30">
+          {/* Subtle Ambient Glow Blobs */}
+          <div className="absolute -right-16 -bottom-16 w-60 h-60 bg-purple-400/10 dark:bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -left-16 -top-16 w-60 h-60 bg-indigo-400/10 dark:bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-3 text-center md:text-left max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100/90 dark:bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-500/25 text-[11px] font-black uppercase tracking-wider">
+              <Scissors className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>Trending Tool · High Precision</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Free Audio Cutter & MP3 Trimmer
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Trim songs, split podcasts, cut voice notes, or make custom 30-second iPhone (M4R) ringtones with millisecond waveform precision. 100% free with no file limits.
+            </p>
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-bold">
+              <span className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-purple-500/10 border border-purple-200/80 dark:border-purple-500/20 text-purple-700 dark:text-purple-300 shadow-2xs">
+                ⚡ Waveform Zoom
+              </span>
+              <span className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-purple-500/10 border border-purple-200/80 dark:border-purple-500/20 text-purple-700 dark:text-purple-300 shadow-2xs">
+                📱 iPhone Ringtone Ready
+              </span>
+              <span className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-purple-500/10 border border-purple-200/80 dark:border-purple-500/20 text-purple-700 dark:text-purple-300 shadow-2xs">
+                🔒 100% Lossless
+              </span>
+            </div>
+          </div>
+          <div className="relative z-10 shrink-0">
+            <Link
+              href="/tools/audio-cutter"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl font-black text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg shadow-purple-500/25 hover:scale-[1.02] active:scale-100 transition-all cursor-pointer"
+            >
+              <span>Launch Audio Cutter</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Secondary Header: Complete Audio Tool Suite */}
-      <section className="pt-4 pb-4 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-2 border-t border-[var(--border-color)]">
+      <section id="tools-suite" className="pt-6 pb-2 text-center max-w-4xl mx-auto px-4 sm:px-6 space-y-2 border-t border-[var(--border-color)] w-full scroll-mt-20">
         <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
           Complete Online Audio Tools & Converters
         </h2>
@@ -215,7 +257,7 @@ export default function HomePage() {
       </div>
 
       {/* Dynamic Tools Grid Workspace */}
-      <section id="tools-suite" className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {filteredTools.map((tool) => (
             <ToolCard

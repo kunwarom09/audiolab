@@ -3,26 +3,46 @@
 import React, { useState, useRef } from 'react';
 import { UploadCloud, FileAudio, FileVideo, AlertCircle, X, Smartphone } from 'lucide-react';
 
-export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat, maxSizeBytes = 1073741824 }) {
+export default function FileDropzone({ 
+  onFileSelect, 
+  onFileSelected, 
+  acceptedFormats, 
+  acceptedMimes, 
+  fromFormat = 'MP3', 
+  maxSizeBytes = 1073741824 
+}) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
 
-  const isVideoTool = ['mp4', 'mov', 'mkv', 'webm', 'avi', 'm4v', '3gp'].includes((fromFormat || '').toLowerCase());
-  const isAudioTool = ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a'].includes((fromFormat || '').toLowerCase());
+  const fileCallback = onFileSelect || onFileSelected;
+  const fmt = (fromFormat || '').toLowerCase();
+  const isVideoTool = ['mp4', 'mov', 'mkv', 'webm', 'avi', 'm4v', '3gp', 'video'].some(v => fmt.includes(v));
+  const isAudioTool = ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus', 'aiff', 'audio'].some(a => fmt.includes(a)) || !isVideoTool;
 
   // Compute robust accept string for mobile phone gallery and desktop file pickers
   const computedAccept = (() => {
-    if (isVideoTool) {
-      return 'video/*,video/mp4,video/quicktime,video/x-matroska,video/webm,video/x-msvideo,.mp4,.mov,.m4v,.webm,.mkv,.avi,.3gp,.ts';
-    }
-    if (isAudioTool) {
-      return 'audio/*,audio/mpeg,audio/mp3,audio/wav,audio/flac,audio/aac,audio/ogg,audio/m4a,.mp3,.wav,.flac,.aac,.ogg,.m4a';
+    // If specific mimes or formats are passed, use/combine them
+    const customParts = [];
+    if (Array.isArray(acceptedMimes) && acceptedMimes.length > 0) {
+      customParts.push(...acceptedMimes);
     }
     if (Array.isArray(acceptedFormats) && acceptedFormats.length > 0) {
-      return acceptedFormats.map(f => (f.includes('/') ? f : `.${f.toLowerCase()}`)).join(',');
+      customParts.push(...acceptedFormats.map(f => (f.includes('/') ? f : `.${f.toLowerCase()}`)));
     }
-    return fromFormat ? `.${fromFormat.toLowerCase()}` : '*/*';
+    if (customParts.length > 0) {
+      // Always ensure .mp3 and audio/mpeg are included for audio tools
+      if (isAudioTool && !customParts.some(p => p.includes('mp3') || p.includes('mpeg'))) {
+        customParts.unshift('.mp3', 'audio/mpeg');
+      }
+      return customParts.join(',');
+    }
+
+    if (isVideoTool && !isAudioTool) {
+      return 'video/*,video/mp4,video/quicktime,video/x-matroska,video/webm,video/x-msvideo,.mp4,.mov,.m4v,.webm,.mkv,.avi,.3gp,.ts';
+    }
+    // Default for audio tools: fully support MP3 and all standard audio/video formats
+    return 'audio/*,audio/mpeg,audio/mp3,.mp3,audio/wav,.wav,audio/flac,.flac,audio/aac,.aac,audio/ogg,.ogg,audio/m4a,.m4a,audio/x-m4a,video/mp4,.mp4,video/quicktime,.mov';
   })();
 
   const handleDrag = (e) => {
@@ -49,23 +69,37 @@ export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat
     const fileExtension = (file.name.split('.').pop() || '').toLowerCase();
     const mimeType = (file.type || '').toLowerCase();
 
-    if (isVideoTool) {
-      const validVideoExts = ['mp4', 'mov', 'm4v', 'webm', 'mkv', 'avi', '3gp', 'ts', 'flv', 'wmv'];
-      const isValidVideo = mimeType.startsWith('video/') || validVideoExts.includes(fileExtension) || fileExtension === fromFormat?.toLowerCase();
+    // Universal audio extensions check
+    const validAudioExts = ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus', 'aiff', 'm4r'];
+    const validVideoExts = ['mp4', 'mov', 'm4v', 'webm', 'mkv', 'avi', '3gp', 'ts', 'flv', 'wmv'];
+
+    if (isVideoTool && !isAudioTool) {
+      const isValidVideo = mimeType.startsWith('video/') || validVideoExts.includes(fileExtension) || fileExtension === fmt;
       if (!isValidVideo) {
         setError(`Please select a valid video file (MP4, MOV, WebM, MKV, etc.) from your phone gallery or files.`);
         return;
       }
-    } else if (isAudioTool) {
-      const validAudioExts = ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus', 'aiff'];
-      const isValidAudio = mimeType.startsWith('audio/') || validAudioExts.includes(fileExtension) || fileExtension === fromFormat?.toLowerCase();
-      if (!isValidAudio) {
-        setError(`Please select a valid audio file (.${fromFormat?.toLowerCase() || 'mp3'}, .wav, .m4a, etc.).`);
+    } else {
+      // Audio or Hybrid Audio/Video tool: accepts MP3, any audio, or video container with audio
+      const isValid = 
+        fileExtension === 'mp3' ||
+        mimeType === 'audio/mpeg' ||
+        mimeType === 'audio/mp3' ||
+        mimeType.startsWith('audio/') || 
+        validAudioExts.includes(fileExtension) || 
+        validVideoExts.includes(fileExtension) ||
+        (Array.isArray(acceptedFormats) && acceptedFormats.includes(fileExtension)) ||
+        fileExtension === fmt;
+
+      if (!isValid) {
+        setError(`Please select a valid audio file (.mp3, .wav, .m4a, etc.).`);
         return;
       }
     }
 
-    onFileSelect(file);
+    if (typeof fileCallback === 'function') {
+      fileCallback(file);
+    }
   };
 
   const handleDrop = (e) => {
@@ -129,8 +163,10 @@ export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat
 
         <div className="text-center space-y-1">
           <p className="text-sm sm:text-base font-bold text-[var(--text-primary)]">
-            {isVideoTool ? (
+            {isVideoTool && !isAudioTool ? (
               <>Select or drop your <span className="text-[#0088ff] font-extrabold">MP4 / Video</span> file</>
+            ) : (fmt === 'mp3' || fmt === 'audio' || fmt.includes('audio')) ? (
+              <>Select or drop your <span className="text-[#0088ff] font-extrabold">MP3</span> or audio file</>
             ) : (
               <>Select or drop your <span className="text-[#0088ff] font-extrabold">.{fromFormat}</span> file</>
             )}
@@ -143,7 +179,7 @@ export default function FileDropzone({ onFileSelect, acceptedFormats, fromFormat
         <div className="flex flex-wrap items-center justify-center gap-2 text-[10px] font-bold text-[var(--text-muted)] bg-[var(--bg-main)] px-3.5 py-1.5 rounded-full border border-[var(--border-color)]">
           <span>Max: {formatFileSize(maxSizeBytes)}</span>
           <span className="text-[var(--border-color)]">•</span>
-          <span>{isVideoTool ? 'Phone Gallery & Videos Supported' : `Format: .${fromFormat}`}</span>
+          <span>{isVideoTool && !isAudioTool ? 'Phone Gallery & Videos Supported' : (fmt === 'mp3' || fmt.includes('audio')) ? 'Supports .MP3, .WAV, .M4A, .FLAC & video audio' : `Format: .${fromFormat}`}</span>
         </div>
       </div>
 

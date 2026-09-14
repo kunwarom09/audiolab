@@ -25,6 +25,30 @@ const InstagramIcon = (props) => (
   </svg>
 );
 
+const YouTubeIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" {...props}>
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
+const TikTokIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" {...props}>
+    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.498 6.34 6.34 0 0 0 1.087 8.581 6.342 6.342 0 0 0 8.784-.967 6.29 6.29 0 0 0 1.536-4.14V9.012a8.163 8.163 0 0 0 4.793 1.54V7.108a4.787 4.787 0 0 1-1.573-.422z"/>
+  </svg>
+);
+
+const FacebookIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+  </svg>
+);
+
+const SnapchatIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" {...props}>
+    <path d="M12.004 2c-3.75 0-6.177 2.656-6.177 5.766 0 1.542.482 2.88 1.135 3.864.214.321.36.711.13 1.054-.3.448-1.517.65-2.22.75-.417.06-.693.393-.574.801.378 1.295 2.115 1.565 3.09 1.677.214.025.378.21.362.425-.078 1.05-.286 1.838-1.127 2.41-.334.227-.478.63-.306.985.497 1.026 2.378 1.488 4.394 1.488 1.303 0 2.893-.194 3.738-.724.32-.202.738-.172 1.01.096.793.784 1.764 1.173 2.825 1.173.348 0 .692-.042 1.03-.127.608-.153 1.014-.693.948-1.314-.078-.738-.283-1.62-.05-2.486.065-.24.275-.414.523-.427 1.098-.057 3.018-.28 3.42-1.687.124-.436-.188-.804-.636-.856-.757-.087-2.03-.275-2.338-.76-.23-.362-.09-.757.135-1.09.684-1.013 1.183-2.38 1.183-3.951C18.18 4.656 15.755 2 12.004 2z"/>
+  </svg>
+);
+
 export default function FailedRecognitionCard({ 
   message, 
   mediaInfo, 
@@ -39,13 +63,33 @@ export default function FailedRecognitionCard({
   const platformName = mediaInfo?.platform || (isPlatformRestricted ? 'Instagram' : 'Platform');
   const canRetrySection = mediaInfo?.can_retry_different_section || (mediaInfo?.total_duration && mediaInfo.total_duration > 20);
 
+  const getPlatformStyle = () => {
+    const p = (platformName || '').toLowerCase();
+    if (p.includes('youtube') || p.includes('shorts')) {
+      return { icon: YouTubeIcon, color: 'bg-red-500/10 text-red-500 border-red-500/20' };
+    }
+    if (p.includes('tiktok')) {
+      return { icon: TikTokIcon, color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' };
+    }
+    if (p.includes('facebook')) {
+      return { icon: FacebookIcon, color: 'bg-blue-500/10 text-blue-500 border-blue-500/20' };
+    }
+    if (p.includes('snapchat')) {
+      return { icon: SnapchatIcon, color: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' };
+    }
+    return { icon: InstagramIcon, color: 'bg-pink-500/10 text-pink-500 border-pink-500/20' };
+  };
+
+  const platformStyle = getPlatformStyle();
+  const PlatformIcon = platformStyle.icon;
+
   if (isPlatformRestricted) {
     return (
       <div className="w-full max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 space-y-6 animate-in fade-in duration-300">
         {/* Header for Platform Login Wall */}
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-500 border border-pink-500/20 flex items-center justify-center shrink-0 shadow-inner">
-            <InstagramIcon />
+          <div className={`w-12 h-12 rounded-2xl ${platformStyle.color} border flex items-center justify-center shrink-0 shadow-inner`}>
+            <PlatformIcon />
           </div>
           <div className="space-y-1">
             <div className="flex items-center gap-2">

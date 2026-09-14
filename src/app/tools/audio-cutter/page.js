@@ -188,10 +188,10 @@ export default function AudioCutterPage() {
           <span>Free Audio Tool</span>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--text-primary)] tracking-tight">
-          Audio Cutter & MP3 Trimmer
+          MP3 & Audio Cutter
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-          Trim songs, splice voice memos, and make custom iPhone & Android ringtones with sub-second precision. 100% free, browser-based, and secure.
+          Cut and trim any MP3 or audio file — splice voice memos, make custom iPhone & Android ringtones, and trim songs with sub-second precision. 100% free, browser-based, and secure.
         </p>
       </div>
 
@@ -199,9 +199,11 @@ export default function AudioCutterPage() {
       <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-[var(--border-color)] shadow-xl space-y-6">
         {step === 'upload' && (
           <FileDropzone
+            onFileSelect={handleFileSelect}
             onFileSelected={handleFileSelect}
-            fromFormat="AUDIO"
-            acceptedMimes={['audio/*', 'video/mp4', 'video/quicktime']}
+            fromFormat="MP3"
+            acceptedFormats={['mp3', 'wav', 'flac', 'm4a', 'aac', 'ogg', 'opus', 'mp4', 'mov']}
+            acceptedMimes={['audio/mpeg', 'audio/mp3', 'audio/*', 'video/mp4', 'video/quicktime']}
           />
         )}
 

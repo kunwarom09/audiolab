@@ -96,6 +96,7 @@ export default function MediaInputArea({
 
   // Sample links
   const sampleReels = [
+    { label: 'YouTube Shorts', icon: YouTubeIcon, url: 'https://www.youtube.com/shorts/dQw4w9WgXcQ' },
     { label: 'Instagram Reel', icon: InstagramIcon, url: 'https://www.instagram.com/reel/espresso-sabrina-carpenter' },
     { label: 'TikTok Video', icon: TikTokIcon, url: 'https://www.tiktok.com/@creator/video/739123456789' },
     { label: 'Facebook Reel', icon: FacebookIcon, url: 'https://www.facebook.com/reel/birds-of-a-feather-billie-eilish' },
@@ -106,7 +107,9 @@ export default function MediaInputArea({
   const detectedPlatform = React.useMemo(() => {
     if (!url || !url.trim()) return null;
     const val = url.toLowerCase().trim();
-    if (val.includes('instagram.com')) {
+    if (val.includes('youtube.com/shorts') || val.includes('youtu.be') || val.includes('youtube.com')) {
+      return { name: 'YouTube Shorts', icon: YouTubeIcon, color: 'text-red-500' };
+    } else if (val.includes('instagram.com')) {
       return { name: 'Instagram', icon: InstagramIcon, color: 'text-pink-500' };
     } else if (val.includes('tiktok.com')) {
       return { name: 'TikTok', icon: TikTokIcon, color: 'text-cyan-400' };
@@ -114,8 +117,6 @@ export default function MediaInputArea({
       return { name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500' };
     } else if (val.includes('snapchat.com')) {
       return { name: 'Snapchat', icon: SnapchatIcon, color: 'text-yellow-400' };
-    } else if (val.includes('youtube.com/shorts') || val.includes('youtu.be')) {
-      return { name: 'YouTube Shorts', icon: YouTubeIcon, color: 'text-red-500' };
     } else if (val.startsWith('http://') || val.startsWith('https://')) {
       return { name: 'Video URL', icon: Link2, color: 'text-slate-400' };
     }
@@ -364,7 +365,7 @@ export default function MediaInputArea({
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="Paste Instagram, TikTok, Facebook, Snapchat, or video link..."
+                placeholder="Paste Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat link..."
                 className="w-full bg-transparent px-2 py-3 text-sm md:text-base text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none font-medium"
                 disabled={isLoading}
               />

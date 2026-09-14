@@ -32,8 +32,8 @@ import {
 
 const SONG_FINDER_FAQS = [
   {
-    question: 'How do I find a song from an Instagram Reel or TikTok video?',
-    answer: 'Open the Reel or TikTok video, tap the Share button, select "Copy Link", and paste it into iLoveAudios AI Song Finder. Our recognition engine demuxes the background audio stream and matches the acoustic fingerprint to reveal the song title and artist in seconds.'
+    question: 'How do I find a song from an Instagram Reel, TikTok, or YouTube Shorts video?',
+    answer: 'Open the Reel, TikTok, or YouTube Shorts video, tap the Share button, select "Copy Link", and paste it into iLoveAudios AI Song Finder. Our recognition engine demuxes the background audio stream and matches the acoustic fingerprint to reveal the song title and artist in seconds.'
   },
   {
     question: 'How does this TikTok song finder identify music labeled "Original Sound"?',

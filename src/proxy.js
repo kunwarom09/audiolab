@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
 
 export function proxy(request) {
-  const host = request.headers.get('host') || '';
+  const rawHost = request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
+  const host = rawHost.split(':')[0].toLowerCase();
 
-  // Redirect apex domain (iloveaudios.com) to www.iloveaudios.com with 301 Permanent Redirect
+  // Redirect apex domain (iloveaudios.com) to www.iloveaudios.com with 308 Permanent Redirect
   if (host === 'iloveaudios.com') {
     const url = request.nextUrl.clone();
     url.hostname = 'www.iloveaudios.com';
     url.protocol = 'https';
     url.port = '';
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, 308);
   }
 
   return NextResponse.next();

@@ -112,7 +112,8 @@ class SongExtractor:
         output_template = os.path.join(temp_dir, f"reel_song_{unique_id}.%(ext)s")
         ffmpeg_dir = get_ffmpeg_dir()
         cookie_file = get_cookie_file()
-        browser_cookies = get_browser_cookie_opts() if not cookie_file else None
+        is_yt = 'youtube.com' in reel_url or 'youtu.be' in reel_url
+        browser_cookies = get_browser_cookie_opts() if (not cookie_file and not is_yt) else None
 
         # Check if URL is TikTok and attempt fast direct download
         if 'tiktok.com' in reel_url:
@@ -134,7 +135,6 @@ class SongExtractor:
                 'outtmpl': output_template,
                 'ffmpeg_location': ffmpeg_dir,
                 'extractor_args': {
-                    'youtube': {'player_client': ['android', 'ios', 'web']},
                     'instagram': {'api': 'graphql'}
                 },
                 'postprocessors': [{
@@ -194,7 +194,8 @@ class SongExtractor:
         output_template = os.path.join(temp_dir, f"{clean_filename}_{unique_id}.%(ext)s")
         ffmpeg_dir = get_ffmpeg_dir()
         cookie_file = get_cookie_file()
-        browser_cookies = get_browser_cookie_opts() if not cookie_file else None
+        is_yt = 'youtube.com' in reel_url or 'youtu.be' in reel_url
+        browser_cookies = get_browser_cookie_opts() if (not cookie_file and not is_yt) else None
 
         user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
@@ -211,7 +212,6 @@ class SongExtractor:
                 'merge_output_format': 'mp4',
                 'ffmpeg_location': ffmpeg_dir,
                 'extractor_args': {
-                    'youtube': {'player_client': ['android', 'ios', 'web']},
                     'instagram': {'api': 'graphql'}
                 },
                 'quiet': True,
@@ -948,6 +948,25 @@ class SongExtractor:
 
         return None
 
+    def detect_platform_name(self, url: str) -> str:
+        """
+        Identifies social media or video platform from URL.
+        """
+        if not url:
+            return 'Video Link'
+        val = url.lower().strip()
+        if 'youtube.com/shorts' in val or 'youtu.be' in val or 'youtube.com' in val:
+            return 'YouTube Shorts' if ('/shorts' in val) else 'YouTube'
+        if 'instagram.com' in val:
+            return 'Instagram'
+        if 'tiktok.com' in val:
+            return 'TikTok'
+        if 'facebook.com' in val or 'fb.watch' in val:
+            return 'Facebook'
+        if 'snapchat.com' in val:
+            return 'Snapchat'
+        return 'Video Link'
+
     def extract_platform_query(self, url: str) -> str:
         """
         Extracts searchable terms from Instagram, Facebook, TikTok, Snapchat, or YouTube links.
@@ -980,11 +999,39 @@ class SongExtractor:
                     return search_res
                 raise Exception(f"No results found for query '{reel_url}'")
 
+            platform_name = self.detect_platform_name(reel_url)
+            is_ig = 'instagram.com' in reel_url
+            is_yt = 'youtube.com' in reel_url or 'youtu.be' in reel_url
+
             # Step 1: Attempt audio extraction via yt-dlp
             try:
                 audio_path, video_info = self.download_reel_audio(reel_url)
             except Exception as download_err:
                 print(f"Audio download failed for {reel_url}: {download_err}")
+
+                # YouTube Shorts / Video oEmbed metadata fallback
+                if is_yt:
+                    try:
+                        oembed_url = f"https://www.youtube.com/oembed?url={urllib.parse.quote(reel_url)}&format=json"
+                        oembed_res = requests.get(oembed_url, timeout=6)
+                        if oembed_res.status_code == 200:
+                            oembed_data = oembed_res.json()
+                            yt_title = oembed_data.get('title') or ''
+                            yt_author = oembed_data.get('author_name') or ''
+                            print(f"YouTube oEmbed fetched: title='{yt_title}', author='{yt_author}'")
+
+                            candidates = self.extract_song_candidates_from_text(yt_title, yt_author)
+                            for cand in candidates:
+                                fallback_result = self.search_song_by_query(cand, reel_url)
+                                if fallback_result:
+                                    return fallback_result
+
+                            if yt_title:
+                                fallback_result = self.search_song_by_query(f"{yt_author} {yt_title}", reel_url)
+                                if fallback_result:
+                                    return fallback_result
+                    except Exception as oe_err:
+                        print(f"YouTube oEmbed fallback error: {oe_err}")
                 
                 extracted_query = self.extract_platform_query(reel_url)
                 if extracted_query and len(extracted_query.strip()) > 0 and len(extracted_query.strip()) < 80:
@@ -992,15 +1039,11 @@ class SongExtractor:
                     if fallback_result:
                         return fallback_result
 
-                is_ig = 'instagram.com' in reel_url
-                is_tt = 'tiktok.com' in reel_url
-                platform_name = 'Instagram' if is_ig else ('TikTok' if is_tt else 'Video Link')
-                
                 msg = (
                     "Instagram protects this Reel behind an authentication login wall, preventing direct server downloads. "
                     "You can identify the song in seconds by uploading the video clip (MP4/MOV) or recording the audio live!"
                     if is_ig else
-                    "Could not extract audio directly from this link. Please ensure the video is public, or try uploading the media file directly."
+                    f"Could not extract audio directly from this {platform_name} link. Please ensure the video is public, or try uploading the media file directly."
                 )
 
                 return {
@@ -1026,6 +1069,15 @@ class SongExtractor:
             if not track:
                 print(f"Shazam returned no track fingerprint match for {reel_url}. Trying candidate text extraction from title: {reel_title}")
 
+                # Check if video_info contains official music metadata (e.g. from YouTube Content ID)
+                yt_track = video_info.get('track')
+                yt_artist = video_info.get('artist')
+                if yt_track and yt_artist:
+                    print(f"Found official track metadata in video info: {yt_artist} - {yt_track}")
+                    fallback_res = self.search_song_by_query(f"{yt_artist} {yt_track}", reel_url)
+                    if fallback_res:
+                        return fallback_res
+
                 # Extract candidate song phrases from caption/title
                 candidates = self.extract_song_candidates_from_text(reel_title, uploader)
                 for cand in candidates:
@@ -1040,11 +1092,14 @@ class SongExtractor:
 
                 return {
                     'success': False,
+                    'error_type': 'NO_SONG_MATCH',
+                    'platform': platform_name,
                     'message': 'Audio extracted, but could not identify song from fingerprint.',
                     'reel_info': {
                         'title': reel_title,
                         'uploader': uploader,
-                        'webpage_url': reel_url
+                        'webpage_url': reel_url,
+                        'platform': platform_name
                     }
                 }
 
@@ -1118,7 +1173,8 @@ class SongExtractor:
                 'reel_source': {
                     'url': reel_url,
                     'title': video_info.get('title', 'Reel Video'),
-                    'uploader': video_info.get('uploader', 'Creator')
+                    'uploader': video_info.get('uploader', 'Creator'),
+                    'platform': platform_name
                 }
             }
 
