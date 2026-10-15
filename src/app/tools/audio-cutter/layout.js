@@ -2,37 +2,30 @@ import React from 'react';
 import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
-  title: {
-    absolute: 'Free MP3 & Audio Cutter – Trim Songs Online | iLoveAudios',
-  },
-  description: 'Cut and trim MP3 & audio files online free. Trim songs, splice voice memos, and make custom ringtones with sub-second precision. No signup, 100% browser-based.',
+  title: 'Online Audio Cutter – Free MP3 & Music Trimmer | iLoveAudios',
+  description: 'Free online audio cutter and MP3 trimmer. Trim songs online, make custom ringtones, and cut music with sub-second accuracy. Free music cutter with no signup.',
   keywords: [
-    'mp3 cutter',
+    'online audio cutter',
     'audio cutter',
-    'cut mp3 online',
-    'trim mp3 online',
-    'song cutter',
-    'audio trimmer',
-    'free mp3 cutter',
-    'cut song for ringtone',
-    'split audio online',
     'music cutter',
-    'iloveaudios'
+    'mp3 cutter online free',
+    'trim song online',
+    'free music cutter'
   ],
   alternates: {
     canonical: getCanonicalUrl('/tools/audio-cutter'),
   },
   openGraph: {
-    title: 'Free MP3 & Audio Cutter – Trim Songs Online | iLoveAudios',
-    description: 'Cut and trim MP3 & audio files online free. Trim songs, splice voice memos, and make custom ringtones with sub-second precision. No signup, 100% browser-based.',
+    title: 'Online Audio Cutter – Free MP3 & Music Trimmer | iLoveAudios',
+    description: 'Free online audio cutter and MP3 trimmer. Trim songs online, make custom ringtones, and cut music with sub-second accuracy. Free music cutter with no signup.',
     url: getCanonicalUrl('/tools/audio-cutter'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free MP3 & Audio Cutter – Trim Songs Online | iLoveAudios',
-    description: 'Cut and trim MP3 & audio files online free. Trim songs, splice voice memos, and make custom ringtones with sub-second precision. No signup, 100% browser-based.',
+    title: 'Online Audio Cutter – Free MP3 & Music Trimmer | iLoveAudios',
+    description: 'Free online audio cutter and MP3 trimmer. Trim songs online, make custom ringtones, and cut music with sub-second accuracy. Free music cutter with no signup.',
   },
 };
 

@@ -58,7 +58,8 @@ export default function MediaInputArea({
   onIdentifyFile, 
   isLoading,
   initialTab = 'link',
-  initialFile = null
+  initialFile = null,
+  linkPlaceholder = 'Paste Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat link...'
 }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'link' | 'upload' | 'record'
   const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
@@ -365,7 +366,7 @@ export default function MediaInputArea({
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="Paste Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat link..."
+                placeholder={linkPlaceholder}
                 className="w-full bg-transparent px-2 py-3 text-sm md:text-base text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none font-medium"
                 disabled={isLoading}
               />

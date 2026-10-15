@@ -8,7 +8,10 @@ export default function HeroCard({
   onIdentifyFile, 
   isLoading,
   initialTab = 'link',
-  initialFile = null
+  initialFile = null,
+  title = 'AI Song Finder',
+  subtitle = 'Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.',
+  linkPlaceholder,
 }) {
   return (
     <div className="w-full max-w-5xl mx-auto px-2 sm:px-4">
@@ -17,11 +20,11 @@ export default function HeroCard({
         {/* Song Finder Hero Title */}
         <div className="space-y-3 max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-tight">
-            Free AI Song Finder & Music Identifier
+            {title}
           </h1>
 
           <p className="text-[var(--text-secondary)] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.
+            {subtitle}
           </p>
         </div>
 
@@ -33,6 +36,7 @@ export default function HeroCard({
             isLoading={isLoading}
             initialTab={initialTab}
             initialFile={initialFile}
+            linkPlaceholder={linkPlaceholder}
           />
         </div>
 

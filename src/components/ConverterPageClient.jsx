@@ -243,8 +243,11 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
           <span>Home</span>
         </Link>
         <span className="text-[var(--text-muted)] font-normal">/</span>
-        <Link href="/#tools-suite" className="hover:text-[var(--iloveaudios-red)] transition-colors">
-          {tool.category || 'Converters'}
+        <Link 
+          href={tool.toFormat === 'MP3' ? '/mp3-converter' : '/audio-converter'} 
+          className="hover:text-[var(--iloveaudios-red)] transition-colors"
+        >
+          {tool.toFormat === 'MP3' ? 'MP3 Converter' : 'Audio Converter'}
         </Link>
         <span className="text-[var(--text-muted)] font-normal">/</span>
         <span className="text-[var(--text-primary)] font-bold truncate max-w-[220px] sm:max-w-none">
@@ -696,6 +699,29 @@ export default function ConverterPageClient({ tool, backendApiUrl }) {
           </section>
         );
       })()}
+
+      {/* Hub Link-Back Banner */}
+      <section className="p-5 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="space-y-1 text-center sm:text-left">
+          <h3 className="text-sm font-bold text-[var(--text-primary)]">
+            {tool.toFormat === 'MP3' 
+              ? 'Looking for more audio & video converters to MP3?'
+              : 'Looking for more lossless & multi-format audio tools?'}
+          </h3>
+          <p className="text-xs text-[var(--text-secondary)]">
+            {tool.toFormat === 'MP3'
+              ? 'Visit our central MP3 Converter hub for all video and audio conversion options.'
+              : 'Visit our complete Audio Converter directory to explore all supported codecs.'}
+          </p>
+        </div>
+        <Link
+          href={tool.toFormat === 'MP3' ? '/mp3-converter' : '/audio-converter'}
+          className="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-card-hover)] border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] hover:text-[var(--iloveaudios-red)] transition-all shrink-0 flex items-center gap-1.5"
+        >
+          <span>{tool.toFormat === 'MP3' ? 'View MP3 Converter Hub' : 'View Audio Converter Hub'}</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </section>
 
       {/* 9. Related Tools Section (including AI Song Finder) */}
       <section className="space-y-6 pt-4 border-t border-[var(--border-color)]">

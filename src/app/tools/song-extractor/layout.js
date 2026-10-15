@@ -1,42 +1,32 @@
 import { SITE_URL, getCanonicalUrl } from '@/lib/siteConfig';
 
 export const metadata = {
-  title: 'AI Song Finder – Free Music Identifier from Link & Audio | iLoveAudios',
-  description: 'Free AI Song Finder & Music Identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics & MP3 download.',
+  title: 'Song Finder – AI Song Identifier Online Free | iLoveAudios',
+  description: 'Free AI song finder and music identifier. Use our song identifier online to find songs from Reels, TikTok, Shorts & audio files with lyrics & MP3.',
   keywords: [
-    'ai song finder',
     'song finder',
-    'music identifier',
+    'ai song finder',
+    'song finder ai',
+    'ai music identifier',
+    'song finder online',
     'song identifier',
-    'find song from video link',
-    'identify song from video',
-    'song finder from reel',
-    'find song from instagram reel',
-    'find song from tiktok',
-    'tiktok song finder',
-    'find song from facebook reel',
-    'identify song from audio file',
-    'fast song finder online',
-    'record to identify song',
-    'identify background music',
-    'song identifier online free',
-    'shazam alternative online',
-    'what song is this online'
+    'music identifier',
+    'mp3 song finder'
   ],
   alternates: {
     canonical: getCanonicalUrl('/tools/song-extractor'),
   },
   openGraph: {
-    title: 'AI Song Finder – Free Music Identifier from Link & Audio | iLoveAudios',
-    description: 'Free AI Song Finder & Music Identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics & MP3 download.',
+    title: 'Song Finder – AI Song Identifier Online Free | iLoveAudios',
+    description: 'Free AI song finder and music identifier. Use our song identifier online to find songs from Reels, TikTok, Shorts & audio files with lyrics & MP3.',
     url: getCanonicalUrl('/tools/song-extractor'),
     type: 'website',
     siteName: 'iLoveAudios',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Song Finder – Free Music Identifier from Link & Audio | iLoveAudios',
-    description: 'Free AI Song Finder & Music Identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics & MP3 download.',
+    title: 'Song Finder – AI Song Identifier Online Free | iLoveAudios',
+    description: 'Free AI song finder and music identifier. Use our song identifier online to find songs from Reels, TikTok, Shorts & audio files with lyrics & MP3.',
   },
 };
 

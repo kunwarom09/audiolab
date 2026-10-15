@@ -29,7 +29,22 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/tools/music-identifier',
+        source: '/audio-cutter',
+        destination: '/tools/audio-cutter',
+        permanent: true,
+      },
+      {
+        source: '/song-finder',
+        destination: '/tools/song-extractor',
+        permanent: true,
+      },
+      {
+        source: '/ai-song-finder',
+        destination: '/tools/song-extractor',
+        permanent: true,
+      },
+      {
+        source: '/music-identifier',
         destination: '/tools/song-extractor',
         permanent: true,
       },

@@ -188,10 +188,10 @@ export default function AudioCutterPage() {
           <span>Free Audio Tool</span>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--text-primary)] tracking-tight">
-          MP3 & Audio Cutter
+          Online Audio Cutter
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-          Cut and trim any MP3 or audio file — splice voice memos, make custom iPhone & Android ringtones, and trim songs with sub-second precision. 100% free, browser-based, and secure.
+          Use our free <strong>online audio cutter</strong> and music cutter to trim song online audio files, make ringtones, and splice tracks with sub-second precision. Free music cutter and mp3 cutter online free with no signup required.
         </p>
       </div>
 
@@ -510,17 +510,25 @@ export default function AudioCutterPage() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <Link href="/mp3-converter" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-red-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
+            <span className="group-hover:text-[var(--iloveaudios-red)] transition-colors">MP3 Converter</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--iloveaudios-red)] group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link href="/audio-converter" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-emerald-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
+            <span className="group-hover:text-emerald-500 transition-colors">Audio Converter</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all" />
+          </Link>
+          <Link href="/tools/song-extractor" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-blue-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
+            <span className="group-hover:text-blue-500 transition-colors">AI Song Finder</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+          </Link>
           <Link href="/tools/audio-joiner" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-purple-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
             <span className="group-hover:text-purple-500 transition-colors">Audio Joiner</span>
             <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all" />
           </Link>
           <Link href="/tools/volume-booster" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-purple-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
             <span className="group-hover:text-purple-500 transition-colors">Volume Booster</span>
-            <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all" />
-          </Link>
-          <Link href="/tools/mp3-to-m4r" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-purple-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">
-            <span className="group-hover:text-purple-500 transition-colors">MP3 to M4R (Ringtone)</span>
             <ArrowRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all" />
           </Link>
           <Link href="/tools/mp4-to-mp3" className="glass-panel rounded-xl p-3 border border-[var(--border-color)] hover:border-purple-500/40 text-xs font-bold text-[var(--text-primary)] flex items-center justify-between group">

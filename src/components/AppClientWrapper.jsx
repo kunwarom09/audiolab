@@ -120,26 +120,29 @@ export default function AppClientWrapper({ children }) {
               </p>
             </div>
 
-            {/* Column 2: Popular Tools */}
+            {/* Column 2: Flagship Tools */}
             <div className="space-y-2">
-              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Popular Tools</span>
+              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Flagship Tools</span>
               <ul className="space-y-1 text-[11px]">
-                <li><Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors">AI Song Finder</Link></li>
-                <li><Link href="/converters" className="hover:text-[var(--iloveaudios-red)] transition-colors font-semibold text-[var(--iloveaudios-red)]">Audio Converters Hub</Link></li>
-                <li><Link href="/tools/mp4-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3</Link></li>
-                <li><Link href="/tools/audio-cutter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Cutter & Trimmer</Link></li>
-                <li><Link href="/tools/audio-joiner" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Joiner & Merger</Link></li>
+                <li><Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors">Song Finder</Link></li>
+                <li><Link href="/mp3-converter" className="hover:text-[var(--iloveaudios-red)] transition-colors font-semibold text-[var(--iloveaudios-red)]">MP3 Converter Hub</Link></li>
+                <li><Link href="/audio-converter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Converter Hub</Link></li>
+                <li><Link href="/tools/audio-cutter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Online Audio Cutter</Link></li>
+                <li><Link href="/song-finder-from-video" className="hover:text-[var(--iloveaudios-red)] transition-colors">AI Song Finder from Video</Link></li>
+                <li><Link href="/identify-song-from-audio" className="hover:text-[var(--iloveaudios-red)] transition-colors">Identify Song from Audio</Link></li>
               </ul>
             </div>
 
-            {/* Column 3: More Utilities */}
+            {/* Column 3: Platform Tools & Converters */}
             <div className="space-y-2">
-              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Audio Utilities</span>
+              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Specialized Tools</span>
               <ul className="space-y-1 text-[11px]">
-                <li><Link href="/tools/volume-booster" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Volume Booster</Link></li>
-                <li><Link href="/tools/opus-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">WhatsApp Voice to MP3</Link></li>
-                <li><Link href="/tools/wav-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">WAV to MP3</Link></li>
-                <li><Link href="/tools/flac-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">FLAC to MP3</Link></li>
+                <li><Link href="/find-song-from-instagram-reel" className="hover:text-[var(--iloveaudios-red)] transition-colors">Instagram Reel Song Finder</Link></li>
+                <li><Link href="/find-song-from-tiktok" className="hover:text-[var(--iloveaudios-red)] transition-colors">Find Song from TikTok</Link></li>
+                <li><Link href="/find-song-from-youtube-shorts" className="hover:text-[var(--iloveaudios-red)] transition-colors">YouTube Shorts Music Finder</Link></li>
+                <li><Link href="/facebook-music-identifier" className="hover:text-[var(--iloveaudios-red)] transition-colors">Facebook Music Identifier</Link></li>
+                <li><Link href="/tools/mp4-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3 Converter</Link></li>
+                <li><Link href="/tools/wav-to-flac" className="hover:text-[var(--iloveaudios-red)] transition-colors">WAV to FLAC Converter</Link></li>
               </ul>
             </div>
 
