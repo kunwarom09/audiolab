@@ -193,10 +193,10 @@ export const FORMAT_DEFINITIONS = {
 export const TOOLS = {
   'song-extractor': {
     slug: 'song-extractor',
-    title: 'Free AI Song Finder & Music Identifier',
-    shortTitle: 'AI Song Finder',
-    metaTitle: 'Free AI Song Finder – Identify Songs from Video Link & Audio Online | iLoveAudios',
-    metaDescription: 'Free AI song finder & music identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics, artist info & MP3 download.',
+    title: 'Free Song Finder & Music Identifier',
+    shortTitle: 'Song Finder',
+    metaTitle: 'Free Song Finder – Identify Songs from Video Link & Audio Online | iLoveAudios',
+    metaDescription: 'Free song finder & music identifier. Identify songs from Instagram Reels, TikTok, YouTube Shorts, or audio files in seconds. Get full lyrics, artist info & MP3 download.',
     description: 'Identify songs used in Instagram Reels, TikTok videos, Facebook Reels, Snapchat Spotlight, and YouTube Shorts. Extract acoustic fingerprints and look up song title, artist, album, full lyrics, and MP3 audio instantly.',
     icon: 'Music2',
     color: 'from-blue-600 to-cyan-500',

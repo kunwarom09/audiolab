@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'nodejs';
-export const alt = 'Free AI Song Finder & Music Identifier | iLoveAudios';
+export const alt = 'Free Song Finder & Music Identifier | iLoveAudios';
 export const size = {
   width: 1200,
   height: 630,
@@ -111,7 +111,7 @@ export default async function Image() {
             textShadow: '0 4px 24px rgba(0,0,0,0.6)',
           }}
         >
-          Free AI Song Finder & Music Identifier
+          Free Song Finder & Music Identifier
         </div>
 
         {/* Subtitle / Value Proposition Pill */}

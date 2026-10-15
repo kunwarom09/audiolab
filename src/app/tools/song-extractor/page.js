@@ -46,14 +46,14 @@ const SONG_FINDER_FAQS = [
 export default function SongExtractorPage() {
   return (
     <SongFinderEngine
-      title="AI Song Finder"
+      title="Song Finder"
       subtitle="Identify any song from video links (Instagram, TikTok, Shorts), audio files, or microphone with our free online music identifier."
       initialTab="link"
     >
       {/* 1. Context Intro with Secondary Keywords */}
       <div className="max-w-4xl mx-auto glass-panel rounded-3xl p-6 sm:p-8 border border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md space-y-4 text-center sm:text-left shadow-xs">
         <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
-          Welcome to <strong>iLoveAudios AI Song Finder</strong>, your all-in-one free <strong>song identifier online</strong>. Whether you stumbled upon a catchy tune in an Instagram Reel, need an <strong>ai music identifier</strong> for a TikTok clip, or want a fast <strong>mp3 song finder</strong> for recorded audio, our recognition engine analyzes acoustic frequencies in seconds to uncover the exact track name, artist, full lyrics, and MP3 download.
+          Welcome to <strong>iLoveAudios Song Finder</strong>, your all-in-one free <strong>song identifier online</strong>. Whether you stumbled upon a catchy tune in an Instagram Reel, need an <strong>ai music identifier</strong> for a TikTok clip, or want a fast <strong>mp3 song finder</strong> for recorded audio, our recognition engine analyzes acoustic frequencies in seconds to uncover the exact track name, artist, full lyrics, and MP3 download.
         </p>
       </div>
 
@@ -189,7 +189,7 @@ export default function SongExtractorPage() {
             How It Works
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
-            How to Use Our AI Song Finder Online
+            How to Use Our Song Finder Online
           </h2>
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
             Our <strong>song finder ai</strong> offers three flexible ways to uncover any track with zero friction:

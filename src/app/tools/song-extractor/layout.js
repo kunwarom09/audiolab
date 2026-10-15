@@ -35,7 +35,7 @@ export default function SongExtractorLayout({ children }) {
   const softwareAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'iLoveAudios AI Song Finder',
+    name: 'iLoveAudios Song Finder',
     applicationCategory: 'MultimediaApplication',
     applicationSubCategory: 'Music Recognition Tool',
     operatingSystem: 'All',
@@ -84,7 +84,7 @@ export default function SongExtractorLayout({ children }) {
       {
         '@type': 'ListItem',
         position: 3,
-        name: 'AI Song Finder',
+        name: 'Song Finder',
         item: getCanonicalUrl('/tools/song-extractor')
       }
     ]

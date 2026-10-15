@@ -9,7 +9,7 @@ export default function HeroCard({
   isLoading,
   initialTab = 'link',
   initialFile = null,
-  title = 'AI Song Finder',
+  title = 'Song Finder',
   subtitle = 'Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.',
   linkPlaceholder,
 }) {

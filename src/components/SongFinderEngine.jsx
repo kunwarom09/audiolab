@@ -9,7 +9,7 @@ import { useApp } from '@/components/AppClientWrapper';
 import { AlertTriangle } from 'lucide-react';
 
 export default function SongFinderEngine({
-  title = 'AI Song Finder',
+  title = 'Song Finder',
   subtitle = 'Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.',
   initialTab = 'link',
   linkPlaceholder,
