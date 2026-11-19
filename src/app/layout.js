@@ -65,10 +65,13 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico' },
+      { url: '/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
-    shortcut: '/icon.svg',
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   robots: {
@@ -97,7 +100,7 @@ export default function RootLayout({ children }) {
     '@type': 'Organization',
     name: 'iLoveAudios',
     url: SITE_URL,
-    logo: `${SITE_URL}/icon.svg`
+    logo: `${SITE_URL}/icon-512x512.png`,
   };
 
   return (
