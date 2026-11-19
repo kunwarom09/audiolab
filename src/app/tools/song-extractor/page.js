@@ -15,6 +15,12 @@ import {
   Radio,
   ExternalLink
 } from 'lucide-react';
+import {
+  InstagramLogoIcon,
+  TikTokLogoIcon,
+  YouTubeLogoIcon,
+  FacebookLogoIcon
+} from '@/components/AudioIcons';
 
 const SONG_FINDER_FAQS = [
   {
@@ -51,130 +57,130 @@ export default function SongExtractorPage() {
       initialTab="link"
     >
       {/* 1. Context Intro with Secondary Keywords */}
-      <div className="max-w-4xl mx-auto glass-panel rounded-3xl p-6 sm:p-8 border border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md space-y-4 text-center sm:text-left shadow-xs">
-        <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
+      <div className="ui-card shadow-xs space-y-4 text-left">
+        <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
           Welcome to <strong>iLoveAudios Song Finder</strong>, your all-in-one free <strong>song identifier online</strong>. Whether you stumbled upon a catchy tune in an Instagram Reel, need an <strong>ai music identifier</strong> for a TikTok clip, or want a fast <strong>mp3 song finder</strong> for recorded audio, our recognition engine analyzes acoustic frequencies in seconds to uncover the exact track name, artist, full lyrics, and MP3 download.
         </p>
       </div>
 
       {/* 2. Platform Hub Navigation */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="text-center sm:text-left space-y-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="text-left space-y-3">
+          <span className="text-[length:var(--text-base)] font-bold text-blue-700 block">
             Dedicated Platform Finders
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Find Songs from Any Social Video or Audio File
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
             Choose a dedicated tool optimized for your platform, or explore our specialized audio identifier hubs:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Link 
-            href="/song-finder-from-video" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-blue-500/20 bg-blue-500/5 flex flex-col justify-between"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Link
+            href="/song-finder-from-video"
+            className="group tool-card border-blue-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center">
-                <Video className="w-4 h-4" />
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center">
+                <Video className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-blue-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-blue-700 transition-colors flex items-center justify-between gap-2">
                 <span>AI Song Finder from Video</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Central hub to extract and identify background music from video links and uploaded clips.
               </p>
             </div>
           </Link>
 
-          <Link 
-            href="/identify-song-from-audio" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-emerald-500/20 bg-emerald-500/5 flex flex-col justify-between"
+          <Link
+            href="/identify-song-from-audio"
+            className="group tool-card border-emerald-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center">
-                <FileAudio className="w-4 h-4" />
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
+                <FileAudio className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-emerald-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-emerald-700 transition-colors flex items-center justify-between gap-2">
                 <span>Identify Song from Audio</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Upload MP3, WAV, M4A, FLAC, or voice memos to pinpoint song titles with timestamp scanning.
               </p>
             </div>
           </Link>
 
-          <Link 
-            href="/find-song-from-instagram-reel" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-pink-500/20 bg-pink-500/5 flex flex-col justify-between"
+          <Link
+            href="/find-song-from-instagram-reel"
+            className="group tool-card border-pink-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-pink-500 text-white flex items-center justify-center text-sm font-black">
-                IG
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#E1306C] text-white flex items-center justify-center">
+                <InstagramLogoIcon className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-pink-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-pink-700 transition-colors flex items-center justify-between gap-2">
                 <span>Instagram Reel Song Finder</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Find songs from Instagram Reels and Stories even when masked as original creator audio.
               </p>
             </div>
           </Link>
 
-          <Link 
-            href="/find-song-from-tiktok" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-cyan-500/20 bg-cyan-500/5 flex flex-col justify-between"
+          <Link
+            href="/find-song-from-tiktok"
+            className="group tool-card border-slate-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-cyan-500 text-white flex items-center justify-center text-sm font-black">
-                TT
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#111827] text-white flex items-center justify-center">
+                <TikTokLogoIcon className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-cyan-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-[var(--color-brand)] transition-colors flex items-center justify-between gap-2">
                 <span>Find Song from TikTok</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Identify TikTok sounds, sped-up edits, and viral trends with instant track discovery.
               </p>
             </div>
           </Link>
 
-          <Link 
-            href="/find-song-from-youtube-shorts" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-red-500/20 bg-red-500/5 flex flex-col justify-between"
+          <Link
+            href="/find-song-from-youtube-shorts"
+            className="group tool-card border-red-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-red-500 text-white flex items-center justify-center text-sm font-black">
-                YT
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#FF0000] text-white flex items-center justify-center">
+                <YouTubeLogoIcon className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-red-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-red-700 transition-colors flex items-center justify-between gap-2">
                 <span>YouTube Shorts Song Finder</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Paste YouTube Shorts links to extract underlying music tracks and watch the official video.
               </p>
             </div>
           </Link>
 
-          <Link 
-            href="/facebook-music-identifier" 
-            className="group glass-panel glass-panel-hover rounded-2xl p-5 border-indigo-500/20 bg-indigo-500/5 flex flex-col justify-between"
+          <Link
+            href="/facebook-music-identifier"
+            className="group tool-card border-blue-500/20 flex flex-col justify-between"
           >
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-500 text-white flex items-center justify-center text-sm font-black">
-                FB
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#1877F2] text-white flex items-center justify-center">
+                <FacebookLogoIcon className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)] group-hover:text-indigo-500 transition-colors flex items-center justify-between">
+              <h3 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-blue-700 transition-colors flex items-center justify-between gap-2">
                 <span>Facebook Music Identifier</span>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Discover music in Facebook Reels and Watch videos with acoustic constellation matching.
               </p>
             </div>
@@ -183,121 +189,121 @@ export default function SongExtractorPage() {
       </section>
 
       {/* 3. 3 Input Methods: How to Use the Song Finder */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="text-center sm:text-left space-y-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-purple-500">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="text-left space-y-3">
+          <span className="text-[length:var(--text-base)] font-bold text-purple-700 block">
             How It Works
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             How to Use Our Song Finder Online
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
             Our <strong>song finder ai</strong> offers three flexible ways to uncover any track with zero friction:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="glass-panel glass-panel-hover rounded-2xl p-6 space-y-3 flex flex-col justify-between border-pink-500/20 bg-pink-500/5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="ui-card space-y-4 flex flex-col justify-between border-pink-500/20">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-pink-500 text-white flex items-center justify-center font-black text-sm">
+              <div className="w-11 h-11 rounded-xl bg-pink-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
                 1
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)]">
+              <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
                 Paste Video Link
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Copy the public link from Instagram Reels, TikTok, YouTube Shorts, Facebook Reels, or Snapchat Spotlight and paste it into the search box.
               </p>
             </div>
-            <div className="pt-2 text-[10px] font-bold text-pink-600 dark:text-pink-400">
-              ⚡ Instant demuxing & recognition
+            <div className="pt-2 text-[length:var(--text-base)] font-bold text-pink-700">
+              Instant demuxing &amp; recognition
             </div>
           </div>
 
-          <div className="glass-panel glass-panel-hover rounded-2xl p-6 space-y-3 flex flex-col justify-between border-blue-500/20 bg-blue-500/5">
+          <div className="ui-card space-y-4 flex flex-col justify-between border-blue-500/20">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center font-black text-sm">
+              <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
                 2
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)]">
+              <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
                 Upload Audio or Video File
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Drop your MP4, MOV, WebM, MP3, WAV, M4A, or FLAC file up to 100MB. Select specific timestamps to isolate clear music without dialogue.
               </p>
             </div>
-            <div className="pt-2 text-[10px] font-bold text-blue-600 dark:text-blue-400">
-              📁 Screen recordings & voice notes
+            <div className="pt-2 text-[length:var(--text-base)] font-bold text-blue-700">
+              Screen recordings &amp; voice notes
             </div>
           </div>
 
-          <div className="glass-panel glass-panel-hover rounded-2xl p-6 space-y-3 flex flex-col justify-between border-emerald-500/20 bg-emerald-500/5">
+          <div className="ui-card space-y-4 flex flex-col justify-between border-emerald-500/20">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-black text-sm">
+              <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
                 3
               </div>
-              <h3 className="text-sm font-black text-[var(--text-primary)]">
+              <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
                 Record Live Music
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
                 Switch to Record Audio and allow your browser microphone to capture 5 to 15 seconds of ambient music playing in your room or vehicle.
               </p>
             </div>
-            <div className="pt-2 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-              🎙️ Works in Safari, Chrome & Edge
+            <div className="pt-2 text-[length:var(--text-base)] font-bold text-emerald-700">
+              Works in Safari, Chrome &amp; Edge
             </div>
           </div>
         </div>
       </section>
 
       {/* 4. Alternative to Shazam Comparison Section */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-2 text-center sm:text-left">
-          <span className="text-[10px] font-black uppercase tracking-wider text-cyan-500 block">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="space-y-3 text-left">
+          <span className="text-[length:var(--text-base)] font-bold text-cyan-700 block">
             Why Use iLoveAudios
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             A Powerful Browser-Based Alternative to Shazam
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-3xl leading-relaxed">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
             While Shazam is famous for mobile phone microphone tagging, it falls short when you are watching videos online or editing clips on your computer. Here is why iLoveAudios is the ideal modern online alternative:
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-xs">
-          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+        <div className="table-scroll rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-xs">
+          <table className="w-full text-left border-collapse text-[length:var(--text-base)]">
             <thead>
-              <tr className="border-b border-[var(--border-color)] bg-slate-500/5">
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Capability</th>
-                <th className="p-3.5 sm:p-4 font-black text-[var(--iloveaudios-red)]">iLoveAudios Song Finder</th>
-                <th className="p-3.5 sm:p-4 font-semibold text-[var(--text-secondary)]">Standard Shazam App</th>
+              <tr className="border-b border-[var(--color-border)] bg-[var(--color-bg)]">
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Capability</th>
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-brand)]">iLoveAudios Song Finder</th>
+                <th className="p-4 sm:p-5 font-semibold text-[var(--color-text-muted)]">Standard Shazam App</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--border-color)] text-[var(--text-secondary)]">
+            <tbody className="divide-y divide-[var(--color-border)] text-[var(--color-text-muted)]">
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Direct Social Video Links</td>
-                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Instagram, TikTok, FB, Snap, Shorts</td>
-                <td className="p-3.5 sm:p-4 text-red-400">No link input (mic only)</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Direct Social Video Links</td>
+                <td className="p-4 sm:p-5 font-bold text-emerald-700">Instagram, TikTok, FB, Snap, Shorts</td>
+                <td className="p-4 sm:p-5 text-red-700">No link input (mic only)</td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Upload Audio/Video Files</td>
-                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Supported (MP4, MOV, MP3, WAV, etc.)</td>
-                <td className="p-3.5 sm:p-4 text-red-400">Not supported</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Upload Audio/Video Files</td>
+                <td className="p-4 sm:p-5 font-bold text-emerald-700">Supported (MP4, MOV, MP3, WAV, etc.)</td>
+                <td className="p-4 sm:p-5 text-red-700">Not supported</td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Full Song MP3 Download</td>
-                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Free 192kbps MP3 download included</td>
-                <td className="p-3.5 sm:p-4 text-red-400">Apple Music subscription link only</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Full Song MP3 Download</td>
+                <td className="p-4 sm:p-5 font-bold text-emerald-700">Free 192kbps MP3 download included</td>
+                <td className="p-4 sm:p-5 text-red-700">Apple Music subscription link only</td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">No App Installation</td>
-                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">100% In-Browser (Zero downloads)</td>
-                <td className="p-3.5 sm:p-4 text-yellow-500">Requires native app download</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">No App Installation</td>
+                <td className="p-4 sm:p-5 font-bold text-emerald-700">100% In-Browser (Zero downloads)</td>
+                <td className="p-4 sm:p-5 text-amber-700">Requires native app download</td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">Full Lyrics with Copy</td>
-                <td className="p-3.5 sm:p-4 font-bold text-emerald-500">Line-by-line synchronized lyrics</td>
-                <td className="p-3.5 sm:p-4 text-slate-400">Requires Apple ID login</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Full Lyrics with Copy</td>
+                <td className="p-4 sm:p-5 font-bold text-emerald-700">Line-by-line synchronized lyrics</td>
+                <td className="p-4 sm:p-5 text-[var(--color-text-muted)]">Requires Apple ID login</td>
               </tr>
             </tbody>
           </table>
@@ -305,31 +311,31 @@ export default function SongExtractorPage() {
       </section>
 
       {/* 5. Cross-Tool Recommendations */}
-      <section className="max-w-4xl mx-auto p-6 rounded-2xl border border-[var(--border-color)] bg-gradient-to-r from-blue-500/5 to-purple-500/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="space-y-1 text-center sm:text-left">
-          <h3 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
+      <section className="ui-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div className="space-y-2 text-left">
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
             Need to convert or trim your discovered audio?
           </h3>
-          <p className="text-xs text-[var(--text-secondary)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
             Try our dedicated MP3 converters and sub-second audio editing tools.
           </p>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
           <Link
             href="/mp3-converter"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+            className="ui-control flex items-center justify-center rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors"
           >
             MP3 Converter Hub
           </Link>
           <Link
             href="/tools/audio-cutter"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+            className="ui-control flex items-center justify-center rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors"
           >
             Audio Cutter
           </Link>
           <Link
             href="/audio-converter"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs"
+            className="ui-control flex items-center justify-center rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors"
           >
             Audio Converter
           </Link>
@@ -337,7 +343,7 @@ export default function SongExtractorPage() {
       </section>
 
       {/* 6. FAQ Section */}
-      <section id="faqs" className="max-w-4xl mx-auto pt-6 border-t border-[var(--border-color)]">
+      <section id="faqs" className="w-full pt-8 border-t border-[var(--color-border)]">
         <FaqSection faqs={SONG_FINDER_FAQS} />
       </section>
     </SongFinderEngine>

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Upload, Cpu, Disc3, HardDrive, CheckCircle2 } from 'lucide-react';
 
-export default function ConversionProgress({ progress, status, fileName, fromFormat, toFormat }) {
+export default function ConversionProgress({ progress, status, fileName }) {
   const steps = [
     { key: 'uploading', label: 'Uploading input file', icon: Upload },
     { key: 'analyzing', label: 'Analyzing audio codec & sample rate', icon: Cpu },
@@ -22,27 +22,27 @@ export default function ConversionProgress({ progress, status, fileName, fromFor
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto glass-panel rounded-3xl p-6 md:p-8 space-y-6">
-      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
-        <div>
-          <h3 className="text-base font-extrabold text-[var(--text-primary)]">
+    <div className="w-full ui-card space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] pb-4">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
             Converting File...
           </h3>
-          <p className="text-xs text-[var(--text-muted)] truncate max-w-[280px] sm:max-w-md mt-0.5" title={fileName}>
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] truncate mt-1" title={fileName}>
             {fileName}
           </p>
         </div>
-        <div className="text-right">
-          <span className="text-lg font-black text-[#0088ff]">{progress}%</span>
+        <div className="text-right shrink-0">
+          <span className="text-[length:var(--text-lead)] font-bold text-[var(--color-brand)] tabular-nums">{progress}%</span>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+      <div className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-full h-3 overflow-hidden">
         <div
-          className="bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 h-2.5 rounded-full progress-fill-transition"
+          className="bg-[var(--color-brand)] h-3 rounded-full progress-fill-transition"
           style={{ width: `${progress}%` }}
-        ></div>
+        />
       </div>
 
       {/* Steps List */}
@@ -54,35 +54,35 @@ export default function ConversionProgress({ progress, status, fileName, fromFor
           return (
             <div key={step.key} className="flex items-center gap-4">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                className={`w-12 h-12 rounded-[12px] flex items-center justify-center shrink-0 border ${
                   stepStatus === 'done'
-                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                     : stepStatus === 'current'
-                    ? 'bg-blue-500/15 text-[#0088ff] border border-blue-500/40 animate-pulse'
-                    : 'bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-white/5'
+                    ? 'bg-[var(--color-brand)] text-white border-[var(--color-brand)]'
+                    : 'bg-[var(--color-bg)] text-[var(--color-text-muted)] border-[var(--color-border)]'
                 }`}
               >
                 {stepStatus === 'done' ? (
-                  <CheckCircle2 className="w-5 h-5" />
+                  <CheckCircle2 className="w-6 h-6" />
                 ) : (
-                  <Icon className={`w-5 h-5 ${stepStatus === 'current' ? 'animate-spin-slow' : ''}`} />
+                  <Icon className={`w-6 h-6 ${stepStatus === 'current' ? 'animate-spin' : ''}`} />
                 )}
               </div>
 
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <p
-                  className={`text-xs sm:text-sm font-semibold transition-colors duration-300 ${
+                  className={`text-[length:var(--text-base)] font-semibold ${
                     stepStatus === 'done'
-                      ? 'text-emerald-600 dark:text-emerald-400'
+                      ? 'text-emerald-700'
                       : stepStatus === 'current'
-                      ? 'text-[#0088ff] font-extrabold'
-                      : 'text-[var(--text-secondary)]'
+                      ? 'text-[var(--color-brand)] font-bold'
+                      : 'text-[var(--color-text-muted)]'
                   }`}
                 >
                   {step.label}
                 </p>
                 {stepStatus === 'current' && (
-                  <span className="text-[10px] text-blue-500 font-bold block mt-0.5 animate-pulse">
+                  <span className="text-[length:var(--text-base)] text-[var(--color-brand)] font-semibold block mt-0.5">
                     Processing... Please do not close this window
                   </span>
                 )}

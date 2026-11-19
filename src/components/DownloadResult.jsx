@@ -15,17 +15,17 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const backendBase = backendApiUrl 
-    || process.env.NEXT_PUBLIC_BACKEND_API_URL 
+  const backendBase = backendApiUrl
+    || process.env.NEXT_PUBLIC_BACKEND_API_URL
     || (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') ? 'https://audiolab-dc5o.onrender.com' : '');
 
-  const directDownloadUrl = backendBase 
-    ? `${backendBase.replace(/\/$/, '')}/api/convert/download/${jobId}` 
+  const directDownloadUrl = backendBase
+    ? `${backendBase.replace(/\/$/, '')}/api/convert/download/${jobId}`
     : `/api/convert/download/${jobId}`;
 
   const handleCopyLink = async () => {
-    const downloadUrl = backendBase 
-      ? directDownloadUrl 
+    const downloadUrl = backendBase
+      ? directDownloadUrl
       : `${window.location.origin}/api/convert/download/${jobId}`;
     try {
       await navigator.clipboard.writeText(downloadUrl);
@@ -52,30 +52,32 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto glass-panel rounded-3xl p-6 md:p-8 space-y-6 text-center animate-in fade-in duration-300">
-      {/* Success Icon */}
-      <div className="mx-auto w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center">
-        <CheckCircle className="w-10 h-10" />
-      </div>
+    <div className="w-full ui-card space-y-6 text-left">
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center shrink-0">
+          <CheckCircle className="w-8 h-8" />
+        </div>
 
-      <div className="space-y-2">
-        <h3 className="text-xl font-black text-[var(--text-primary)]">
-          Conversion Completed!
-        </h3>
-        <p className="text-xs text-[var(--text-muted)] truncate max-w-sm sm:max-w-md mx-auto" title={fileName}>
-          {fileName}
-        </p>
-        <span className="inline-block px-3 py-1 rounded-full bg-[var(--bg-main)] border border-[var(--border-color)] text-[10px] font-bold text-[var(--text-secondary)] mt-1">
+        <div className="flex-1 min-w-0 space-y-1">
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
+            Conversion Completed!
+          </h3>
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] truncate" title={fileName}>
+            {fileName}
+          </p>
+        </div>
+
+        <span className="px-[20px] py-[12px] rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-[length:var(--text-base)] font-semibold text-[var(--color-text)]">
           File Size: {formatFileSize(fileSize)}
         </span>
       </div>
 
       {/* Main Download Button */}
-      <div className="pt-2">
+      <div>
         <a
           href={directDownloadUrl}
           download
-          className="w-full py-4 rounded-2xl btn-shazam text-sm font-extrabold flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+          className="w-full min-h-[52px] px-[20px] rounded-[8px] btn-shazam text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 cursor-pointer"
         >
           <Download className="w-5 h-5" />
           <span>Download Converted File</span>
@@ -83,35 +85,35 @@ export default function DownloadResult({ jobId, fileName, fileSize, onReset, ttl
       </div>
 
       {/* Utility Action Buttons */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           type="button"
           onClick={handleCopyLink}
-          className="py-3 px-4 rounded-xl bg-[var(--bg-main)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          className="w-full min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-bg)] hover:border-[var(--color-text)] border border-[var(--color-border)] text-[length:var(--text-base)] font-semibold text-[var(--color-text)] flex items-center justify-center gap-2 transition-colors cursor-pointer"
         >
-          {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+          {copied ? <Check className="w-5 h-5 text-emerald-700" /> : <Copy className="w-5 h-5" />}
           <span>{copied ? 'Link Copied' : 'Copy Download Link'}</span>
         </button>
 
         <button
           type="button"
           onClick={onReset}
-          className="py-3 px-4 rounded-xl bg-[var(--bg-main)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          className="w-full min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-bg)] hover:border-[var(--color-text)] border border-[var(--color-border)] text-[length:var(--text-base)] font-semibold text-[var(--color-text)] flex items-center justify-center gap-2 transition-colors cursor-pointer"
         >
-          <RefreshCw className="w-4 h-4" />
+          <RefreshCw className="w-5 h-5" />
           <span>Convert Another</span>
         </button>
       </div>
 
       {/* Expiration Countdown */}
       {timeLeft > 0 ? (
-        <div className="p-3 rounded-2xl bg-amber-500/5 border border-amber-500/10 flex items-center justify-center gap-2 text-[10px] text-amber-600 dark:text-amber-400 font-bold tracking-wide">
-          <Clock className="w-3.5 h-3.5" />
+        <div className="p-4 rounded-[8px] bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center gap-2.5 text-[length:var(--text-base)] text-[var(--color-text)] font-semibold">
+          <Clock className="w-5 h-5 text-[var(--color-brand)] shrink-0" />
           <span>File auto-deletes in {formatTime(timeLeft)} minutes</span>
         </div>
       ) : (
-        <div className="p-3 rounded-2xl bg-red-500/5 border border-red-500/10 flex items-center justify-center gap-2 text-[10px] text-red-500 font-bold tracking-wide">
-          <Clock className="w-3.5 h-3.5" />
+        <div className="p-4 rounded-[8px] bg-[var(--color-bg)] border border-[var(--color-brand)] flex items-center gap-2.5 text-[length:var(--text-base)] text-[var(--color-brand)] font-semibold">
+          <Clock className="w-5 h-5 shrink-0" />
           <span>File has expired. Please convert again.</span>
         </div>
       )}

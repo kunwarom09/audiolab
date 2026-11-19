@@ -45,63 +45,55 @@ export default function AudioConverterHubPage() {
   const pureAudioConverters = allConverters.filter((t) => t.category === 'Audio Converters');
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-16 animate-in fade-in duration-300">
+    <div className="site-container py-10 md:py-16 space-y-16">
       {/* 1. Hero Header */}
-      <section className="text-center max-w-4xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-black uppercase tracking-wider">
-          <Layers className="w-3.5 h-3.5" />
-          <span>Universal Format Transcoding</span>
-        </div>
-
-        <h1 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
+      <section className="text-left space-y-4">
+        <h1 className="text-[length:var(--text-h1)] font-bold text-[var(--color-text)]">
           Audio Converter
         </h1>
 
-        <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[length:var(--text-lead)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
           Welcome to the <strong>audio converter</strong> directory on iLoveAudios. Convert between 30+ audio and video formats online for free with studio bitrates up to 320kbps and bit-perfect lossless compression.
         </p>
       </section>
 
       {/* 2. Highlight Banner: Dedicated Link to /mp3-converter Hub */}
-      <section className="max-w-5xl mx-auto p-6 sm:p-8 rounded-3xl border border-red-500/20 bg-gradient-to-r from-red-500/10 via-pink-500/5 to-purple-500/10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="space-y-2 text-center md:text-left">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/15 text-[var(--iloveaudios-red)] text-[10px] font-black uppercase tracking-wider">
-            Flagship Suite
-          </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight">
+      <section className="ui-card border-red-500/20 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="space-y-3 text-left">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Looking Specifically for MP3 Converters?
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-xl leading-relaxed">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
             Visit our dedicated <strong>MP3 Converter</strong> hub featuring 18+ direct video and audio converters to universal 320kbps MP3 format.
           </p>
         </div>
         <Link
           href="/mp3-converter"
-          className="px-6 py-3.5 rounded-2xl bg-[var(--iloveaudios-red)] hover:bg-[#d92d39] text-white font-extrabold text-sm transition-all shadow-lg shadow-red-500/25 shrink-0 flex items-center gap-2"
+          className="ui-control w-full sm:w-auto rounded-2xl bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white font-bold transition-colors shadow-sm shrink-0 flex items-center justify-center gap-2"
         >
           <span>Explore MP3 Converter Hub</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-5 h-5" />
         </Link>
       </section>
 
       {/* 3. Audio to Audio Converters (Lossless & Multi-format) */}
       <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight flex items-center gap-2">
-              <FileAudio className="w-5 h-5 text-emerald-500" />
-              <span>Audio to Audio Converters (Lossless & Lossy)</span>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--color-border)] pb-6">
+          <div className="space-y-2">
+            <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)] flex items-center gap-3">
+              <FileAudio className="w-6 h-6 text-emerald-600 shrink-0" />
+              <span>Audio to Audio Converters (Lossless &amp; Lossy)</span>
             </h2>
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
               Convert between WAV, FLAC, ALAC, MP3, AAC, M4A, OGG, OPUS, and ringtone formats:
             </p>
           </div>
-          <span className="text-xs font-bold text-[var(--text-muted)] bg-[var(--bg-card)] px-3 py-1 rounded-full border border-[var(--border-color)]">
+          <span className="ui-pill text-[length:var(--text-base)] font-bold text-[var(--color-text-muted)] bg-[var(--color-surface)] rounded-full border border-[var(--color-border)] inline-flex items-center shrink-0">
             {pureAudioConverters.length} Tools
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pureAudioConverters.map((tool) => (
             <ToolCard
               key={tool.slug}
@@ -120,22 +112,22 @@ export default function AudioConverterHubPage() {
 
       {/* 4. Video to Audio Converters */}
       <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
-          <div className="space-y-1">
-            <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] tracking-tight flex items-center gap-2">
-              <Video className="w-5 h-5 text-blue-500" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--color-border)] pb-6">
+          <div className="space-y-2">
+            <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)] flex items-center gap-3">
+              <Video className="w-6 h-6 text-blue-600 shrink-0" />
               <span>Video to Audio Extraction Tools</span>
             </h2>
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
               Extract high-fidelity MP3 and uncompressed WAV soundtracks from video containers:
             </p>
           </div>
-          <span className="text-xs font-bold text-[var(--text-muted)] bg-[var(--bg-card)] px-3 py-1 rounded-full border border-[var(--border-color)]">
+          <span className="ui-pill text-[length:var(--text-base)] font-bold text-[var(--color-text-muted)] bg-[var(--color-surface)] rounded-full border border-[var(--color-border)] inline-flex items-center shrink-0">
             {videoConverters.length} Tools
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videoConverters.map((tool) => (
             <ToolCard
               key={tool.slug}
@@ -153,52 +145,52 @@ export default function AudioConverterHubPage() {
       </section>
 
       {/* 5. 3-Step Process Guide */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="text-center sm:text-left space-y-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-emerald-500">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="text-left space-y-3">
+          <span className="text-[length:var(--text-base)] font-bold text-emerald-700 block">
             How It Works
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             How to Convert Any Audio Format in 3 Steps
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
             Our cloud engine powered by FFmpeg makes converting any format quick and lossless:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-emerald-500/20 bg-emerald-500/5">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="ui-card space-y-3 border-emerald-500/20">
+            <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               1
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
               Pick Your Conversion Tool
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
               Select your source and target formats from the directory above and upload your file (up to 500MB).
             </p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-blue-500/20 bg-blue-500/5">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm">
+          <div className="ui-card space-y-3 border-blue-500/20">
+            <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               2
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
               Customize Quality Presets
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
               Adjust sample rates (44.1kHz / 48kHz), audio channels (stereo/mono), or select bitrates up to 320kbps.
             </p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-purple-500/20 bg-purple-500/5">
-            <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-sm">
+          <div className="ui-card space-y-3 border-purple-500/20">
+            <div className="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               3
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
-              Convert & Save
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
+              Convert &amp; Save
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
               Click Convert to transcode your media file in seconds and download your finished track with full tags.
             </p>
           </div>
@@ -206,42 +198,42 @@ export default function AudioConverterHubPage() {
       </section>
 
       {/* 6. Cross-Tool Recommendations */}
-      <section className="max-w-4xl mx-auto p-6 rounded-2xl border border-[var(--border-color)] bg-gradient-to-r from-emerald-500/5 to-blue-500/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="space-y-1 text-center sm:text-left">
-          <h3 className="text-sm sm:text-base font-black text-[var(--text-primary)]">
-            Explore Audio Trimming & AI Song Recognition
+      <section className="ui-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div className="space-y-2 text-left">
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
+            Explore Audio Trimming &amp; AI Song Recognition
           </h3>
-          <p className="text-xs text-[var(--text-secondary)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
             Cut and trim tracks with sub-second accuracy, or identify songs playing in videos.
           </p>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
           <Link
             href="/tools/audio-cutter"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs flex items-center gap-1.5"
+            className="ui-control rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors flex items-center justify-center gap-2"
           >
-            <Scissors className="w-3.5 h-3.5 text-purple-500" />
+            <Scissors className="w-5 h-5 text-purple-600" />
             <span>Audio Cutter</span>
           </Link>
           <Link
             href="/tools/song-extractor"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs flex items-center gap-1.5"
+            className="ui-control rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors flex items-center justify-center gap-2"
           >
-            <Music2 className="w-3.5 h-3.5 text-blue-500" />
+            <Music2 className="w-5 h-5 text-blue-600" />
             <span>AI Song Finder</span>
           </Link>
           <Link
             href="/mp3-converter"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-[var(--border-color)] hover:border-[var(--iloveaudios-red)] transition-all shadow-xs flex items-center gap-1.5"
+            className="ui-control rounded-xl font-bold bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-[var(--color-brand)] transition-colors flex items-center justify-center gap-2"
           >
-            <Disc className="w-3.5 h-3.5 text-red-500" />
+            <Disc className="w-5 h-5 text-[var(--color-brand)]" />
             <span>MP3 Converter</span>
           </Link>
         </div>
       </section>
 
       {/* 7. Frequently Asked Questions */}
-      <section id="faqs" className="max-w-4xl mx-auto pt-6 border-t border-[var(--border-color)]">
+      <section id="faqs" className="w-full pt-8 border-t border-[var(--color-border)]">
         <FaqSection faqs={AUDIO_CONVERTER_FAQS} />
       </section>
     </div>

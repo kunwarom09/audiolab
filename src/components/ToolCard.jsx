@@ -5,54 +5,47 @@ import Link from 'next/link';
 import * as Icons from 'lucide-react';
 
 export default function ToolCard({ title, description, href, icon, category, badge, fromFormat, toFormat }) {
-  // Find appropriate icon from Lucide React
   const IconComponent = Icons[icon] || Icons.HelpCircle;
 
-  // Determine styling based on category
   const categoryStyles = {
-    'ai-tools': 'bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-900/30',
-    'audio-converters': 'bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30',
-    'video-to-audio': 'bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/30',
-  }[category] || 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+    'ai-tools': 'bg-amber-50 text-amber-700 border border-amber-200',
+    'audio-converters': 'bg-blue-50 text-blue-700 border border-blue-200',
+    'video-to-audio': 'bg-orange-50 text-orange-700 border border-orange-200',
+  }[category] || 'bg-[var(--color-bg)] text-[var(--color-text-muted)] border border-[var(--color-border)]';
 
   return (
-    <div className="group relative h-full glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between overflow-hidden">
-      {/* Accessible Full-Card Click Overlay with concise title anchor */}
-      <Link href={href} aria-label={title} className="absolute inset-0 z-10">
+    <div className="group relative w-full h-full tool-card p-6 sm:p-7 flex flex-col justify-between overflow-hidden">
+      <Link href={href} aria-label={title} className="absolute inset-0 z-10 min-w-[48px] min-h-[48px]">
         <span className="sr-only">{title}</span>
       </Link>
 
-      <div className="space-y-4 pointer-events-none">
-        <div className="flex items-center justify-between gap-3">
-          {/* Tool Icon Box styled with category soft colors */}
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-[1.02] ${categoryStyles}`}>
-            <IconComponent className="w-4.5 h-4.5" />
+      <div className="w-full space-y-4 pointer-events-none">
+        <div className="flex items-center justify-between gap-3 min-h-[48px]">
+          <div className={`w-12 h-12 rounded-[12px] flex items-center justify-center shrink-0 ${categoryStyles}`}>
+            <IconComponent className="w-6 h-6" />
           </div>
 
-          {/* Status / Category Badge */}
           {badge && (
-            <span className="px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-[var(--iloveaudios-red)]/15 text-[var(--iloveaudios-red)] border border-[var(--iloveaudios-red)]/20">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-[length:var(--text-base)] leading-none font-semibold bg-[var(--color-bg)] text-[var(--color-brand)] border border-[var(--color-border)] shrink-0">
               {badge}
             </span>
           )}
         </div>
 
-        {/* Tool Titles */}
-        <div className="space-y-1 text-left">
-          <span className="block text-sm font-black text-[var(--text-primary)] tracking-tight group-hover:text-[var(--iloveaudios-red)] transition-colors duration-200">
+        <div className="space-y-1.5 text-left">
+          <span className="block text-[length:var(--text-lead)] font-bold text-[var(--color-text)] group-hover:text-[var(--color-brand)] leading-[var(--leading-heading)] transition-colors duration-150">
             {title}
           </span>
           {fromFormat && toFormat && (
-            <div className="flex items-center gap-1 text-[8px] font-black tracking-wider text-[var(--text-muted)] uppercase">
+            <div className="flex items-center gap-1.5 text-[length:var(--text-base)] font-semibold text-[var(--color-text-muted)]">
               <span>{fromFormat}</span>
-              <Icons.ArrowRight className="w-2.5 h-2.5 text-[var(--text-muted)]" />
+              <Icons.ArrowRight className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
               <span>{toFormat}</span>
             </div>
           )}
         </div>
 
-        {/* Tool Description */}
-        <p className="text-xs text-[var(--text-secondary)] leading-relaxed line-clamp-3 text-left">
+        <p className="prose-measure text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] text-left">
           {description}
         </p>
       </div>

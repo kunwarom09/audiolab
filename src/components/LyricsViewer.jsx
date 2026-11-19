@@ -1,13 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Check, Search, FileText, ExternalLink, Music } from 'lucide-react';
+import {
+  CheckStrokeIcon,
+  CopyStrokeIcon,
+  ExternalLinkStrokeIcon,
+  FileTagIcon,
+} from './AudioIcons';
 
 export default function LyricsViewer({ lyrics, songTitle, artist }) {
   const [copied, setCopied] = useState(false);
   const [filter, setFilter] = useState('');
 
-  // Check if lyrics exist and are valid (not dummy placeholder strings)
   const isInvalidPlaceholder =
     !lyrics ||
     lyrics.includes('Official music video available') ||
@@ -34,20 +38,17 @@ export default function LyricsViewer({ lyrics, songTitle, artist }) {
 
   if (isInvalidPlaceholder) {
     return (
-      <div className="glass-panel rounded-2xl p-6 space-y-4">
-        <div className="flex items-center gap-2 border-b border-[var(--border-color)] pb-4">
-          <FileText className="w-5 h-5 text-amber-500 shrink-0" />
-          <h3 className="text-lg font-bold text-[var(--text-primary)] whitespace-nowrap">Song Lyrics</h3>
+      <div className="w-full ui-card space-y-4">
+        <div className="flex items-center gap-2 border-b border-[var(--color-border)] pb-4">
+          <FileTagIcon className="w-6 h-6 text-[var(--color-accent)] shrink-0" />
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-ink)]">Song Lyrics</h3>
         </div>
 
-        <div className="text-center py-10 px-4 space-y-4 bg-[var(--bg-main)] rounded-xl border border-[var(--border-color)]">
-          <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
-            <Music className="w-6 h-6" />
-          </div>
-          <div className="space-y-1 max-w-md mx-auto">
-            <h4 className="text-sm font-bold text-[var(--text-primary)]">Lyrics Not Available in Database</h4>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Lyrics for <span className="font-bold text-[#0088ff]">{songTitle}</span> are not indexed in the LRCLIB open lyrics database yet.
+        <div className="p-6 space-y-4 bg-[var(--color-canvas)] rounded-[8px] border border-[var(--color-border)]">
+          <div className="space-y-1">
+            <h4 className="text-[length:var(--text-lead)] font-bold text-[var(--color-ink)]">Lyrics not in database</h4>
+            <p className="prose-measure text-[length:var(--text-base)] text-[var(--color-muted)] leading-[var(--leading-body)]">
+              Lyrics for <span className="font-semibold text-[var(--color-ink)]">{songTitle}</span> are not indexed in LRCLIB yet.
             </p>
           </div>
 
@@ -55,10 +56,10 @@ export default function LyricsViewer({ lyrics, songTitle, artist }) {
             href={googleSearchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0088ff] hover:bg-blue-600 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-accent)] hover:bg-[#99161C] text-white font-bold text-[length:var(--text-base)] transition-colors cursor-pointer"
           >
             <span>Search Lyrics on Google</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLinkStrokeIcon className="w-5 h-5" />
           </a>
         </div>
       </div>
@@ -66,38 +67,37 @@ export default function LyricsViewer({ lyrics, songTitle, artist }) {
   }
 
   return (
-    <div className="glass-panel rounded-2xl p-6 space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
+    <div className="w-full ui-card space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-border)] pb-4">
         <div className="flex items-center gap-2 shrink-0">
-          <FileText className="w-5 h-5 text-blue-500 shrink-0" />
-          <h3 className="text-lg font-bold text-[var(--text-primary)] whitespace-nowrap">Song Lyrics</h3>
-          <span className="text-xs text-[var(--text-muted)] whitespace-nowrap">({lines.length} lines)</span>
+          <FileTagIcon className="w-6 h-6 text-[var(--color-accent)] shrink-0" />
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-ink)]">Song Lyrics</h3>
+          <span className="text-[length:var(--text-base)] text-[var(--color-muted)]">({lines.length} lines)</span>
         </div>
 
-        <div className="flex items-center gap-2 flex-1 max-w-xs justify-end">
-          <div className="relative flex-1 min-w-[120px]">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
-            <input
-              type="text"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              placeholder="Search lyrics..."
-              className="w-full glass-input rounded-lg pl-8 pr-3 py-1.5 text-xs focus:outline-none"
-            />
-          </div>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+          <input
+            type="search"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="Filter lyrics..."
+            aria-label="Filter lyrics"
+            className="w-full sm:w-56 min-h-[52px] rounded-[8px] bg-[var(--color-canvas)] border border-[var(--color-border)] px-[20px] text-[length:var(--text-base)] text-[var(--color-ink)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]"
+          />
 
           <button
+            type="button"
             onClick={handleCopy}
-            className="px-3 py-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-[#0088ff] text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0"
+            className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-canvas)] hover:border-[var(--color-ink)] border border-[var(--color-border)] text-[var(--color-ink)] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                <span>Copied!</span>
+                <CheckStrokeIcon className="w-5 h-5 text-[var(--color-accent)] shrink-0" />
+                <span>Copied</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 shrink-0" />
+                <CopyStrokeIcon className="w-5 h-5 shrink-0" />
                 <span>Copy Lyrics</span>
               </>
             )}
@@ -105,22 +105,21 @@ export default function LyricsViewer({ lyrics, songTitle, artist }) {
         </div>
       </div>
 
-      {/* Lyrics Text Box */}
-      <div className="max-h-96 overflow-y-auto pr-2 space-y-2 font-mono text-sm leading-relaxed text-[var(--text-secondary)] bg-[var(--bg-main)] rounded-xl p-4 border border-[var(--border-color)]">
+      <div className="max-h-96 overflow-y-auto space-y-2 text-[length:var(--text-base)] leading-[var(--leading-body)] text-[var(--color-ink)] bg-[var(--color-canvas)] rounded-[8px] p-5 border border-[var(--color-border)]">
         {filteredLines.length > 0 ? (
           filteredLines.map((line, idx) => (
-            <div key={idx} className="flex gap-4 hover:bg-[var(--bg-card-hover)] rounded px-2 py-0.5 transition-colors overflow-x-auto scrollbar-none">
-              <span className="text-xs text-[var(--text-muted)] select-none w-8 text-right font-sans pt-0.5 shrink-0">
+            <div key={idx} className="flex gap-4">
+              <span className="text-[length:var(--text-base)] text-[var(--color-muted)] select-none w-10 text-right shrink-0">
                 {idx + 1}
               </span>
-              <p className={line.trim() === '' ? 'h-4' : 'font-sans text-[var(--text-primary)] whitespace-nowrap'}>
+              <p className={line.trim() === '' ? 'h-4' : 'text-[var(--color-ink)]'}>
                 {line}
               </p>
             </div>
           ))
         ) : (
-          <div className="text-center py-8 text-[var(--text-muted)] text-sm font-sans">
-            No lyric lines matched &quot;{filter}&quot;
+          <div className="text-left py-8 text-[var(--color-muted)] text-[length:var(--text-base)]">
+            No lyric lines matched &ldquo;{filter}&rdquo;
           </div>
         )}
       </div>

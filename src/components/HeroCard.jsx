@@ -3,45 +3,40 @@
 import React from 'react';
 import MediaInputArea from './MediaInputArea';
 
-export default function HeroCard({ 
-  onExtractLink, 
-  onIdentifyFile, 
+export default function HeroCard({
+  onExtractLink,
+  onIdentifyFile,
   isLoading,
   initialTab = 'link',
   initialFile = null,
   title = 'Song Finder',
-  subtitle = 'Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.',
+  subtitle = 'Paste a video link, upload an audio or video file (up to 100 MB), or record with your microphone.',
   linkPlaceholder,
 }) {
   return (
-    <div className="w-full max-w-5xl mx-auto px-2 sm:px-4">
-      <div className="shazam-hero-card p-6 sm:p-10 md:p-12 flex flex-col items-center justify-center text-center space-y-7">
-        
-        {/* Song Finder Hero Title */}
-        <div className="space-y-3 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-tight">
+    <section aria-labelledby="hero-heading" className="w-full">
+      <div className="w-full ui-card space-y-6">
+        <div className="space-y-3 text-left">
+          <h1
+            id="hero-heading"
+            className="text-[length:var(--text-h1)] font-bold text-[var(--color-text)] leading-[var(--leading-heading)]"
+          >
             {title}
           </h1>
-
-          <p className="text-[var(--text-secondary)] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="prose-measure text-[length:var(--text-lead)] text-[var(--color-text-muted)] leading-[var(--leading-body)]">
             {subtitle}
           </p>
         </div>
 
-        {/* Integrated Unified Input (Link, Upload, Record) */}
-        <div className="w-full max-w-3xl pt-1">
-          <MediaInputArea 
-            onExtractLink={onExtractLink} 
-            onIdentifyFile={onIdentifyFile} 
-            isLoading={isLoading}
-            initialTab={initialTab}
-            initialFile={initialFile}
-            linkPlaceholder={linkPlaceholder}
-          />
-        </div>
-
+        <MediaInputArea
+          onExtractLink={onExtractLink}
+          onIdentifyFile={onIdentifyFile}
+          isLoading={isLoading}
+          initialTab={initialTab}
+          initialFile={initialFile}
+          linkPlaceholder={linkPlaceholder}
+        />
       </div>
-    </div>
+    </section>
   );
 }
-

@@ -1,18 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import AppClientWrapper from "@/components/AppClientWrapper";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 import { SITE_URL } from "@/lib/siteConfig";
+
+const sourceSans = Source_Sans_3({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const sourceSerifLogo = Source_Serif_4({
+  variable: "--font-logo",
+  subsets: ["latin"],
+  weight: ["700"],
+  display: "swap",
+});
 
 export const metadata = {
   title: {
@@ -100,7 +103,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${sourceSans.variable} ${sourceSerifLogo.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -127,4 +130,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

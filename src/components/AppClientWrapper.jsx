@@ -15,18 +15,10 @@ export default function AppClientWrapper({ children }) {
   const [history, setHistory] = useState([]);
   const [conversionHistory, setConversionHistory] = useState([]);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Initialize Theme and History on Mount
   useEffect(() => {
     try {
-      const savedTheme = localStorage.getItem('extractor_theme');
-      const isDark = savedTheme === 'dark';
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      document.documentElement.classList.remove('dark');
 
       const savedHistory = localStorage.getItem('extractor_history') || localStorage.getItem('reel_song_history');
       const parsedHistory = savedHistory ? JSON.parse(savedHistory) : [];
@@ -35,21 +27,19 @@ export default function AppClientWrapper({ children }) {
       const parsedConvHistory = savedConvHistory ? JSON.parse(savedConvHistory) : [];
 
       queueMicrotask(() => {
-        if (isDark) setIsDarkMode(true);
         if (parsedHistory.length) setHistory(parsedHistory);
         if (parsedConvHistory.length) setConversionHistory(parsedConvHistory);
       });
     } catch (err) {
-      console.error('Failed to load theme or history data:', err);
+      console.error('Failed to load history data:', err);
     }
   }, []);
 
-  // Event listener for adding conversion history
   useEffect(() => {
     const handleAddConversion = (e) => {
       const newItem = e.detail;
       setConversionHistory((prev) => {
-        const updated = [newItem, ...prev.filter(x => x.jobId !== newItem.jobId)].slice(0, 20);
+        const updated = [newItem, ...prev.filter((x) => x.jobId !== newItem.jobId)].slice(0, 20);
         localStorage.setItem('iloveaudios_conversion_history', JSON.stringify(updated));
         return updated;
       });
@@ -58,18 +48,6 @@ export default function AppClientWrapper({ children }) {
     window.addEventListener('addConversionHistory', handleAddConversion);
     return () => window.removeEventListener('addConversionHistory', handleAddConversion);
   }, []);
-
-  const handleToggleTheme = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    if (newMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('extractor_theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('extractor_theme', 'light');
-    }
-  };
 
   const handleClearHistory = () => {
     setHistory([]);
@@ -89,108 +67,45 @@ export default function AppClientWrapper({ children }) {
         setHistory,
         conversionHistory,
         setConversionHistory,
-        isDarkMode,
+        isDarkMode: false,
         setIsHistoryOpen,
-        handleToggleTheme,
+        handleToggleTheme: () => {},
         handleClearHistory,
-        handleClearConversionHistory
+        handleClearConversionHistory,
       }}
     >
-      <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] flex flex-col relative transition-colors duration-300 font-sans">
+      <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] flex flex-col">
         <Header
           onOpenHistory={() => setIsHistoryOpen(true)}
           historyCount={history.length + conversionHistory.length}
-          isDarkMode={isDarkMode}
-          onToggleTheme={handleToggleTheme}
         />
 
-        <main className="flex-1 w-full z-10">
+        <main className="flex-1 w-full">
           {children}
         </main>
 
-        <footer className="w-full border-t border-[var(--border-color)] py-10 px-4 sm:px-6 text-xs text-[var(--text-muted)] bg-[var(--bg-card)] space-y-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
-            {/* Column 1: Brand & Mission */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5 font-black text-sm text-[var(--text-primary)]">
-                <span>iLove<span className="text-[var(--iloveaudios-red)]">Audios</span></span>
-              </div>
-              <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">
-                Free online audio tools, format converters, and AI music identification. Fast, private, and browser-based.
-              </p>
-            </div>
-
-            {/* Column 2: Flagship Tools */}
-            <div className="space-y-2">
-              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Flagship Tools</span>
-              <ul className="space-y-1 text-[11px]">
-                <li><Link href="/tools/song-extractor" className="hover:text-[var(--iloveaudios-red)] transition-colors">Song Finder</Link></li>
-                <li><Link href="/mp3-converter" className="hover:text-[var(--iloveaudios-red)] transition-colors font-semibold text-[var(--iloveaudios-red)]">MP3 Converter Hub</Link></li>
-                <li><Link href="/audio-converter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Audio Converter Hub</Link></li>
-                <li><Link href="/tools/audio-cutter" className="hover:text-[var(--iloveaudios-red)] transition-colors">Online Audio Cutter</Link></li>
-                <li><Link href="/song-finder-from-video" className="hover:text-[var(--iloveaudios-red)] transition-colors">AI Song Finder from Video</Link></li>
-                <li><Link href="/identify-song-from-audio" className="hover:text-[var(--iloveaudios-red)] transition-colors">Identify Song from Audio</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Platform Tools & Converters */}
-            <div className="space-y-2">
-              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Specialized Tools</span>
-              <ul className="space-y-1 text-[11px]">
-                <li><Link href="/find-song-from-instagram-reel" className="hover:text-[var(--iloveaudios-red)] transition-colors">Instagram Reel Song Finder</Link></li>
-                <li><Link href="/find-song-from-tiktok" className="hover:text-[var(--iloveaudios-red)] transition-colors">Find Song from TikTok</Link></li>
-                <li><Link href="/find-song-from-youtube-shorts" className="hover:text-[var(--iloveaudios-red)] transition-colors">YouTube Shorts Music Finder</Link></li>
-                <li><Link href="/facebook-music-identifier" className="hover:text-[var(--iloveaudios-red)] transition-colors">Facebook Music Identifier</Link></li>
-                <li><Link href="/tools/mp4-to-mp3" className="hover:text-[var(--iloveaudios-red)] transition-colors">MP4 to MP3 Converter</Link></li>
-                <li><Link href="/tools/wav-to-flac" className="hover:text-[var(--iloveaudios-red)] transition-colors">WAV to FLAC Converter</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Trust & Legal */}
-            <div className="space-y-2">
-              <span className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[10px] block">Company & Trust</span>
-              <ul className="space-y-1 text-[11px]">
-                <li><Link href="/about" className="hover:text-[var(--iloveaudios-red)] transition-colors">About Us</Link></li>
-                <li><Link href="/contact" className="hover:text-[var(--iloveaudios-red)] transition-colors">Contact & Support</Link></li>
-                <li><Link href="/privacy" className="hover:text-[var(--iloveaudios-red)] transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-[var(--iloveaudios-red)] transition-colors">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="pt-6 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-              <span className="font-semibold text-[var(--text-secondary)]">Standards & Engine:</span>
-              <a
-                href="https://ffmpeg.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-              >
-                <span>FFmpeg</span>
-                <span className="text-[9px]">↗</span>
-              </a>
-              <a
-                href="https://www.w3.org/TR/webaudio/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-              >
-                <span>W3C Web Audio API</span>
-                <span className="text-[9px]">↗</span>
-              </a>
-              <a
-                href="https://id3.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[var(--iloveaudios-red)] transition-colors inline-flex items-center gap-0.5"
-              >
-                <span>ID3 Standards</span>
-                <span className="text-[9px]">↗</span>
-              </a>
-            </div>
-            <p>iLoveAudios &copy; 2026 — Secure, Free & Fast Audio Platform</p>
+        <footer className="w-full border-t border-[var(--color-border)] bg-[var(--color-surface)] py-8 mt-12">
+          <div className="site-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[length:var(--text-base)]">
+            <p className="font-semibold text-[var(--color-text)]">
+              iLoveAudios &copy; 2026
+            </p>
+            <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--color-text)]">
+              <Link href="/about" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
+                About
+              </Link>
+              <Link href="/contact" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
+                Contact
+              </Link>
+              <Link href="/privacy" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
+                Privacy
+              </Link>
+              <Link href="/terms" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
+                Terms
+              </Link>
+              <Link href="/#tools-suite" className="inline-flex items-center min-h-[48px] py-[12px] font-semibold text-[var(--color-brand)] hover:underline">
+                All converters
+              </Link>
+            </nav>
           </div>
         </footer>
 

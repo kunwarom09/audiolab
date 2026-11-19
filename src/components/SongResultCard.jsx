@@ -1,33 +1,40 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { 
-  Play, 
-  Pause, 
-  Disc, 
-  Calendar, 
-  Tag, 
-  Download, 
-  Check, 
-  ExternalLink, 
-  Video, 
-  Copy, 
-  Share2, 
-  RotateCcw,
-  Sparkles
-} from 'lucide-react';
+import {
+  CheckStrokeIcon,
+  CopyStrokeIcon,
+  DownloadTrayIcon,
+  ExternalLinkStrokeIcon,
+  FileTagIcon,
+  RetryStrokeIcon,
+  WaveformIcon,
+} from './AudioIcons';
 import LyricsViewer from './LyricsViewer';
 import OfficialVideoCard from './OfficialVideoCard';
 
 const YouTubeIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" {...props}>
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
 
 const SpotifyIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" {...props}>
-    <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.341c-.217.357-.681.469-1.038.252-2.838-1.734-6.411-2.127-10.617-1.164-.403.092-.808-.16-.901-.563-.092-.403.16-.808.563-.901 4.604-1.053 8.556-.605 11.741 1.341.357.217.469.681.252 1.035zm1.472-3.275c-.273.444-.856.586-1.3.314-3.248-1.996-8.2-2.576-12.043-1.409-.497.151-1.025-.13-1.176-.628-.151-.497.13-1.025.628-1.176 4.394-1.332 9.845-.688 13.577 1.601.444.272.586.855.314 1.298zm.135-3.415C15.228 8.441 8.784 8.223 5.023 9.364c-.611.185-1.254-.167-1.439-.778-.185-.611.167-1.254.778-1.439 4.316-1.31 11.44-1.06 15.918 1.597.55.326.734 1.042.408 1.592-.326.55-1.042.734-1.592.408z"/>
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.341c-.217.357-.681.469-1.038.252-2.838-1.734-6.411-2.127-10.617-1.164-.403.092-.808-.16-.901-.563-.092-.403.16-.808.563-.901 4.604-1.053 8.556-.605 11.741 1.341.357.217.469.681.252 1.035zm1.472-3.275c-.273.444-.856.586-1.3.314-3.248-1.996-8.2-2.576-12.043-1.409-.497.151-1.025-.13-1.176-.628-.151-.497.13-1.025.628-1.176 4.394-1.332 9.845-.688 13.577 1.601.444.272.586.855.314 1.298zm.135-3.415C15.228 8.441 8.784 8.223 5.023 9.364c-.611.185-1.254-.167-1.439-.778-.185-.611.167-1.254.778-1.439 4.316-1.31 11.44-1.06 15.918 1.597.55.326.734 1.042.408 1.592-.326.55-1.042.734-1.592.408z" />
+  </svg>
+);
+
+const PlayStrokeIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <polygon points="7,5 19,12 7,19" />
+  </svg>
+);
+
+const PauseStrokeIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <line x1="8" y1="5" x2="8" y2="19" />
+    <line x1="16" y1="5" x2="16" y2="19" />
   </svg>
 );
 
@@ -45,9 +52,15 @@ export default function SongResultCard({ data, onReset }) {
   if (!data || !data.song) return null;
 
   const { song, official_video, reel_source, spotify, media_info } = data;
-  const spotifyUrl = spotify?.url || song?.spotify_url || `https://open.spotify.com/search/${encodeURIComponent(`${song.artist} ${song.title}`)}`;
-  const isReelUrl = reel_source?.url && (reel_source.url.startsWith('http://') || reel_source.url.startsWith('https://'));
-  const youtubeUrl = official_video?.url || `https://www.youtube.com/results?search_query=${encodeURIComponent(`${song.artist} ${song.title} official music video`)}`;
+  const spotifyUrl =
+    spotify?.url ||
+    song?.spotify_url ||
+    `https://open.spotify.com/search/${encodeURIComponent(`${song.artist} ${song.title}`)}`;
+  const isReelUrl =
+    reel_source?.url && (reel_source.url.startsWith('http://') || reel_source.url.startsWith('https://'));
+  const youtubeUrl =
+    official_video?.url ||
+    `https://www.youtube.com/results?search_query=${encodeURIComponent(`${song.artist} ${song.title} official music video`)}`;
 
   const handleCopySongInfo = async () => {
     try {
@@ -60,7 +73,7 @@ export default function SongResultCard({ data, onReset }) {
   };
 
   const handleShare = async () => {
-    const shareText = `🎵 Found this song with ILoveAudios Song Finder: ${song.artist} - ${song.title}`;
+    const shareText = `Found this track on iLoveAudios: ${song.artist} - ${song.title}`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -69,7 +82,7 @@ export default function SongResultCard({ data, onReset }) {
           url: window.location.href,
         });
         return;
-      } catch (err) {
+      } catch {
         // Fallback to clipboard if user dismissed share dialog
       }
     }
@@ -80,42 +93,6 @@ export default function SongResultCard({ data, onReset }) {
     } catch (err) {
       console.warn('Share clipboard fallback failed:', err);
     }
-  };
-
-  // Dynamic MusicRecording Schema.org JSON-LD for Search Engines
-  const musicSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'MusicRecording',
-    name: song.title,
-    byArtist: {
-      '@type': 'MusicGroup',
-      name: song.artist
-    },
-    ...(song.album ? {
-      inAlbum: {
-        '@type': 'MusicAlbum',
-        name: song.album
-      }
-    } : {}),
-    ...(song.genre ? { genre: song.genre } : {}),
-    ...(song.release_year ? { datePublished: `${song.release_year}-01-01` } : {}),
-    ...(song.cover_art ? { image: song.cover_art } : {}),
-    ...(song.preview_url ? {
-      audio: {
-        '@type': 'AudioObject',
-        contentUrl: song.preview_url
-      }
-    } : {}),
-    ...(song.lyrics ? {
-      recordingOf: {
-        '@type': 'MusicComposition',
-        name: song.title,
-        lyrics: {
-          '@type': 'Lyrics',
-          text: typeof song.lyrics === 'string' ? song.lyrics : Array.isArray(song.lyrics) ? song.lyrics.join('\n') : ''
-        }
-      }
-    } : {})
   };
 
   const toggleAudio = () => {
@@ -137,19 +114,17 @@ export default function SongResultCard({ data, onReset }) {
       const queryParams = new URLSearchParams({
         title: song.title || '',
         artist: song.artist || '',
-        ...(official_video?.url ? { video_url: official_video.url } : {})
+        ...(official_video?.url ? { video_url: official_video.url } : {}),
       });
 
-      const downloadUrl = `/api/download?${queryParams.toString()}`;
-      
-      const response = await fetch(downloadUrl);
+      const response = await fetch(`/api/download?${queryParams.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to download MP3');
       }
-      
+
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-      
+
       const a = document.createElement('a');
       a.href = blobUrl;
       a.download = `${song.artist} - ${song.title}.mp3`;
@@ -169,10 +144,7 @@ export default function SongResultCard({ data, onReset }) {
   };
 
   const handleDownloadVideo = async () => {
-    const videoUrlToDownload = isReelUrl 
-      ? reel_source.url 
-      : (official_video?.url || '');
-
+    const videoUrlToDownload = isReelUrl ? reel_source.url : official_video?.url || '';
     if (!videoUrlToDownload) return;
 
     setIsDownloadingVideo(true);
@@ -182,19 +154,17 @@ export default function SongResultCard({ data, onReset }) {
       const queryParams = new URLSearchParams({
         url: videoUrlToDownload,
         title: song.title || 'Video',
-        artist: song.artist || 'Unknown'
+        artist: song.artist || 'Unknown',
       });
 
-      const downloadUrl = `/api/download_video?${queryParams.toString()}`;
-      
-      const response = await fetch(downloadUrl);
+      const response = await fetch(`/api/download_video?${queryParams.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to download video');
       }
-      
+
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-      
+
       const a = document.createElement('a');
       a.href = blobUrl;
       a.download = `${song.artist} - ${song.title}.mp4`;
@@ -214,236 +184,194 @@ export default function SongResultCard({ data, onReset }) {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 animate-in fade-in duration-300">
-      {/* Main Metadata Banner Card */}
-      <div className="relative group overflow-hidden glass-panel rounded-3xl p-6 md:p-8 space-y-6">
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-          {/* Cover Art Image */}
-          <div className="relative group/art shrink-0 w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden shadow-2xl border border-[var(--border-color)] bg-slate-900">
+    <div className="w-full space-y-6">
+      <div className="w-full ui-card space-y-6">
+        <div className="flex flex-col md:flex-row items-start gap-6">
+          <div className="relative shrink-0 w-44 h-44 md:w-52 md:h-52 rounded-[8px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-canvas)]">
             {song.cover_art ? (
               <img
                 src={song.cover_art}
                 alt={song.title}
-                className="w-full h-full object-cover group-hover/art:scale-105 transition-transform duration-500"
+                width={208}
+                height={208}
+                className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-900/40 to-slate-900 text-blue-400">
-                <Disc className="w-16 h-16 animate-spin-slow" />
-                <span className="text-xs font-semibold mt-2">No Cover Art</span>
+              <div className="w-full h-full flex flex-col items-center justify-center text-[var(--color-muted)] gap-2">
+                <WaveformIcon className="w-10 h-10 text-[var(--color-accent)]" />
+                <span className="text-[length:var(--text-base)] font-medium">No cover art</span>
               </div>
             )}
 
-            {/* Audio Preview Overlay Button */}
             {song.preview_url && (
               <button
+                type="button"
                 onClick={toggleAudio}
-                className="absolute inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center opacity-0 group-hover/art:opacity-100 transition-opacity duration-300 cursor-pointer"
-                title={isPlaying ? 'Pause Audio Preview' : 'Play Audio Preview'}
+                className="absolute bottom-3 right-3 min-w-[48px] min-h-[48px] w-12 h-12 rounded-[8px] bg-[var(--color-accent)] hover:bg-[#99161C] text-white flex items-center justify-center cursor-pointer"
+                title={isPlaying ? 'Pause preview' : 'Play preview'}
+                aria-label={isPlaying ? 'Pause audio preview' : 'Play audio preview'}
               >
-                <div className="w-14 h-14 rounded-full bg-[#0088ff] hover:bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-500/50 scale-95 group-hover/art:scale-100 transition-transform">
-                  {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 fill-current translate-x-0.5" />}
-                </div>
+                {isPlaying ? <PauseStrokeIcon className="w-5 h-5" /> : <PlayStrokeIcon className="w-5 h-5" />}
               </button>
             )}
           </div>
 
-          {/* Song Info & Details */}
-          <div className="flex-1 space-y-4 text-center md:text-left w-full">
-            <div className="space-y-1">
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                {media_info?.analyzed_segment && (
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1 whitespace-nowrap">
-                    <Sparkles className="w-3 h-3 shrink-0" />
-                    <span>Segment {media_info.analyzed_segment}</span>
-                  </span>
-                )}
-                {song.genre && (
-                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs font-semibold flex items-center gap-1 whitespace-nowrap">
-                    <Tag className="w-3 h-3 shrink-0" />
-                    {song.genre}
-                  </span>
-                )}
-                {song.release_year && (
-                  <span className="px-2.5 py-0.5 rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20 text-xs font-semibold flex items-center gap-1 whitespace-nowrap">
-                    <Calendar className="w-3 h-3 shrink-0" />
-                    {song.release_year}
-                  </span>
-                )}
-              </div>
+          <div className="flex-1 space-y-4 w-full min-w-0">
+            <div className="space-y-2">
+              {(media_info?.analyzed_segment || song.genre || song.release_year) && (
+                <div className="flex flex-wrap items-center gap-2 text-[length:var(--text-base)] text-[var(--color-muted)]">
+                  {media_info?.analyzed_segment && (
+                    <span className="px-[20px] py-[12px] rounded-[8px] bg-[var(--color-canvas)] border border-[var(--color-border)] text-[var(--color-ink)]">
+                      Segment {media_info.analyzed_segment}
+                    </span>
+                  )}
+                  {song.genre && (
+                    <span className="px-[20px] py-[12px] rounded-[8px] bg-[var(--color-canvas)] border border-[var(--color-border)] text-[var(--color-ink)]">
+                      {song.genre}
+                    </span>
+                  )}
+                  {song.release_year && (
+                    <span className="px-[20px] py-[12px] rounded-[8px] bg-[var(--color-canvas)] border border-[var(--color-border)] text-[var(--color-ink)]">
+                      {song.release_year}
+                    </span>
+                  )}
+                </div>
+              )}
 
-              <h2 className="text-2xl md:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
+              <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-ink)] leading-[var(--leading-heading)]">
                 {song.title}
               </h2>
-              <p className="text-lg font-bold text-[#0088ff]">
+              <p className="text-[length:var(--text-lead)] font-semibold text-[var(--color-accent)]">
                 {song.artist}
               </p>
 
-              {/* Utility Quick Actions Bar (Copy / Share / Reset) */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-1">
                 <button
                   type="button"
                   onClick={handleCopySongInfo}
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-                  title="Copy artist and title to clipboard"
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-canvas)] hover:border-[var(--color-ink)] border border-[var(--color-border)] text-[var(--color-ink)] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  {copiedInfo ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedInfo ? 'Copied to Clipboard!' : 'Copy Info'}</span>
+                  {copiedInfo ? <CheckStrokeIcon className="w-5 h-5 text-[var(--color-accent)]" /> : <CopyStrokeIcon className="w-5 h-5" />}
+                  <span>{copiedInfo ? 'Copied' : 'Copy Info'}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleShare}
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-                  title="Share this song result"
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-canvas)] hover:border-[var(--color-ink)] border border-[var(--color-border)] text-[var(--color-ink)] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  {sharedSuccess ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
-                  <span>{sharedSuccess ? 'Link Copied!' : 'Share'}</span>
+                  {sharedSuccess ? <CheckStrokeIcon className="w-5 h-5 text-[var(--color-accent)]" /> : <ExternalLinkStrokeIcon className="w-5 h-5" />}
+                  <span>{sharedSuccess ? 'Copied' : 'Share'}</span>
                 </button>
 
                 {onReset && (
                   <button
                     type="button"
                     onClick={onReset}
-                    className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-[var(--iloveaudios-red)] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                    className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-canvas)] hover:border-[var(--color-accent)] border border-[var(--color-border)] text-[var(--color-accent)] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RetryStrokeIcon className="w-5 h-5" />
                     <span>Find Another</span>
                   </button>
                 )}
               </div>
             </div>
 
-            {/* Additional Attributes Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1 text-xs text-[var(--text-secondary)]">
-              <div className="bg-[var(--bg-main)] rounded-xl p-2.5 border border-[var(--border-color)] space-y-1">
-                <span className="text-[var(--text-muted)] font-medium block">Album</span>
-                <span className="font-semibold text-[var(--text-primary)] truncate block" title={song.album}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-[length:var(--text-base)]">
+              <div className="bg-[var(--color-canvas)] rounded-[8px] p-4 border border-[var(--color-border)] space-y-1">
+                <span className="text-[var(--color-muted)] block">Album</span>
+                <span className="font-semibold text-[var(--color-ink)] truncate block" title={song.album}>
                   {song.album || 'Single'}
                 </span>
               </div>
 
-              <div className="bg-[var(--bg-main)] rounded-xl p-2.5 border border-[var(--border-color)] space-y-1">
-                <span className="text-[var(--text-muted)] font-medium block">Record Label</span>
-                <span className="font-semibold text-[var(--text-primary)] truncate block" title={song.label}>
+              <div className="bg-[var(--color-canvas)] rounded-[8px] p-4 border border-[var(--color-border)] space-y-1">
+                <span className="text-[var(--color-muted)] block">Record label</span>
+                <span className="font-semibold text-[var(--color-ink)] truncate block" title={song.label}>
                   {song.label || 'Independent'}
                 </span>
               </div>
 
-              {/* YouTube Link Card */}
-              <div className="bg-[var(--bg-main)] rounded-xl p-2.5 border border-[var(--border-color)] space-y-1">
-                <span className="text-[var(--text-muted)] font-medium block flex items-center gap-1">
-                  <YouTubeIcon className="w-3.5 h-3.5 text-red-500 shrink-0" />
+              <div className="bg-[var(--color-canvas)] rounded-[8px] p-4 border border-[var(--color-border)] space-y-1">
+                <span className="text-[var(--color-muted)] flex items-center gap-1.5">
+                  <YouTubeIcon className="w-5 h-5 text-[var(--color-accent)] shrink-0" />
                   <span>YouTube</span>
                 </span>
                 <a
                   href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-red-500 hover:underline truncate flex items-center gap-1"
+                  className="min-h-[48px] py-[12px] font-semibold text-[var(--color-ink)] hover:text-[var(--color-accent)] hover:underline truncate flex items-center gap-1.5"
                   title={youtubeUrl}
                 >
-                  <span>Official Video</span>
-                  <ExternalLink className="w-3 h-3 shrink-0" />
+                  <span>Official video</span>
+                  <ExternalLinkStrokeIcon className="w-4 h-4 shrink-0" />
                 </a>
               </div>
 
-              {/* Spotify Link Card */}
-              <div className="bg-[var(--bg-main)] rounded-xl p-2.5 border border-[var(--border-color)] space-y-1">
-                <span className="text-[var(--text-muted)] font-medium block flex items-center gap-1">
-                  <SpotifyIcon className="w-3.5 h-3.5 text-[#1DB954] shrink-0" />
+              <div className="bg-[var(--color-canvas)] rounded-[8px] p-4 border border-[var(--color-border)] space-y-1">
+                <span className="text-[var(--color-muted)] flex items-center gap-1.5">
+                  <SpotifyIcon className="w-5 h-5 text-[var(--color-ink)] shrink-0" />
                   <span>Spotify</span>
                 </span>
                 <a
                   href={spotifyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-emerald-500 hover:underline truncate flex items-center gap-1"
+                  className="min-h-[48px] py-[12px] font-semibold text-[var(--color-ink)] hover:text-[var(--color-accent)] hover:underline truncate flex items-center gap-1.5"
                   title={spotifyUrl}
                 >
                   <span>Open Spotify</span>
-                  <ExternalLink className="w-3 h-3 shrink-0" />
+                  <ExternalLinkStrokeIcon className="w-4 h-4 shrink-0" />
                 </a>
               </div>
             </div>
 
-            {/* Quick Streaming Platforms Bar */}
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1">
-              <span className="text-xs font-semibold text-[var(--text-muted)] mr-1">Listen On:</span>
-              <a
-                href={youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-xl bg-red-600/10 hover:bg-red-600/20 border border-red-600/30 text-red-500 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-              >
-                <YouTubeIcon className="w-4 h-4 text-red-500" />
-                <span>YouTube</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <a
-                href={spotifyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-500 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-              >
-                <SpotifyIcon className="w-4 h-4 text-[#1DB954]" />
-                <span>Spotify</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-
-            {/* Action Row: Download MP3, Download Video & Audio Snippet Player in SAME LINE */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3 w-full flex-wrap">
-              {/* Primary Download MP3 Button */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-wrap">
               <button
+                type="button"
                 onClick={handleDownloadMP3}
                 disabled={isDownloading}
-                className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-white flex items-center justify-center gap-2 transition-all btn-shazam cursor-pointer shrink-0 whitespace-nowrap shadow-md hover:shadow-lg"
+                className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] font-bold text-[length:var(--text-base)] text-white bg-[var(--color-accent)] hover:bg-[#99161C] flex items-center justify-center gap-2 transition-colors cursor-pointer shrink-0 disabled:opacity-60"
               >
                 {isDownloading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Downloading MP3...</span>
-                  </>
+                  <span>Downloading MP3...</span>
                 ) : downloadSuccess ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-300" />
-                    <span>Downloaded MP3!</span>
+                    <CheckStrokeIcon className="w-5 h-5" />
+                    <span>Downloaded MP3</span>
                   </>
                 ) : (
                   <>
-                    <Download className="w-4 h-4" />
+                    <DownloadTrayIcon className="w-5 h-5" />
                     <span>Download MP3</span>
                   </>
                 )}
               </button>
 
-              {/* Video Download Button (if Reel URL or Official Video is present) */}
               {(isReelUrl || official_video?.url) && (
                 <button
+                  type="button"
                   onClick={handleDownloadVideo}
                   disabled={isDownloadingVideo}
-                  className="w-full sm:w-auto px-5 py-3.5 rounded-2xl font-bold text-xs md:text-sm text-slate-800 dark:text-white flex items-center justify-center gap-2 transition-all bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-60 disabled:cursor-not-allowed border border-slate-300 dark:border-white/10 shadow-xs cursor-pointer shrink-0 whitespace-nowrap"
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] font-bold text-[length:var(--text-base)] text-[var(--color-ink)] bg-[var(--color-canvas)] hover:border-[var(--color-ink)] border border-[var(--color-border)] flex items-center justify-center gap-2 transition-colors cursor-pointer shrink-0 disabled:opacity-60"
                 >
                   {isDownloadingVideo ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-slate-800/30 border-t-slate-800 dark:border-white/30 dark:border-t-white rounded-full animate-spin"></div>
-                      <span>{isReelUrl ? 'Downloading Reel...' : 'Downloading Video...'}</span>
-                    </>
+                    <span>{isReelUrl ? 'Downloading Reel...' : 'Downloading Video...'}</span>
                   ) : downloadVideoSuccess ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-500" />
-                      <span>{isReelUrl ? 'Downloaded Reel!' : 'Downloaded Video!'}</span>
+                      <CheckStrokeIcon className="w-5 h-5 text-[var(--color-accent)]" />
+                      <span>{isReelUrl ? 'Downloaded Reel' : 'Downloaded Video'}</span>
                     </>
                   ) : (
                     <>
-                      <Video className="w-4 h-4" />
+                      <FileTagIcon className="w-5 h-5 text-[var(--color-accent)]" />
                       <span>{isReelUrl ? 'Download Reel Video' : 'Download Video (MP4)'}</span>
                     </>
                   )}
                 </button>
               )}
 
-              {/* Audio Snippet Audio Player (If preview URL exists) */}
               {song.preview_url && (
                 <div className="w-full sm:flex-1">
                   <audio
@@ -452,20 +380,22 @@ export default function SongResultCard({ data, onReset }) {
                     onEnded={() => setIsPlaying(false)}
                     className="hidden"
                   />
-                  <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-[var(--bg-main)] border border-[var(--border-color)]">
+                  <div className="flex items-center gap-3 p-3 rounded-[8px] bg-[var(--color-canvas)] border border-[var(--color-border)]">
                     <button
+                      type="button"
                       onClick={toggleAudio}
-                      className="w-9 h-9 rounded-xl bg-[#0088ff] hover:bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md cursor-pointer"
+                      className="min-w-[48px] min-h-[48px] w-12 h-12 rounded-[8px] bg-[var(--color-accent)] hover:bg-[#99161C] text-white flex items-center justify-center shrink-0 cursor-pointer"
+                      aria-label={isPlaying ? 'Pause snippet' : 'Play snippet'}
                     >
-                      {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current translate-x-0.5" />}
+                      {isPlaying ? <PauseStrokeIcon className="w-5 h-5" /> : <PlayStrokeIcon className="w-5 h-5" />}
                     </button>
                     <div className="flex-1 space-y-1">
-                      <div className="flex items-center justify-between text-[11px]">
-                        <span className="font-medium text-[#0088ff] whitespace-nowrap">Preview Audio Snippet</span>
-                        <span className="text-[var(--text-muted)] whitespace-nowrap">{isPlaying ? 'Playing...' : 'Click to Play'}</span>
+                      <div className="flex items-center justify-between text-[length:var(--text-base)]">
+                        <span className="font-semibold text-[var(--color-ink)]">Preview clip</span>
+                        <span className="text-[var(--color-muted)]">{isPlaying ? 'Playing' : 'Ready'}</span>
                       </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div className={`h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full ${isPlaying ? 'w-full transition-all duration-[30s] ease-linear' : 'w-0'}`}></div>
+                      <div className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[4px] h-2 overflow-hidden">
+                        <div className={`h-full bg-[var(--color-accent)] ${isPlaying ? 'w-full transition-all duration-[30s] ease-linear' : 'w-0'}`} />
                       </div>
                     </div>
                   </div>
@@ -476,41 +406,42 @@ export default function SongResultCard({ data, onReset }) {
         </div>
       </div>
 
-      {/* Tabs Navigation */}
-      <div className="flex items-center justify-center gap-2 border-b border-[var(--border-color)] pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] pb-3">
         <button
+          type="button"
           onClick={() => setActiveTab('all')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-bold transition-colors cursor-pointer ${
             activeTab === 'all'
-              ? 'bg-[#0088ff] text-white shadow-lg shadow-blue-500/30'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]'
+              ? 'bg-[var(--color-accent)] text-white'
+              : 'text-[var(--color-muted)] hover:text-[var(--color-ink)] bg-[var(--color-surface)] border border-[var(--color-border)]'
           }`}
         >
           All Information
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('lyrics')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-bold transition-colors cursor-pointer ${
             activeTab === 'lyrics'
-              ? 'bg-[#0088ff] text-white shadow-lg shadow-blue-500/30'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]'
+              ? 'bg-[var(--color-accent)] text-white'
+              : 'text-[var(--color-muted)] hover:text-[var(--color-ink)] bg-[var(--color-surface)] border border-[var(--color-border)]'
           }`}
         >
           Full Lyrics
         </button>
         <button
+          type="button"
           onClick={() => setActiveTab('video')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-bold transition-colors cursor-pointer ${
             activeTab === 'video'
-              ? 'bg-[#0088ff] text-white shadow-lg shadow-blue-500/30'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]'
+              ? 'bg-[var(--color-accent)] text-white'
+              : 'text-[var(--color-muted)] hover:text-[var(--color-ink)] bg-[var(--color-surface)] border border-[var(--color-border)]'
           }`}
         >
-          Official Media & Links
+          Official Media &amp; Links
         </button>
       </div>
 
-      {/* Tab Contents */}
       {activeTab === 'all' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <LyricsViewer lyrics={song.lyrics} songTitle={song.title} artist={song.artist} />

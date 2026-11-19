@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Settings2, VolumeX, Sliders, ChevronDown, ChevronUp } from 'lucide-react';
+import { Settings2, Sliders, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function ConversionSettings({ toFormat, settings, onChange }) {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const bitrates = [
-    { value: '96k', label: '96 kbps', desc: 'Low Quality' },
+    { value: '96k', label: '96 kbps', desc: 'Compact size' },
     { value: '128k', label: '128 kbps', desc: 'Standard' },
-    { value: '192k', label: '192 kbps', desc: 'High Quality' },
-    { value: '256k', label: '256 kbps', desc: 'Very High' },
-    { value: '320k', label: '320 kbps', desc: 'Premium HD' }
+    { value: '192k', label: '192 kbps', desc: 'Balanced' },
+    { value: '256k', label: '256 kbps', desc: 'High bitrate' },
+    { value: '320k', label: '320 kbps', desc: 'Maximum MP3' }
   ];
 
   const handleBitrateChange = (bitrate) => {
@@ -25,39 +25,43 @@ export default function ConversionSettings({ toFormat, settings, onChange }) {
   const isWav = toFormat?.toUpperCase() === 'WAV';
 
   return (
-    <div className="w-full glass-panel rounded-3xl p-6 md:p-8 space-y-6">
-      <div className="flex items-center gap-2 border-b border-[var(--border-color)] pb-4">
-        <Settings2 className="w-5 h-5 text-[#0088ff]" />
-        <h3 className="text-base font-extrabold text-[var(--text-primary)]">Conversion Settings</h3>
+    <div className="w-full ui-card space-y-6">
+      <div className="flex items-center gap-3 border-b border-[var(--color-border)] pb-4">
+        <Settings2 className="w-6 h-6 text-[var(--color-brand)] shrink-0" />
+        <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">Conversion Settings</h3>
       </div>
 
       {/* Bitrate Selector (Only for Compressed formats like MP3) */}
       {!isWav ? (
         <div className="space-y-3">
-          <label className="text-xs font-bold text-[var(--text-secondary)] uppercase tracking-wider block">
+          <label className="text-[length:var(--text-base)] font-semibold text-[var(--color-text)] block">
             Audio Quality (Bitrate)
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {bitrates.map((br) => (
               <button
                 key={br.value}
                 type="button"
                 onClick={() => handleBitrateChange(br.value)}
-                className={`p-3.5 rounded-2xl border text-center cursor-pointer transition-all duration-200 ${
+                className={`w-full min-h-[52px] px-[20px] py-[12px] rounded-[12px] border text-left sm:text-center cursor-pointer transition-colors duration-150 ${
                   settings.bitrate === br.value
-                    ? 'border-blue-500 bg-blue-500/10 text-blue-600 dark:text-blue-400 font-extrabold'
-                    : 'border-[var(--border-color)] bg-[var(--bg-main)] hover:border-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-[var(--text-secondary)] font-semibold'
+                    ? 'border-[var(--color-pill-active)] bg-[var(--color-pill-active)] text-white font-bold'
+                    : 'border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-brand)] text-[var(--color-text)] font-semibold'
                 }`}
               >
-                <span className="block text-xs md:text-sm">{br.label}</span>
-                <span className="block text-[8px] opacity-75 font-normal tracking-wide mt-0.5">{br.desc}</span>
+                <span className="block text-[length:var(--text-base)]">{br.label}</span>
+                <span className={`block text-[length:var(--text-base)] font-normal ${settings.bitrate === br.value ? 'text-white/90' : 'text-[var(--color-text-muted)]'}`}>
+                  {br.desc}
+                </span>
               </button>
             ))}
           </div>
         </div>
       ) : (
-        <div className="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20 flex items-center justify-between text-xs text-blue-600 dark:text-blue-400 font-semibold leading-relaxed">
-          <span>Output Format WAV is inherently lossless (PCM format, 1411kbps). Quality bitrates do not apply.</span>
+        <div className="p-4 sm:p-5 rounded-[12px] bg-[var(--color-bg)] border border-[var(--color-border)] text-[length:var(--text-base)] text-[var(--color-text)] font-semibold leading-[var(--leading-body)]">
+          <p className="prose-measure">
+            Output format WAV is lossless PCM (1411 kbps), so bitrate presets do not apply.
+          </p>
         </div>
       )}
 
@@ -66,26 +70,28 @@ export default function ConversionSettings({ toFormat, settings, onChange }) {
         <button
           type="button"
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="flex items-center justify-between w-full py-2.5 px-4 rounded-xl bg-[var(--bg-main)] border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] hover:text-[#0088ff] transition-all cursor-pointer"
+          aria-expanded={showAdvanced}
+          className="flex items-center justify-between w-full min-h-[52px] px-[20px] py-[12px] rounded-[8px] bg-[var(--color-bg)] border border-[var(--color-border)] text-[length:var(--text-base)] font-semibold text-[var(--color-text)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] transition-colors cursor-pointer"
         >
           <span className="flex items-center gap-2">
-            <Sliders className="w-4 h-4 text-[#0088ff]" />
+            <Sliders className="w-5 h-5 text-[var(--color-brand)] shrink-0" />
             <span>Advanced Configuration Options</span>
           </span>
-          {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          {showAdvanced ? <ChevronUp className="w-5 h-5 shrink-0" /> : <ChevronDown className="w-5 h-5 shrink-0" />}
         </button>
 
         {showAdvanced && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-[var(--bg-main)] border border-[var(--border-color)] animate-in slide-in-from-top-2 duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-[12px] bg-[var(--color-bg)] border border-[var(--color-border)]">
             {/* Audio Channels */}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
+              <label htmlFor="conv-channels" className="text-[length:var(--text-base)] font-semibold text-[var(--color-text)] block">
                 Audio Channels
               </label>
               <select
+                id="conv-channels"
                 value={settings.channels}
                 onChange={(e) => handleAdvancedChange('channels', e.target.value)}
-                className="w-full p-2.5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] text-xs font-semibold focus:outline-none focus:border-blue-500 text-[var(--text-primary)]"
+                className="w-full min-h-[52px] px-[20px] rounded-[8px] border border-[var(--color-border)] bg-[var(--color-surface)] text-[length:var(--text-base)] font-semibold focus:outline-none focus:border-[var(--color-brand)] text-[var(--color-text)]"
               >
                 <option value="stereo">Stereo (2 Channels)</option>
                 <option value="mono">Mono (1 Channel)</option>
@@ -94,13 +100,14 @@ export default function ConversionSettings({ toFormat, settings, onChange }) {
 
             {/* Audio Sample Rate */}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
+              <label htmlFor="conv-sample-rate" className="text-[length:var(--text-base)] font-semibold text-[var(--color-text)] block">
                 Sample Rate
               </label>
               <select
+                id="conv-sample-rate"
                 value={settings.sampleRate}
                 onChange={(e) => handleAdvancedChange('sampleRate', e.target.value)}
-                className="w-full p-2.5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] text-xs font-semibold focus:outline-none focus:border-blue-500 text-[var(--text-primary)]"
+                className="w-full min-h-[52px] px-[20px] rounded-[8px] border border-[var(--color-border)] bg-[var(--color-surface)] text-[length:var(--text-base)] font-semibold focus:outline-none focus:border-[var(--color-brand)] text-[var(--color-text)]"
               >
                 <option value="44100">44,100 Hz (Standard CD)</option>
                 <option value="48000">48,000 Hz (Studio Video)</option>
@@ -109,32 +116,32 @@ export default function ConversionSettings({ toFormat, settings, onChange }) {
             </div>
 
             {/* Audio Normalization */}
-            <div className="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] mt-2">
-              <div className="space-y-0.5">
-                <span className="text-xs font-bold text-[var(--text-primary)] block">Audio Normalization</span>
-                <span className="text-[10px] text-[var(--text-muted)] block">Align volume spikes evenly</span>
+            <label className="flex items-center justify-between gap-4 min-h-[52px] p-4 rounded-[8px] border border-[var(--color-border)] bg-[var(--color-surface)] cursor-pointer">
+              <div className="space-y-1">
+                <span className="text-[length:var(--text-base)] font-bold text-[var(--color-text)] block">Audio Normalization</span>
+                <span className="text-[length:var(--text-base)] text-[var(--color-text-muted)] block">Align volume spikes evenly</span>
               </div>
               <input
                 type="checkbox"
                 checked={settings.normalize}
                 onChange={(e) => handleAdvancedChange('normalize', e.target.checked)}
-                className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="w-6 h-6 rounded accent-[var(--color-brand)] cursor-pointer shrink-0"
               />
-            </div>
+            </label>
 
             {/* Keep Audio Metadata */}
-            <div className="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] mt-2">
-              <div className="space-y-0.5">
-                <span className="text-xs font-bold text-[var(--text-primary)] block">Preserve Metadata</span>
-                <span className="text-[10px] text-[var(--text-muted)] block">Keep ID3 tags (artist, cover)</span>
+            <label className="flex items-center justify-between gap-4 min-h-[52px] p-4 rounded-[8px] border border-[var(--color-border)] bg-[var(--color-surface)] cursor-pointer">
+              <div className="space-y-1">
+                <span className="text-[length:var(--text-base)] font-bold text-[var(--color-text)] block">Preserve Metadata</span>
+                <span className="text-[length:var(--text-base)] text-[var(--color-text-muted)] block">Keep ID3 tags (artist, cover)</span>
               </div>
               <input
                 type="checkbox"
                 checked={settings.preserveMetadata}
                 onChange={(e) => handleAdvancedChange('preserveMetadata', e.target.checked)}
-                className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="w-6 h-6 rounded accent-[var(--color-brand)] cursor-pointer shrink-0"
               />
-            </div>
+            </label>
           </div>
         )}
       </div>

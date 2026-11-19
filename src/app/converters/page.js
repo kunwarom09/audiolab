@@ -38,39 +38,34 @@ export default function ConvertersHubPage() {
   const audioConverters = Object.values(TOOLS).filter(t => t.category === 'Audio Converters');
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16 space-y-16 animate-in fade-in duration-300">
+    <div className="site-container py-10 md:py-16 space-y-16">
       
       {/* 1. Hero Header */}
-      <section className="text-center max-w-4xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 text-[var(--iloveaudios-red)] border border-red-500/20 text-xs font-black uppercase tracking-wider">
-          <Disc className="w-3.5 h-3.5 animate-spin-slow" />
-          <span>Audio Conversion Hub</span>
-        </div>
-
-        <h1 className="text-3xl sm:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
+      <section className="text-left space-y-4">
+        <h1 className="text-[length:var(--text-h1)] font-bold text-[var(--color-text)]">
           Free Online Audio Converters & Format Directory
         </h1>
 
-        <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[length:var(--text-lead)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
           Fast, private, and 100% free online audio converters. Extract studio 320kbps MP3s from videos, compress large WAV files, and convert across 25+ audio and video formats without software installation.
         </p>
       </section>
 
       {/* 2. Top 6 High-Demand Converters Grid */}
       <section className="space-y-6">
-        <div className="space-y-1 text-center sm:text-left">
-          <span className="text-[10px] font-black uppercase tracking-wider text-[var(--iloveaudios-red)] block">
+        <div className="space-y-2 text-left">
+          <span className="text-[length:var(--text-base)] font-bold text-[var(--color-brand)] block">
             Most Popular
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)]">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Flagship Audio Converters
           </h2>
-          <p className="text-xs text-[var(--text-secondary)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
             Our fastest, highest-fidelity converters optimized for mobile, desktop, and studio workflows.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {topTools.map(tool => (
             <ToolCard
               key={tool.slug}
@@ -88,95 +83,91 @@ export default function ConvertersHubPage() {
       </section>
 
       {/* 3. Song Finder Callout Hub Card */}
-      <section className="p-6 sm:p-8 rounded-3xl border border-blue-500/30 bg-gradient-to-r from-blue-500/10 via-purple-500/5 to-pink-500/10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-        <div className="space-y-2 text-center md:text-left">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-500">
-            <Sparkles className="w-3 h-3" />
-            <span>AI Music Recognition</span>
-          </div>
-          <h3 className="text-lg sm:text-xl font-black text-[var(--text-primary)]">
+      <section className="ui-card border-blue-500/30 flex flex-col md:flex-row md:items-center md:justify-between gap-6 shadow-xs">
+        <div className="space-y-3 text-left">
+          <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
             Converting a video just to find out what song is playing?
           </h3>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
             You don&apos;t need to convert the whole file. Paste any Instagram Reel, TikTok, or YouTube video link into our AI Song Finder to identify the artist, lyrics, and download the full song instantly.
           </p>
         </div>
         <Link
           href="/tools/song-extractor"
-          className="px-6 py-3 rounded-2xl font-black text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg transition-all hover:scale-[1.02] flex items-center gap-2 shrink-0 cursor-pointer"
+          className="ui-control w-full sm:w-auto rounded-2xl font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
         >
           <span>Launch AI Song Finder</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-5 h-5" />
         </Link>
       </section>
 
       {/* 4. Format Decision Matrix & Guide */}
-      <section className="space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-1 text-center sm:text-left">
-          <span className="text-[10px] font-black uppercase tracking-wider text-emerald-500 block">
+      <section className="space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="space-y-2 text-left">
+          <span className="text-[length:var(--text-base)] font-bold text-emerald-700 block">
             Format Encyclopedia
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)]">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Audio Format Comparison & Decision Guide
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-2xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure leading-[var(--leading-body)]">
             Not sure which format you need? Compare compression rates, fidelity, and device compatibility below:
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-xs">
-          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+        <div className="table-scroll rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-xs">
+          <table className="w-full text-left border-collapse text-[length:var(--text-base)]">
             <thead>
-              <tr className="border-b border-[var(--border-color)] bg-slate-500/5">
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Format</th>
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Compression</th>
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Best Use Case</th>
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Device Playback</th>
-                <th className="p-3.5 sm:p-4 font-black text-[var(--text-primary)]">Recommended Conversion</th>
+              <tr className="border-b border-[var(--color-border)] bg-[var(--color-bg)]">
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Format</th>
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Compression</th>
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Best Use Case</th>
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Device Playback</th>
+                <th className="p-4 sm:p-5 font-bold text-[var(--color-text)]">Recommended Conversion</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--border-color)] text-[var(--text-secondary)]">
+            <tbody className="divide-y divide-[var(--color-border)] text-[var(--color-text-muted)]">
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">MP3</td>
-                <td className="p-3.5 sm:p-4 text-amber-500 font-medium">Lossy (Up to 320kbps)</td>
-                <td className="p-3.5 sm:p-4">Everyday listening, podcasts, mobile storage</td>
-                <td className="p-3.5 sm:p-4 text-emerald-500 font-bold">100% (All devices)</td>
-                <td className="p-3.5 sm:p-4">Target format for all audio sharing</td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">MP3</td>
+                <td className="p-4 sm:p-5 text-amber-700 font-medium">Lossy (Up to 320kbps)</td>
+                <td className="p-4 sm:p-5">Everyday listening, podcasts, mobile storage</td>
+                <td className="p-4 sm:p-5 text-emerald-700 font-bold">100% (All devices)</td>
+                <td className="p-4 sm:p-5">Target format for all audio sharing</td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">WAV</td>
-                <td className="p-3.5 sm:p-4 text-blue-500 font-medium">Lossless Uncompressed (PCM)</td>
-                <td className="p-3.5 sm:p-4">Studio recording, audio mixing, DAWs</td>
-                <td className="p-3.5 sm:p-4 text-emerald-500 font-bold">Mac, Windows, DAWs</td>
-                <td className="p-3.5 sm:p-4"><Link href="/tools/wav-to-mp3" className="text-blue-500 font-bold hover:underline">Convert WAV to MP3</Link></td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">WAV</td>
+                <td className="p-4 sm:p-5 text-blue-700 font-medium">Lossless Uncompressed (PCM)</td>
+                <td className="p-4 sm:p-5">Studio recording, audio mixing, DAWs</td>
+                <td className="p-4 sm:p-5 text-emerald-700 font-bold">Mac, Windows, DAWs</td>
+                <td className="p-4 sm:p-5"><Link href="/tools/wav-to-mp3" className="inline-flex items-center min-h-[48px] py-[12px] text-blue-700 font-bold hover:underline">Convert WAV to MP3</Link></td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">FLAC</td>
-                <td className="p-3.5 sm:p-4 text-emerald-500 font-medium">Lossless Compressed</td>
-                <td className="p-3.5 sm:p-4">Hi-fi music archiving, audiophile listening</td>
-                <td className="p-3.5 sm:p-4 text-amber-500 font-bold">Android, VLC (No native iOS)</td>
-                <td className="p-3.5 sm:p-4"><Link href="/tools/flac-to-mp3" className="text-blue-500 font-bold hover:underline">Convert FLAC to MP3</Link></td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">FLAC</td>
+                <td className="p-4 sm:p-5 text-emerald-700 font-medium">Lossless Compressed</td>
+                <td className="p-4 sm:p-5">Hi-fi music archiving, audiophile listening</td>
+                <td className="p-4 sm:p-5 text-amber-700 font-bold">Android, VLC (No native iOS)</td>
+                <td className="p-4 sm:p-5"><Link href="/tools/flac-to-mp3" className="inline-flex items-center min-h-[48px] py-[12px] text-blue-700 font-bold hover:underline">Convert FLAC to MP3</Link></td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">M4A / AAC</td>
-                <td className="p-3.5 sm:p-4 text-purple-500 font-medium">High-Efficiency Lossy</td>
-                <td className="p-3.5 sm:p-4">iPhone Voice Memos, Apple Music, YouTube</td>
-                <td className="p-3.5 sm:p-4 text-emerald-500 font-bold">Apple devices, modern Android</td>
-                <td className="p-3.5 sm:p-4"><Link href="/tools/m4a-to-mp3" className="text-blue-500 font-bold hover:underline">Convert M4A to MP3</Link></td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">M4A / AAC</td>
+                <td className="p-4 sm:p-5 text-purple-700 font-medium">High-Efficiency Lossy</td>
+                <td className="p-4 sm:p-5">iPhone Voice Memos, Apple Music, YouTube</td>
+                <td className="p-4 sm:p-5 text-emerald-700 font-bold">Apple devices, modern Android</td>
+                <td className="p-4 sm:p-5"><Link href="/tools/m4a-to-mp3" className="inline-flex items-center min-h-[48px] py-[12px] text-blue-700 font-bold hover:underline">Convert M4A to MP3</Link></td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">OGG</td>
-                <td className="p-3.5 sm:p-4 text-rose-500 font-medium">Open-Source Lossy (Vorbis)</td>
-                <td className="p-3.5 sm:p-4">Game development, Discord bots, Spotify</td>
-                <td className="p-3.5 sm:p-4 text-amber-500 font-bold">PC, Android (No native iOS)</td>
-                <td className="p-3.5 sm:p-4"><Link href="/tools/ogg-to-mp3" className="text-blue-500 font-bold hover:underline">Convert OGG to MP3</Link></td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">OGG</td>
+                <td className="p-4 sm:p-5 text-rose-700 font-medium">Open-Source Lossy (Vorbis)</td>
+                <td className="p-4 sm:p-5">Game development, Discord bots, Spotify</td>
+                <td className="p-4 sm:p-5 text-amber-700 font-bold">PC, Android (No native iOS)</td>
+                <td className="p-4 sm:p-5"><Link href="/tools/ogg-to-mp3" className="inline-flex items-center min-h-[48px] py-[12px] text-blue-700 font-bold hover:underline">Convert OGG to MP3</Link></td>
               </tr>
               <tr>
-                <td className="p-3.5 sm:p-4 font-bold text-[var(--text-primary)]">MOV / MP4</td>
-                <td className="p-3.5 sm:p-4 text-cyan-500 font-medium">Video Container</td>
-                <td className="p-3.5 sm:p-4">iPhone camera clips, social video recordings</td>
-                <td className="p-3.5 sm:p-4 text-emerald-500 font-bold">Universal Video Players</td>
-                <td className="p-3.5 sm:p-4"><Link href="/tools/mp4-to-mp3" className="text-blue-500 font-bold hover:underline">Extract MP3 from Video</Link></td>
+                <td className="p-4 sm:p-5 font-bold text-[var(--color-text)]">MOV / MP4</td>
+                <td className="p-4 sm:p-5 text-cyan-700 font-medium">Video Container</td>
+                <td className="p-4 sm:p-5">iPhone camera clips, social video recordings</td>
+                <td className="p-4 sm:p-5 text-emerald-700 font-bold">Universal Video Players</td>
+                <td className="p-4 sm:p-5"><Link href="/tools/mp4-to-mp3" className="inline-flex items-center min-h-[48px] py-[12px] text-blue-700 font-bold hover:underline">Extract MP3 from Video</Link></td>
               </tr>
             </tbody>
           </table>
@@ -184,20 +175,20 @@ export default function ConvertersHubPage() {
       </section>
 
       {/* 5. Complete Categorized Directory */}
-      <section className="space-y-8 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-1 text-center sm:text-left">
-          <span className="text-[10px] font-black uppercase tracking-wider text-blue-500 block">
+      <section className="space-y-8 pt-8 border-t border-[var(--color-border)]">
+        <div className="space-y-2 text-left">
+          <span className="text-[length:var(--text-base)] font-bold text-blue-700 block">
             Complete Suite
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)]">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Video to Audio Converters
           </h2>
-          <p className="text-xs text-[var(--text-secondary)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
             Extract high-fidelity MP3 or WAV soundtracks from any video format:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videoToAudio.map(tool => (
             <ToolCard
               key={tool.slug}
@@ -213,19 +204,19 @@ export default function ConvertersHubPage() {
           ))}
         </div>
 
-        <div className="space-y-1 text-center sm:text-left pt-6">
-          <span className="text-[10px] font-black uppercase tracking-wider text-purple-500 block">
+        <div className="space-y-2 text-left pt-8">
+          <span className="text-[length:var(--text-base)] font-bold text-purple-700 block">
             Format Transcoding
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[var(--text-primary)]">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Audio to Audio Converters
           </h2>
-          <p className="text-xs text-[var(--text-secondary)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] prose-measure">
             Convert between uncompressed, compressed, and mobile audio formats:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {audioConverters.map(tool => (
             <ToolCard
               key={tool.slug}
@@ -243,7 +234,7 @@ export default function ConvertersHubPage() {
       </section>
 
       {/* 6. Frequently Asked Questions */}
-      <section id="faqs" className="max-w-4xl mx-auto pt-8 border-t border-[var(--border-color)]">
+      <section id="faqs" className="w-full pt-8 border-t border-[var(--color-border)]">
         <FaqSection faqs={CONVERTER_HUB_FAQS} />
       </section>
     </div>

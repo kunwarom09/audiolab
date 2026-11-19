@@ -1,78 +1,53 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Search, 
-  Clipboard, 
-  X, 
-  ArrowRight, 
-  UploadCloud, 
-  Mic, 
-  Square, 
-  RotateCcw, 
-  Play, 
-  Pause, 
-  Film, 
-  Music, 
-  CheckCircle2, 
-  AlertCircle,
-  Sliders,
-  Sparkles,
-  Link2
-} from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import {
+  CloseCrossIcon,
+  FileTagIcon,
+  MicStrokeIcon,
+  TrimHandlesIcon,
+  UploadTrayIcon,
+  WaveformIcon,
+} from './AudioIcons';
 
-const InstagramIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+const PlayStrokeIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <polygon points="7,5 19,12 7,19" />
   </svg>
 );
 
-const FacebookIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+const PauseStrokeIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <line x1="8" y1="5" x2="8" y2="19" />
+    <line x1="16" y1="5" x2="16" y2="19" />
   </svg>
 );
 
-const TikTokIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
-    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.498 6.34 6.34 0 0 0 1.087 8.581 6.342 6.342 0 0 0 8.784-.967 6.29 6.29 0 0 0 1.536-4.14V9.012a8.163 8.163 0 0 0 4.793 1.54V7.108a4.787 4.787 0 0 1-1.573-.422z"/>
+const StopStrokeIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className={className} aria-hidden="true">
+    <rect x="6" y="6" width="12" height="12" rx="2" />
   </svg>
 );
 
-const SnapchatIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
-    <path d="M12.004 2c-3.75 0-6.177 2.656-6.177 5.766 0 1.542.482 2.88 1.135 3.864.214.321.36.711.13 1.054-.3.448-1.517.65-2.22.75-.417.06-.693.393-.574.801.378 1.295 2.115 1.565 3.09 1.677.214.025.378.21.362.425-.078 1.05-.286 1.838-1.127 2.41-.334.227-.478.63-.306.985.497 1.026 2.378 1.488 4.394 1.488 1.303 0 2.893-.194 3.738-.724.32-.202.738-.172 1.01.096.793.784 1.764 1.173 2.825 1.173.348 0 .692-.042 1.03-.127.608-.153 1.014-.693.948-1.314-.078-.738-.283-1.62-.05-2.486.065-.24.275-.414.523-.427 1.098-.057 3.018-.28 3.42-1.687.124-.436-.188-.804-.636-.856-.757-.087-2.03-.275-2.338-.76-.23-.362-.09-.757.135-1.09.684-1.013 1.183-2.38 1.183-3.951C18.18 4.656 15.755 2 12.004 2z"/>
-  </svg>
-);
-
-const YouTubeIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-  </svg>
-);
-
-export default function MediaInputArea({ 
-  onExtractLink, 
-  onIdentifyFile, 
+export default function MediaInputArea({
+  onExtractLink,
+  onIdentifyFile,
   isLoading,
   initialTab = 'link',
   initialFile = null,
-  linkPlaceholder = 'Paste Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat link...'
+  linkPlaceholder = 'Paste Instagram, TikTok, YouTube Shorts, Facebook, or Snapchat link',
 }) {
-  const [activeTab, setActiveTab] = useState(initialTab); // 'link' | 'upload' | 'record'
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
-  
+
   if (initialTab !== prevInitialTab) {
     setPrevInitialTab(initialTab);
     setActiveTab(initialTab);
   }
 
-  // Link state
   const [url, setUrl] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
 
-  // Upload state
   const [selectedFile, setSelectedFile] = useState(initialFile);
   const [filePreviewUrl, setFilePreviewUrl] = useState(null);
   const [mediaDuration, setMediaDuration] = useState(0);
@@ -84,7 +59,6 @@ export default function MediaInputArea({
   const fileInputRef = useRef(null);
   const mediaRef = useRef(null);
 
-  // Recording state
   const [isRecording, setIsRecording] = useState(false);
   const [recordSeconds, setRecordSeconds] = useState(0);
   const [recordedBlob, setRecordedBlob] = useState(null);
@@ -95,36 +69,14 @@ export default function MediaInputArea({
   const recordIntervalRef = useRef(null);
   const recordAudioElementRef = useRef(null);
 
-  // Sample links
   const sampleReels = [
-    { label: 'YouTube Shorts', icon: YouTubeIcon, url: 'https://www.youtube.com/shorts/dQw4w9WgXcQ' },
-    { label: 'Instagram Reel', icon: InstagramIcon, url: 'https://www.instagram.com/reel/espresso-sabrina-carpenter' },
-    { label: 'TikTok Video', icon: TikTokIcon, url: 'https://www.tiktok.com/@creator/video/739123456789' },
-    { label: 'Facebook Reel', icon: FacebookIcon, url: 'https://www.facebook.com/reel/birds-of-a-feather-billie-eilish' },
-    { label: 'Snapchat Spotlight', icon: SnapchatIcon, url: 'https://www.snapchat.com/spotlight/dua-lipa-houdini' }
+    { label: 'YouTube Shorts', url: 'https://www.youtube.com/shorts/dQw4w9WgXcQ' },
+    { label: 'Instagram Reel', url: 'https://www.instagram.com/reel/espresso-sabrina-carpenter' },
+    { label: 'TikTok Video', url: 'https://www.tiktok.com/@creator/video/739123456789' },
+    { label: 'Facebook Reel', url: 'https://www.facebook.com/reel/birds-of-a-feather-billie-eilish' },
+    { label: 'Snapchat Spotlight', url: 'https://www.snapchat.com/spotlight/dua-lipa-houdini' },
   ];
 
-  // Auto-detect platform from URL derived in render
-  const detectedPlatform = React.useMemo(() => {
-    if (!url || !url.trim()) return null;
-    const val = url.toLowerCase().trim();
-    if (val.includes('youtube.com/shorts') || val.includes('youtu.be') || val.includes('youtube.com')) {
-      return { name: 'YouTube Shorts', icon: YouTubeIcon, color: 'text-red-500' };
-    } else if (val.includes('instagram.com')) {
-      return { name: 'Instagram', icon: InstagramIcon, color: 'text-pink-500' };
-    } else if (val.includes('tiktok.com')) {
-      return { name: 'TikTok', icon: TikTokIcon, color: 'text-cyan-400' };
-    } else if (val.includes('facebook.com') || val.includes('fb.watch')) {
-      return { name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500' };
-    } else if (val.includes('snapchat.com')) {
-      return { name: 'Snapchat', icon: SnapchatIcon, color: 'text-yellow-400' };
-    } else if (val.startsWith('http://') || val.startsWith('https://')) {
-      return { name: 'Video URL', icon: Link2, color: 'text-slate-400' };
-    }
-    return null;
-  }, [url]);
-
-  // Handle URL submit
   const handleLinkSubmit = (e) => {
     e.preventDefault();
     if (url.trim() && !isLoading) {
@@ -132,7 +84,6 @@ export default function MediaInputArea({
     }
   };
 
-  // Clipboard paste
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText();
@@ -144,7 +95,6 @@ export default function MediaInputArea({
     }
   };
 
-  // File selection
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -155,7 +105,7 @@ export default function MediaInputArea({
   const processSelectedFile = (file) => {
     setUploadError(null);
     if (file.size > 100 * 1024 * 1024) {
-      setUploadError('File exceeds 100MB limit. Please upload a smaller clip or trim it first.');
+      setUploadError('File exceeds the 100 MB limit for song identification.');
       return;
     }
 
@@ -166,7 +116,6 @@ export default function MediaInputArea({
     setUseCustomSegment(false);
   };
 
-  // Upload & identify
   const handleUploadAndIdentify = async () => {
     if (!selectedFile || isLoading || isUploading) return;
     setIsUploading(true);
@@ -180,7 +129,7 @@ export default function MediaInputArea({
       setUploadProgress(40);
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
 
       setUploadProgress(80);
@@ -202,7 +151,6 @@ export default function MediaInputArea({
     }
   };
 
-  // Recording Logic
   const startRecording = async () => {
     setRecordError(null);
     setRecordedBlob(null);
@@ -242,7 +190,7 @@ export default function MediaInputArea({
       }, 1000);
     } catch (err) {
       console.error('Microphone access denied:', err);
-      setRecordError('Microphone access denied or unavailable. Please allow microphone permissions in your browser.');
+      setRecordError('Microphone access denied or unavailable. Allow microphone permissions in your browser.');
       setIsRecording(false);
     }
   };
@@ -269,7 +217,7 @@ export default function MediaInputArea({
 
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
 
       const data = await res.json();
@@ -303,153 +251,136 @@ export default function MediaInputArea({
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
+  const isSubmitDisabled = !url.trim() || isLoading;
+
   return (
-    <div className="w-full max-w-3xl mx-auto space-y-4">
-      {/* 3-Way Mode Tabs */}
-      <div className="flex items-center justify-center p-1 bg-slate-100 dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs max-w-md mx-auto">
+    <div className="w-full space-y-5">
+      <div
+        role="tablist"
+        aria-label="Song finder input method"
+        className="w-full sm:inline-flex sm:w-auto flex flex-wrap gap-2 p-1.5 bg-[var(--color-bg)] rounded-[8px] border border-[var(--color-border)]"
+      >
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'link'}
           onClick={() => setActiveTab('link')}
-          className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`flex-1 sm:flex-initial min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
             activeTab === 'link'
-              ? 'bg-white dark:bg-slate-800 text-[var(--text-primary)] shadow-sm'
-              : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+              ? 'bg-[var(--color-pill-active)] text-white'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <Search className="w-4 h-4 text-[var(--iloveaudios-red)]" />
+          <WaveformIcon className="w-5 h-5" />
           <span>Paste Link</span>
         </button>
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'upload'}
           onClick={() => setActiveTab('upload')}
-          className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`flex-1 sm:flex-initial min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
             activeTab === 'upload'
-              ? 'bg-white dark:bg-slate-800 text-[var(--text-primary)] shadow-sm'
-              : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+              ? 'bg-[var(--color-pill-active)] text-white'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <UploadCloud className="w-4 h-4 text-blue-500" />
+          <UploadTrayIcon className="w-5 h-5" />
           <span>Upload File</span>
         </button>
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'record'}
           onClick={() => setActiveTab('record')}
-          className={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`flex-1 sm:flex-initial min-h-[48px] px-[20px] py-[12px] rounded-[8px] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
             activeTab === 'record'
-              ? 'bg-white dark:bg-slate-800 text-[var(--text-primary)] shadow-sm'
-              : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+              ? 'bg-[var(--color-pill-active)] text-white'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <Mic className="w-4 h-4 text-emerald-500" />
+          <MicStrokeIcon className="w-5 h-5" />
           <span>Record Audio</span>
         </button>
       </div>
 
-      {/* ========================================================================= */}
-      {/* TAB 1: PASTE LINK                                                        */}
-      {/* ========================================================================= */}
       {activeTab === 'link' && (
-        <div className="space-y-4 animate-in fade-in duration-200">
-          <form onSubmit={handleLinkSubmit} className="relative">
-            <div className="relative flex items-center bg-white dark:bg-slate-900 rounded-2xl p-2 gap-2 shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
-              <div className="pl-3 text-[var(--iloveaudios-red)] shrink-0">
-                {detectedPlatform ? (
-                  <detectedPlatform.icon className={`w-5 h-5 ${detectedPlatform.color}`} />
-                ) : (
-                  <Search className="w-5 h-5" />
+        <div className="space-y-4">
+          <form onSubmit={handleLinkSubmit}>
+            <label htmlFor="subpage-song-finder-url" className="sr-only">
+              Video URL
+            </label>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-[var(--color-bg)] rounded-[8px] p-1.5 gap-2 border border-[var(--color-border)] focus-within:border-[var(--color-brand)]">
+              <div className="flex items-center flex-1 min-w-0 gap-2">
+                <input
+                  id="subpage-song-finder-url"
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder={linkPlaceholder}
+                  className="w-full min-h-[52px] bg-transparent px-[20px] text-[length:var(--text-base)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+                  disabled={isLoading}
+                />
+
+                {url && (
+                  <button
+                    type="button"
+                    onClick={() => setUrl('')}
+                    aria-label="Clear URL"
+                    className="min-w-[48px] min-h-[48px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer shrink-0"
+                  >
+                    <CloseCrossIcon className="w-5 h-5" />
+                  </button>
                 )}
               </div>
 
-              <input
-                type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder={linkPlaceholder}
-                className="w-full bg-transparent px-2 py-3 text-sm md:text-base text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none font-medium"
-                disabled={isLoading}
-              />
-
-              {detectedPlatform && (
-                <span className="hidden md:inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shrink-0">
-                  {detectedPlatform.name}
-                </span>
-              )}
-
-              {url && (
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
                 <button
                   type="button"
-                  onClick={() => setUrl('')}
-                  className="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer shrink-0"
+                  onClick={handlePaste}
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] text-[length:var(--text-base)] font-semibold text-[var(--color-text)] bg-[var(--color-surface)] hover:border-[var(--color-text)] border border-[var(--color-border)] cursor-pointer transition-colors duration-150"
                 >
-                  <X className="w-4 h-4" />
+                  Paste
                 </button>
-              )}
 
-              <button
-                type="button"
-                onClick={handlePaste}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 rounded-xl transition-all border border-slate-200 dark:border-white/10 cursor-pointer shrink-0"
-                title="Paste from clipboard"
-              >
-                <Clipboard className="w-3.5 h-3.5" />
-                <span>Paste</span>
-              </button>
-
-              <button
-                type="submit"
-                disabled={!url.trim() || isLoading}
-                className={`px-5 py-3 rounded-xl font-bold text-sm text-white flex items-center gap-2 transition-all shrink-0 ${
-                  !url.trim() || isLoading
-                    ? 'bg-[var(--iloveaudios-red)] text-white opacity-60 cursor-not-allowed'
-                    : 'bg-[var(--iloveaudios-red)] hover:bg-red-700 text-white shadow-sm hover:scale-[1.01] active:scale-100 cursor-pointer'
-                }`}
-              >
-                {isLoading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span className="hidden sm:inline">Finding Song...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Find Song</span>
-                    <ArrowRight className="w-4 h-4 hidden md:inline" />
-                  </>
-                )}
-              </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitDisabled}
+                  className={`w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] font-semibold text-[length:var(--text-base)] transition-colors duration-150 ${
+                    isSubmitDisabled
+                      ? 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
+                      : 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer'
+                  }`}
+                >
+                  {isLoading ? 'Finding...' : 'Find Song'}
+                </button>
+              </div>
             </div>
           </form>
 
-          {/* Sample Links */}
-          <div className="flex flex-wrap items-center gap-2 px-1 text-xs">
-            <span className="text-[var(--text-secondary)] font-bold">Try sample:</span>
-            {sampleReels.map((sample, idx) => {
-              const Icon = sample.icon;
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => {
-                    setUrl(sample.url);
-                    onExtractLink(sample.url);
-                  }}
-                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold transition-all flex items-center gap-1 cursor-pointer"
-                >
-                  <Icon className="w-3 h-3 text-[var(--iloveaudios-red)]" />
-                  <span>{sample.label}</span>
-                </button>
-              );
-            })}
+          <div className="flex flex-wrap items-center gap-2 text-[length:var(--text-base)]">
+            <span className="text-[var(--color-text-muted)] font-semibold">Examples:</span>
+            {sampleReels.map((sample, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  setUrl(sample.url);
+                  onExtractLink(sample.url);
+                }}
+                className="min-h-[48px] px-[20px] py-[12px] rounded-[8px] bg-[var(--color-bg)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] border border-[var(--color-border)] text-[var(--color-text)] text-[length:var(--text-base)] font-medium transition-colors duration-150 cursor-pointer"
+              >
+                {sample.label}
+              </button>
+            ))}
           </div>
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 2: UPLOAD MEDIA FILE                                                 */}
-      {/* ========================================================================= */}
       {activeTab === 'upload' && (
-        <div className="space-y-4 animate-in fade-in duration-200">
+        <div className="space-y-4">
           <input
             type="file"
             ref={fileInputRef}
@@ -460,40 +391,56 @@ export default function MediaInputArea({
 
           {!selectedFile ? (
             <div
+              role="button"
+              tabIndex={0}
               onClick={() => fileInputRef.current?.click()}
-              onDragOver={(e) => e.preventDefault()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  fileInputRef.current?.click();
+                }
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDragLeave={() => setIsDragging(false)}
               onDrop={(e) => {
                 e.preventDefault();
+                setIsDragging(false);
                 if (e.dataTransfer.files?.[0]) processSelectedFile(e.dataTransfer.files[0]);
               }}
-              className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-[var(--iloveaudios-red)] dark:hover:border-[var(--iloveaudios-red)] bg-white dark:bg-slate-900 rounded-3xl p-8 text-center cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 space-y-3"
+              className={`w-full min-h-[280px] p-6 sm:p-8 rounded-[16px] border-2 border-dashed transition-colors duration-150 cursor-pointer flex flex-col items-center justify-center text-center gap-4 ${
+                isDragging
+                  ? 'border-[var(--color-brand)] bg-[var(--color-bg)]'
+                  : 'border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-brand)]'
+              }`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-red-500/10 text-[var(--iloveaudios-red)] flex items-center justify-center mx-auto shadow-inner">
-                <UploadCloud className="w-7 h-7" />
-              </div>
-              <div>
-                <p className="text-sm md:text-base font-black text-[var(--text-primary)]">
-                  Click to upload or drag and drop video / audio
+              <div className="space-y-2">
+                <p className="text-[1.5rem] font-semibold text-[var(--color-text)] leading-[var(--leading-heading)]">
+                  Drop a video or audio file here, or click to browse
                 </p>
-                <p className="text-xs text-[var(--text-secondary)] mt-1">
-                  Supports MP4, MOV, WebM, MP3, WAV, M4A, FLAC, OGG (Max 100MB)
+                <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)]">
+                  MP4, MOV, WebM, MKV, MP3, WAV, M4A, FLAC, OGG — max 100 MB
                 </p>
               </div>
+              <span className="inline-flex items-center justify-center min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-brand)] text-white text-[length:var(--text-base)] font-semibold shrink-0">
+                Choose File
+              </span>
             </div>
           ) : (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
-              {/* File Info Bar */}
-              <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div className="bg-[var(--color-bg)] rounded-[16px] p-6 sm:p-8 border border-[var(--color-border)] space-y-4">
+              <div className="flex items-center justify-between gap-3 pb-3 border-b border-[var(--color-border)]">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-red-500/10 text-[var(--iloveaudios-red)] flex items-center justify-center shrink-0">
-                    {selectedFile.type.startsWith('video') ? <Film className="w-5 h-5" /> : <Music className="w-5 h-5" />}
+                  <div className="w-12 h-12 rounded-[8px] bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-brand)] flex items-center justify-center shrink-0">
+                    <FileTagIcon className="w-6 h-6" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-bold text-[var(--text-primary)] truncate">
+                    <p className="text-[length:var(--text-base)] font-semibold text-[var(--color-text)] truncate">
                       {selectedFile.name}
                     </p>
-                    <p className="text-xs text-[var(--text-muted)]">
-                      {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB • {selectedFile.type || 'Media File'}
+                    <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)]">
+                      {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
@@ -504,13 +451,13 @@ export default function MediaInputArea({
                     setSelectedFile(null);
                     setFilePreviewUrl(null);
                   }}
-                  className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+                  aria-label="Remove selected file"
+                  className="min-w-[48px] min-h-[48px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] rounded-[8px] cursor-pointer shrink-0"
                 >
-                  <X className="w-4 h-4" />
+                  <CloseCrossIcon className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Media Preview Player */}
               {filePreviewUrl && (
                 <div className="space-y-3">
                   {selectedFile.type.startsWith('video') ? (
@@ -519,7 +466,7 @@ export default function MediaInputArea({
                       src={filePreviewUrl}
                       controls
                       onLoadedMetadata={(e) => setMediaDuration(e.currentTarget.duration)}
-                      className="w-full max-h-48 rounded-xl bg-black object-contain"
+                      className="w-full max-h-56 rounded-[8px] bg-black object-contain"
                     />
                   ) : (
                     <audio
@@ -531,25 +478,24 @@ export default function MediaInputArea({
                     />
                   )}
 
-                  {/* Section Selection Checkbox & Slider */}
                   {mediaDuration > 20 && (
-                    <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 space-y-2 border border-slate-200 dark:border-slate-700/60 text-xs">
-                      <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-800 dark:text-slate-200">
+                    <div className="bg-[var(--color-surface)] rounded-[8px] p-4 space-y-2 border border-[var(--color-border)] text-[length:var(--text-base)]">
+                      <label className="flex items-center gap-3 min-h-[48px] cursor-pointer font-semibold text-[var(--color-text)]">
                         <input
                           type="checkbox"
                           checked={useCustomSegment}
                           onChange={(e) => setUseCustomSegment(e.target.checked)}
-                          className="rounded text-[var(--iloveaudios-red)] focus:ring-[var(--iloveaudios-red)]"
+                          className="w-5 h-5 accent-[var(--color-brand)]"
                         />
-                        <Sliders className="w-3.5 h-3.5 text-blue-500" />
-                        <span>Select specific section to analyze (Optional)</span>
+                        <TrimHandlesIcon className="w-5 h-5 text-[var(--color-brand)]" />
+                        <span>Select 15-second segment to scan (optional)</span>
                       </label>
 
                       {useCustomSegment && (
-                        <div className="space-y-2 pt-1 animate-in fade-in">
-                          <div className="flex items-center justify-between text-[11px] font-semibold text-[var(--text-muted)]">
+                        <div className="space-y-2 pt-1">
+                          <div className="flex items-center justify-between text-[length:var(--text-base)] text-[var(--color-text-muted)]">
                             <span>Start: {formatSeconds(startTime)}</span>
-                            <span>End: {formatSeconds(Math.min(startTime + 15, mediaDuration))} (15s slice)</span>
+                            <span>End: {formatSeconds(Math.min(startTime + 15, mediaDuration))}</span>
                           </div>
                           <input
                             type="range"
@@ -562,7 +508,7 @@ export default function MediaInputArea({
                               setStartTime(val);
                               if (mediaRef.current) mediaRef.current.currentTime = val;
                             }}
-                            className="w-full accent-[var(--iloveaudios-red)] cursor-pointer"
+                            className="w-full min-h-[48px] accent-[var(--color-brand)] cursor-pointer"
                           />
                         </div>
                       )}
@@ -571,179 +517,131 @@ export default function MediaInputArea({
                 </div>
               )}
 
-              {/* Upload Progress Bar */}
               {isUploading && (
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs font-semibold text-[var(--text-muted)]">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[length:var(--text-base)] font-medium text-[var(--color-text-muted)]">
                     <span>Uploading media...</span>
                     <span>{uploadProgress}%</span>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full h-2.5 overflow-hidden">
                     <div
-                      className="bg-[var(--iloveaudios-red)] h-full transition-all duration-300"
+                      className="bg-[var(--color-brand)] h-full transition-all duration-300"
                       style={{ width: `${uploadProgress}%` }}
-                    ></div>
+                    />
                   </div>
                 </div>
               )}
 
-              {/* Error Box */}
               {uploadError && (
-                <div className="p-3 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-medium flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>{uploadError}</span>
+                <div className="p-4 rounded-[8px] border border-[var(--color-brand)] bg-[var(--color-surface)] text-[var(--color-brand)] text-[length:var(--text-base)] font-medium">
+                  {uploadError}
                 </div>
               )}
 
-              {/* Action Button */}
               <button
                 type="button"
                 onClick={handleUploadAndIdentify}
                 disabled={isUploading || isLoading}
-                className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-[var(--iloveaudios-red)] hover:bg-red-700 shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                className={`w-full min-h-[52px] px-[20px] rounded-[8px] font-semibold text-[length:var(--text-base)] transition-colors duration-150 ${
+                  isUploading || isLoading
+                    ? 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
+                    : 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer'
+                }`}
               >
-                {isUploading || isLoading ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Analyzing Media...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Identify Song in File</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
+                {isUploading || isLoading ? 'Analyzing Media...' : 'Identify Song in File'}
               </button>
             </div>
           )}
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 3: RECORD LIVE AUDIO                                                 */}
-      {/* ========================================================================= */}
       {activeTab === 'record' && (
-        <div className="space-y-4 animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 text-center space-y-5 shadow-sm">
-            {!recordedBlob ? (
-              <div className="space-y-4">
-                <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-                  {isRecording && (
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-60"></span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={isRecording ? stopRecording : startRecording}
-                    className={`relative w-20 h-20 rounded-full flex items-center justify-center text-white transition-all shadow-lg cursor-pointer ${
-                      isRecording
-                        ? 'bg-red-600 hover:bg-red-700 shadow-red-500/50 scale-105'
-                        : 'bg-[var(--iloveaudios-red)] hover:bg-red-700 shadow-red-500/30 hover:scale-105'
-                    }`}
-                    title={isRecording ? 'Stop Recording' : 'Start Recording'}
-                  >
-                    {isRecording ? <Square className="w-7 h-7" /> : <Mic className="w-8 h-8" />}
-                  </button>
-                </div>
-
-                <div className="space-y-1">
-                  <h4 className="text-base font-black text-[var(--text-primary)]">
-                    {isRecording ? `Recording... (${formatSeconds(recordSeconds)} / 0:15)` : 'Record 5–15 seconds of music'}
-                  </h4>
-                  <p className="text-xs text-[var(--text-secondary)] max-w-sm mx-auto">
-                    {isRecording
-                      ? 'Hold your device close to the music source. Recording stops automatically at 15s.'
-                      : 'Tap the microphone to capture music playing around you or on your device.'}
-                  </p>
-                </div>
-
-                {isRecording && (
-                  <div className="flex items-center justify-center gap-1.5 pt-2">
-                    {[0.1, 0.3, 0.2, 0.4, 0.15, 0.35, 0.25, 0.45].map((delay, idx) => (
-                      <div
-                        key={idx}
-                        className="w-1.5 h-6 bg-[var(--iloveaudios-red)] rounded-full animate-pulse"
-                        style={{ animationDelay: `${delay}s`, animationDuration: '0.6s' }}
-                      ></div>
-                    ))}
-                  </div>
-                )}
+        <div className="bg-[var(--color-bg)] rounded-[16px] p-6 sm:p-8 border border-[var(--color-border)] min-h-[280px] flex flex-col justify-center space-y-4">
+          {!recordedBlob ? (
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <h3 className="text-[length:var(--text-h3)] font-semibold text-[var(--color-text)]">
+                  {isRecording ? `Recording: ${formatSeconds(recordSeconds)} / 0:15` : 'Record 5 to 15 seconds of audio'}
+                </h3>
+                <p className="prose-measure text-[length:var(--text-base)] text-[var(--color-text-muted)]">
+                  {isRecording
+                    ? 'Keep your device near the audio source. Stops automatically at 15 seconds.'
+                    : 'Allow microphone access in your browser to capture ambient music.'}
+                </p>
               </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
 
-                <div className="space-y-1">
-                  <h4 className="text-base font-black text-[var(--text-primary)]">
-                    Audio Clip Recorded ({formatSeconds(recordSeconds)})
-                  </h4>
-                  <p className="text-xs text-[var(--text-secondary)]">
-                    Preview your recorded sample before finding the song.
-                  </p>
-                </div>
+              <button
+                type="button"
+                onClick={isRecording ? stopRecording : startRecording}
+                className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] font-semibold text-[length:var(--text-base)] text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+              >
+                {isRecording ? <StopStrokeIcon className="w-5 h-5" /> : <MicStrokeIcon className="w-5 h-5" />}
+                <span>{isRecording ? 'Stop Recording' : 'Start Recording'}</span>
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-[length:var(--text-h3)] font-semibold text-[var(--color-text)]">
+                  Recorded clip ({formatSeconds(recordSeconds)})
+                </h3>
+                <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)]">
+                  Preview the recording or start song identification.
+                </p>
+              </div>
 
-                {recordedAudioUrl && (
-                  <audio
-                    ref={recordAudioElementRef}
-                    src={recordedAudioUrl}
-                    onEnded={() => setIsPlayingRecord(false)}
-                    className="hidden"
-                  />
-                )}
+              {recordedAudioUrl && (
+                <audio
+                  ref={recordAudioElementRef}
+                  src={recordedAudioUrl}
+                  onEnded={() => setIsPlayingRecord(false)}
+                  className="hidden"
+                />
+              )}
 
-                <div className="flex items-center justify-center gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={togglePlayRecord}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer"
-                  >
-                    {isPlayingRecord ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                    <span>{isPlayingRecord ? 'Pause' : 'Preview'}</span>
-                  </button>
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
+                <button
+                  type="button"
+                  onClick={togglePlayRecord}
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  {isPlayingRecord ? <PauseStrokeIcon className="w-5 h-5" /> : <PlayStrokeIcon className="w-5 h-5" />}
+                  <span>{isPlayingRecord ? 'Pause' : 'Preview'}</span>
+                </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRecordedBlob(null);
-                      setRecordedAudioUrl(null);
-                      setRecordSeconds(0);
-                    }}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                    <span>Record Again</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRecordedBlob(null);
+                    setRecordedAudioUrl(null);
+                    setRecordSeconds(0);
+                  }}
+                  className="w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] text-[length:var(--text-base)] font-semibold cursor-pointer"
+                >
+                  Record Again
+                </button>
 
                 <button
                   type="button"
                   onClick={handleIdentifyRecording}
                   disabled={isLoading || isUploading}
-                  className="w-full max-w-sm mx-auto py-3.5 rounded-xl font-bold text-sm text-white bg-[var(--iloveaudios-red)] hover:bg-red-700 shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60"
+                  className={`w-full sm:w-auto min-h-[52px] px-[20px] rounded-[8px] font-semibold text-[length:var(--text-base)] transition-colors duration-150 ${
+                    isLoading || isUploading
+                      ? 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
+                      : 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer'
+                  }`}
                 >
-                  {isLoading || isUploading ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      <span>Finding Song...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Find Song from Recording</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
+                  {isLoading || isUploading ? 'Finding Song...' : 'Identify Recording'}
                 </button>
               </div>
-            )}
+            </div>
+          )}
 
-            {recordError && (
-              <div className="p-3 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-medium flex items-center gap-2 text-left">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{recordError}</span>
-              </div>
-            )}
-          </div>
+          {recordError && (
+            <div className="p-4 rounded-[8px] border border-[var(--color-brand)] bg-[var(--color-surface)] text-[var(--color-brand)] text-[length:var(--text-base)] font-medium">
+              {recordError}
+            </div>
+          )}
         </div>
       )}
     </div>

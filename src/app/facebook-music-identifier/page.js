@@ -4,6 +4,12 @@ import React from 'react';
 import SongFinderEngine from '@/components/SongFinderEngine';
 import FaqSection from '@/components/FaqSection';
 import Link from 'next/link';
+import {
+  InstagramLogoIcon,
+  TikTokLogoIcon,
+  YouTubeLogoIcon,
+  SnapchatLogoIcon
+} from '@/components/AudioIcons';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -47,62 +53,62 @@ export default function FacebookMusicIdentifierPage() {
       linkPlaceholder="Paste Facebook Reel or video link (e.g., https://www.facebook.com/reel/...)"
     >
       {/* 1. Educational Intro (400+ words total page copy) */}
-      <div className="max-w-4xl mx-auto glass-panel rounded-3xl p-6 sm:p-8 border border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md space-y-4 text-center sm:text-left shadow-xs">
-        <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
+      <div className="ui-card shadow-xs space-y-4 text-left">
+        <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
           The <strong>iLoveAudios Facebook Music Identifier</strong> is designed to help you <strong>find song from facebook reel</strong> feeds, Facebook Watch episodes, and viral social clips. Millions of users browse Facebook daily and hear incredible background soundtracks without any song titles listed in the caption or video overlay.
         </p>
-        <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
+        <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
           Our online <strong>facebook song finder</strong> solves this frustration. By pasting any public Facebook URL, our recognition engine demuxes the audio channel and allows you to <strong>identify song from facebook video</strong> streams in under 5 seconds—providing verified artist names, album titles, synchronized lyrics, and free MP3 downloads.
         </p>
       </div>
 
       {/* 2. Platform-Specific Link Copying Steps */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="text-center sm:text-left space-y-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="text-left space-y-3">
+          <span className="text-[length:var(--text-base)] font-bold text-blue-700 block">
             Facebook Instructions
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             How to Copy a Facebook Video Link for Recognition
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
             Whether you are on a smartphone or a computer, copying the public Facebook video link takes just a few taps:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-blue-500/20 bg-blue-500/5">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="ui-card space-y-3 border-blue-500/20">
+            <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               1
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
               On the Facebook Mobile App
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
               Open the video or Reel &rarr; Tap the <strong>Share</strong> button at bottom right &rarr; Select <strong>Copy Link</strong> from the tray.
             </p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-indigo-500/20 bg-indigo-500/5">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-sm">
+          <div className="ui-card space-y-3 border-indigo-500/20">
+            <div className="w-11 h-11 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               2
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
               On Desktop Web Browser
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Click the video timestamp or open the post in full screen, then copy the URL from your browser address bar (e.g., <code className="text-blue-500 font-bold">facebook.com/reel/...</code> or <code className="text-blue-500 font-bold">fb.watch/...</code>).
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
+              Click the video timestamp or open the post in full screen, then copy the URL from your browser address bar (e.g., <code className="text-blue-700 font-bold">facebook.com/reel/...</code> or <code className="text-blue-700 font-bold">fb.watch/...</code>).
             </p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 space-y-3 border-purple-500/20 bg-purple-500/5">
-            <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-sm">
+          <div className="ui-card space-y-3 border-purple-500/20">
+            <div className="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-[length:var(--text-base)]">
               3
             </div>
-            <h3 className="text-sm font-black text-[var(--text-primary)]">
-              Paste & Identify Track
+            <h3 className="text-[length:var(--text-h3)] font-bold text-[var(--color-text)]">
+              Paste &amp; Identify Track
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
               Paste the link into the search box above and click <strong>Find Song</strong>. Our server isolates the audio waveform and finds your track.
             </p>
           </div>
@@ -110,11 +116,11 @@ export default function FacebookMusicIdentifierPage() {
       </section>
 
       {/* 3. Deep Dive: Facebook's Audio Processing */}
-      <section className="max-w-4xl mx-auto space-y-4 pt-6 border-t border-[var(--border-color)]">
-        <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+      <section className="w-full space-y-4 pt-8 border-t border-[var(--color-border)] text-left">
+        <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
           Overcoming Audio Masking in Facebook Video Streams
         </h2>
-        <div className="space-y-3 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+        <div className="space-y-4 text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)] prose-measure">
           <p>
             Facebook is one of the world&apos;s largest video platforms, serving billions of hours of short-form and long-form video content daily. However, unlike dedicated music streaming apps, Facebook lacks an integrated Shazam-like button that viewers can click to see what music is playing.
           </p>
@@ -128,79 +134,79 @@ export default function FacebookMusicIdentifierPage() {
       </section>
 
       {/* 4. Cross-Platform Directory (Interlinks to all other 4 platform pages + hubs) */}
-      <section className="max-w-5xl mx-auto space-y-6 pt-6 border-t border-[var(--border-color)]">
-        <div className="space-y-2 text-center sm:text-left">
-          <span className="text-[10px] font-black uppercase tracking-wider text-blue-500 block">
+      <section className="w-full space-y-6 pt-8 border-t border-[var(--color-border)]">
+        <div className="space-y-2 text-left">
+          <span className="text-[length:var(--text-base)] font-bold text-blue-700 block">
             Explore Other Platforms
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)]">
             Find Songs on Other Social Video Platforms
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link 
             href="/find-song-from-instagram-reel" 
-            className="glass-panel glass-panel-hover rounded-2xl p-4 space-y-2 block"
+            className="tool-card space-y-3 block"
           >
-            <div className="w-8 h-8 rounded-lg bg-pink-500 text-white flex items-center justify-center text-xs font-black">
-              IG
+            <div className="w-12 h-12 rounded-xl bg-[#E1306C] text-white flex items-center justify-center">
+              <InstagramLogoIcon className="w-6 h-6" />
             </div>
-            <h4 className="text-xs font-black text-[var(--text-primary)]">Find Song from Instagram Reel</h4>
-            <p className="text-[11px] text-[var(--text-secondary)]">Identify Reel music labeled as original creator audio.</p>
+            <h4 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">Find Song from Instagram Reel</h4>
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)]">Identify Reel music labeled as original creator audio.</p>
           </Link>
 
           <Link 
             href="/find-song-from-tiktok" 
-            className="glass-panel glass-panel-hover rounded-2xl p-4 space-y-2 block"
+            className="tool-card space-y-3 block"
           >
-            <div className="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center text-xs font-black">
-              TT
+            <div className="w-12 h-12 rounded-xl bg-[#111827] text-white flex items-center justify-center">
+              <TikTokLogoIcon className="w-6 h-6" />
             </div>
-            <h4 className="text-xs font-black text-[var(--text-primary)]">Find Song from TikTok</h4>
-            <p className="text-[11px] text-[var(--text-secondary)]">Identify TikTok sounds, CapCut edits, and viral tracks.</p>
+            <h4 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">Find Song from TikTok</h4>
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)]">Identify TikTok sounds, CapCut edits, and viral tracks.</p>
           </Link>
 
           <Link 
             href="/find-song-from-youtube-shorts" 
-            className="glass-panel glass-panel-hover rounded-2xl p-4 space-y-2 block"
+            className="tool-card space-y-3 block"
           >
-            <div className="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center text-xs font-black">
-              YT
+            <div className="w-12 h-12 rounded-xl bg-[#FF0000] text-white flex items-center justify-center">
+              <YouTubeLogoIcon className="w-6 h-6" />
             </div>
-            <h4 className="text-xs font-black text-[var(--text-primary)]">YouTube Shorts Music Finder</h4>
-            <p className="text-[11px] text-[var(--text-secondary)]">Extract songs from Shorts links with video previews.</p>
+            <h4 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">YouTube Shorts Music Finder</h4>
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)]">Extract songs from Shorts links with video previews.</p>
           </Link>
 
           <Link 
             href="/find-song-on-snapchat" 
-            className="glass-panel glass-panel-hover rounded-2xl p-4 space-y-2 block"
+            className="tool-card space-y-3 block"
           >
-            <div className="w-8 h-8 rounded-lg bg-yellow-400 text-slate-900 flex items-center justify-center text-xs font-black">
-              SC
+            <div className="w-12 h-12 rounded-xl bg-[#FFFC00] text-[#111827] border border-amber-300 flex items-center justify-center">
+              <SnapchatLogoIcon className="w-6 h-6" />
             </div>
-            <h4 className="text-xs font-black text-[var(--text-primary)]">Find Song on Snapchat</h4>
-            <p className="text-[11px] text-[var(--text-secondary)]">Detect songs from Snapchat Spotlight and public Snaps.</p>
+            <h4 className="text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">Find Song on Snapchat</h4>
+            <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)]">Detect songs from Snapchat Spotlight and public Snaps.</p>
           </Link>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Link href="/song-finder-from-video" className="text-xs font-bold text-blue-500 hover:underline">
+        <div className="flex flex-wrap items-center gap-4 pt-2">
+          <Link href="/song-finder-from-video" className="min-h-[48px] py-[12px] inline-flex items-center text-[length:var(--text-base)] font-bold text-blue-700 hover:underline">
             &larr; Video Song Finder Hub
           </Link>
-          <span className="text-[var(--text-muted)]">&bull;</span>
-          <Link href="/tools/song-extractor" className="text-xs font-bold text-[var(--iloveaudios-red)] hover:underline">
+          <span className="text-[var(--color-text-muted)]" aria-hidden="true">&bull;</span>
+          <Link href="/tools/song-extractor" className="min-h-[48px] py-[12px] inline-flex items-center text-[length:var(--text-base)] font-bold text-[var(--color-brand)] hover:underline">
             Main AI Song Finder
           </Link>
-          <span className="text-[var(--text-muted)]">&bull;</span>
-          <Link href="/mp3-converter" className="text-xs font-bold text-purple-500 hover:underline">
+          <span className="text-[var(--color-text-muted)]" aria-hidden="true">&bull;</span>
+          <Link href="/mp3-converter" className="min-h-[48px] py-[12px] inline-flex items-center text-[length:var(--text-base)] font-bold text-purple-700 hover:underline">
             MP3 Converter Hub &rarr;
           </Link>
         </div>
       </section>
 
       {/* 5. Frequently Asked Questions */}
-      <section id="faqs" className="max-w-4xl mx-auto pt-6 border-t border-[var(--border-color)]">
+      <section id="faqs" className="w-full pt-8 border-t border-[var(--color-border)]">
         <FaqSection faqs={FACEBOOK_FAQS} />
       </section>
     </SongFinderEngine>

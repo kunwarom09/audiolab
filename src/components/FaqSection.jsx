@@ -1,95 +1,87 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronStrokeIcon } from './AudioIcons';
 
 const FAQ_ITEMS = [
   {
-    question: 'How does the AI Song Finder work?',
-    answer: 'Paste any Instagram Reel, TikTok video, Facebook Reel, or Snapchat Spotlight URL. Our Shazam-powered audio recognition engine extracts the background audio stream and matches its acoustic fingerprint against millions of tracks to identify the song title, artist, album, and release details in seconds.'
+    question: 'How does the Song Finder work?',
+    answer:
+      'Paste a public link from Instagram Reels, TikTok, Facebook Reels, YouTube Shorts, or Snapchat Spotlight, or upload an audio or video file up to 100 MB. The backend extracts the audio stream and matches its acoustic fingerprint to return the track title, artist, lyrics, and an MP3 download.',
   },
   {
-    question: 'Is this online Song Finder completely free?',
-    answer: 'Yes! You can identify unlimited songs, view complete synchronized lyrics, watch official YouTube music videos, and download high-quality MP3 files with zero cost and no account registration required.'
+    question: 'What file sizes and formats are supported?',
+    answer:
+      'Converters accept MP4, MOV, AVI, MKV, WebM, 3GP, WMV, MP3, WAV, FLAC, M4A, AAC, OGG, WMA, OPUS, M4R, AIFF, AMR, ALAC, and M4B up to 500 MB. Song Finder accepts uploads up to 100 MB.',
   },
   {
-    question: 'Can I download the extracted song as an MP3?',
-    answer: 'Absolutely. Once the song is identified, simply click the "Download Full Song (MP3)" button. Our engine will fetch and convert the track into a high-quality 192kbps MP3 audio file directly onto your device.'
+    question: 'Which MP3 bitrate options are available?',
+    answer:
+      'Export MP3 files at 128 kbps, 192 kbps, or 320 kbps, or convert to WAV and FLAC without signup.',
   },
   {
-    question: 'Which social media platforms are supported?',
-    answer: 'Song Finder supports direct video links from Instagram Reels, TikTok Videos, Facebook Reels, Snapchat Spotlight, and YouTube Shorts.'
+    question: 'How long are uploaded and converted files kept?',
+    answer:
+      'Uploaded media and converted output files stay available for 30 minutes for downloading and are then deleted automatically.',
   },
   {
-    question: 'Can I view full lyrics and watch the official music video?',
-    answer: 'Yes, every extraction automatically provides complete line-by-line song lyrics with a built-in search filter and one-click copy button, as well as an embedded official YouTube music video player.'
-  }
+    question: 'Do I need an account or desktop software?',
+    answer:
+      'No account or desktop software is required. All conversions and song lookups run directly in mobile and desktop browsers.',
+  },
 ];
 
 export default function FaqSection({ items }) {
-  const [openIndex, setOpenIndex] = useState(null); // All items collapsed by default
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqList = items 
-    ? items.map(item => ({ question: item.q || item.question, answer: item.a || item.answer }))
-    : FAQ_ITEMS.map(item => ({ question: item.question, answer: item.answer }));
+  const faqList = items
+    ? items.map((item) => ({ question: item.q || item.question, answer: item.a || item.answer }))
+    : FAQ_ITEMS;
 
   return (
-    <section id="faq" className="space-y-8 pt-8 border-t border-[var(--border-color)] max-w-4xl mx-auto">
-      <div className="text-center space-y-2 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--iloveaudios-red)]/10 text-[var(--iloveaudios-red)] border border-[var(--iloveaudios-red)]/20 text-xs font-bold">
-          <HelpCircle className="w-3.5 h-3.5" />
-          <span>Got Questions?</span>
-        </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">
+    <section id="faq" className="w-full pt-12 pb-6">
+      <div className="w-full space-y-6">
+        <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)] leading-[var(--leading-heading)]">
           Frequently Asked Questions
         </h2>
-        <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
-          Click any question below to expand the answer.
-        </p>
-      </div>
 
-      <div className="space-y-3">
-        {faqList.map((item, idx) => {
-          const isOpen = openIndex === idx;
+        <div className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[16px] divide-y divide-[var(--color-border)] overflow-hidden">
+          {faqList.map((item, idx) => {
+            const isOpen = openIndex === idx;
 
-          return (
-            <div
-              key={idx}
-              className="glass-panel rounded-2xl overflow-hidden transition-all duration-200 border border-[var(--border-color)]"
-            >
-              <button
-                type="button"
-                onClick={() => toggleAccordion(idx)}
-                aria-expanded={isOpen}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[var(--text-primary)] hover:text-[var(--iloveaudios-red)] transition-colors cursor-pointer"
-              >
-                <span className="font-bold text-sm sm:text-base">{item.question}</span>
-                <div
-                  className={`p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-[var(--text-secondary)] transition-transform duration-300 shrink-0 ${
-                    isOpen ? 'rotate-180 bg-[var(--iloveaudios-red)]/10 text-[var(--iloveaudios-red)]' : ''
-                  }`}
+            return (
+              <div key={idx} className="w-full">
+                <button
+                  type="button"
+                  onClick={() => toggleAccordion(idx)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
+                  className="w-full min-h-[52px] px-6 py-4 text-left flex items-center justify-between gap-4 text-[length:var(--text-base)] font-semibold text-[var(--color-text)] hover:text-[var(--color-brand)] transition-colors duration-150 cursor-pointer"
                 >
-                  <ChevronDown className="w-4 h-4" />
-                </div>
-              </button>
+                  <span>{item.question}</span>
+                  <ChevronStrokeIcon
+                    className={`w-5 h-5 shrink-0 text-[var(--color-text-muted)] transition-transform ${
+                      isOpen ? 'rotate-180 text-[var(--color-brand)]' : ''
+                    }`}
+                  />
+                </button>
 
-              <div 
-                id={`faq-answer-${idx}`}
-                className={`overflow-hidden transition-all duration-300 ${
-                  isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border-color)]/50">
-                  {item.answer}
-                </div>
+                {isOpen && (
+                  <div
+                    id={`faq-answer-${idx}`}
+                    className="px-6 pb-6 text-[length:var(--text-base)] text-[var(--color-text-muted)] leading-[var(--leading-body)]"
+                  >
+                    <p className="prose-measure">{item.answer}</p>
+                  </div>
+                )}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

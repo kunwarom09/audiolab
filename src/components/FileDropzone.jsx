@@ -143,10 +143,10 @@ export default function FileDropzone({
         role="button"
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') triggerFileInput(); }}
-        className={`w-full py-12 sm:py-16 px-6 rounded-3xl cursor-pointer flex flex-col items-center justify-center space-y-4 transition-all duration-300 border-2 border-dashed select-none ${
+        className={`w-full min-h-[280px] p-6 sm:p-8 rounded-[16px] cursor-pointer flex flex-col items-center justify-center gap-4 transition-colors duration-150 border-2 border-dashed select-none ${
           isDragActive
-            ? 'border-blue-500 bg-blue-500/5 dropzone-dragover scale-[1.01]'
-            : 'border-[var(--border-color)] bg-[var(--bg-card)] hover:border-blue-500/50 hover:bg-[var(--bg-card-hover)]'
+            ? 'border-[var(--color-brand)] bg-[var(--color-bg)] dropzone-dragover'
+            : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-brand)] hover:bg-[var(--color-bg)]'
         }`}
       >
         <input
@@ -157,42 +157,44 @@ export default function FileDropzone({
           onChange={handleFileInputChange}
         />
 
-        <div className={`w-16 h-16 rounded-full flex items-center justify-center bg-blue-500/10 text-[#0088ff] ${isDragActive ? 'animate-bounce' : ''}`}>
+        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-brand)]">
           <UploadCloud className="w-8 h-8" />
         </div>
 
-        <div className="text-center space-y-1">
-          <p className="text-sm sm:text-base font-bold text-[var(--text-primary)]">
+        <div className="text-center space-y-2">
+          <p className="text-[1.5rem] font-bold text-[var(--color-text)] leading-[var(--leading-heading)]">
             {isVideoTool && !isAudioTool ? (
-              <>Select or drop your <span className="text-[#0088ff] font-extrabold">MP4 / Video</span> file</>
+              <>Select or drop your <span className="text-[var(--color-brand)] font-bold">MP4 / Video</span> file</>
             ) : (fmt === 'mp3' || fmt === 'audio' || fmt.includes('audio')) ? (
-              <>Select or drop your <span className="text-[#0088ff] font-extrabold">MP3</span> or audio file</>
+              <>Select or drop your <span className="text-[var(--color-brand)] font-bold">MP3</span> or audio file</>
             ) : (
-              <>Select or drop your <span className="text-[#0088ff] font-extrabold">.{fromFormat}</span> file</>
+              <>Select or drop your <span className="text-[var(--color-brand)] font-bold">.{fromFormat}</span> file</>
             )}
           </p>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-[length:var(--text-base)] text-[var(--color-text-muted)]">
             Tap to choose from phone gallery, camera roll, or device files
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2 text-[10px] font-bold text-[var(--text-muted)] bg-[var(--bg-main)] px-3.5 py-1.5 rounded-full border border-[var(--border-color)]">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-[length:var(--text-base)] font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg)] px-[20px] py-[12px] rounded-full border border-[var(--color-border)]">
           <span>Max: {formatFileSize(maxSizeBytes)}</span>
-          <span className="text-[var(--border-color)]">•</span>
+          <span aria-hidden="true">/</span>
           <span>{isVideoTool && !isAudioTool ? 'Phone Gallery & Videos Supported' : (fmt === 'mp3' || fmt.includes('audio')) ? 'Supports .MP3, .WAV, .M4A, .FLAC & video audio' : `Format: .${fromFormat}`}</span>
         </div>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 flex items-start gap-3 text-red-500 animate-in fade-in">
-          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
-          <div className="flex-1 flex justify-between items-center">
-            <span className="text-xs font-semibold leading-relaxed">{error}</span>
+        <div className="p-4 sm:p-5 rounded-[12px] bg-[var(--color-surface)] border border-[var(--color-brand)] flex items-start gap-3 text-[var(--color-brand)]">
+          <AlertCircle className="w-6 h-6 shrink-0 mt-0.5" />
+          <div className="flex-1 flex justify-between items-center gap-3">
+            <span className="text-[length:var(--text-base)] font-semibold leading-[var(--leading-body)]">{error}</span>
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); setError(null); }}
-              className="p-1 rounded-lg hover:bg-red-500/10 text-red-400 cursor-pointer"
+              aria-label="Dismiss error"
+              className="min-w-[48px] min-h-[48px] rounded-[8px] hover:bg-[var(--color-bg)] text-[var(--color-brand)] flex items-center justify-center cursor-pointer shrink-0"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>

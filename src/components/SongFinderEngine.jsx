@@ -6,14 +6,13 @@ import ProgressTracker from '@/components/ProgressTracker';
 import SongResultCard from '@/components/SongResultCard';
 import FailedRecognitionCard from '@/components/FailedRecognitionCard';
 import { useApp } from '@/components/AppClientWrapper';
-import { AlertTriangle } from 'lucide-react';
 
 export default function SongFinderEngine({
   title = 'Song Finder',
-  subtitle = 'Find the song behind any video link (Instagram Reels, TikTok, Shorts), audio clip, or live recording in seconds.',
+  subtitle = 'Paste a video link, upload an audio or video file (up to 100 MB), or record with your microphone.',
   initialTab = 'link',
   linkPlaceholder,
-  children
+  children,
 }) {
   const { history, setHistory } = useApp();
 
@@ -25,7 +24,7 @@ export default function SongFinderEngine({
   const [lastStartTime, setLastStartTime] = useState(0);
 
   const pollJobStatus = async (jobId) => {
-    const maxPolls = 60; // 60 * 2s = 120s max
+    const maxPolls = 60;
     for (let i = 0; i < maxPolls; i++) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const res = await fetch(`/api/jobs/${jobId}`);
@@ -75,9 +74,9 @@ export default function SongFinderEngine({
       if (finalResult.success && finalResult.song) {
         const newHistoryItem = {
           ...finalResult,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
-        const updatedHistory = [newHistoryItem, ...history.filter(h => h.song?.title !== finalResult.song?.title)].slice(0, 20);
+        const updatedHistory = [newHistoryItem, ...history.filter((h) => h.song?.title !== finalResult.song?.title)].slice(0, 20);
         setHistory(updatedHistory);
         localStorage.setItem('extractor_history', JSON.stringify(updatedHistory));
       }
@@ -85,7 +84,6 @@ export default function SongFinderEngine({
       setTimeout(() => {
         document.getElementById('extraction-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 150);
-
     } catch (err) {
       console.error('Link extraction error:', err);
       setError(err.message || 'An unexpected error occurred during extraction.');
@@ -115,7 +113,7 @@ export default function SongFinderEngine({
           file_id: fileId,
           start_time: typeof startTime === 'number' ? startTime : undefined,
           duration,
-          async_mode: true
+          async_mode: true,
         }),
       });
 
@@ -135,9 +133,9 @@ export default function SongFinderEngine({
       if (finalResult.success && finalResult.song) {
         const newHistoryItem = {
           ...finalResult,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
-        const updatedHistory = [newHistoryItem, ...history.filter(h => h.song?.title !== finalResult.song?.title)].slice(0, 20);
+        const updatedHistory = [newHistoryItem, ...history.filter((h) => h.song?.title !== finalResult.song?.title)].slice(0, 20);
         setHistory(updatedHistory);
         localStorage.setItem('extractor_history', JSON.stringify(updatedHistory));
       }
@@ -145,7 +143,6 @@ export default function SongFinderEngine({
       setTimeout(() => {
         document.getElementById('extraction-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 150);
-
     } catch (err) {
       console.error('File identification error:', err);
       setError(err.message || 'An unexpected error occurred identifying the audio file.');
@@ -171,47 +168,38 @@ export default function SongFinderEngine({
   };
 
   return (
-    <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 md:py-12 space-y-12 animate-in fade-in duration-300">
-      {/* 1. Hero Card */}
+    <div className="site-container py-8 md:py-12 space-y-10">
       <div id="hero">
-        <HeroCard 
+        <HeroCard
           title={title}
           subtitle={subtitle}
-          onExtractLink={handleExtractLink} 
-          onIdentifyFile={handleIdentifyFile} 
-          isLoading={isLoading} 
+          onExtractLink={handleExtractLink}
+          onIdentifyFile={handleIdentifyFile}
+          isLoading={isLoading}
           initialTab={inputTab}
           linkPlaceholder={linkPlaceholder}
         />
       </div>
 
-      {/* Error Alert Box */}
       {error && (
-        <div className="max-w-2xl mx-auto rounded-2xl p-4.5 border border-red-800/80 bg-red-950/90 text-red-100 shadow-2xl shadow-red-950/50 backdrop-blur-md flex items-start gap-3.5 animate-in fade-in">
-          <div className="p-2 rounded-xl bg-red-900/60 border border-red-700/50 shrink-0">
-            <AlertTriangle className="w-5 h-5 text-red-300" />
-          </div>
-          <div className="flex-1 pt-0.5">
-            <h4 className="text-sm font-bold text-red-100 tracking-wide">Processing Error</h4>
-            <p className="text-xs text-red-200/90 leading-relaxed mt-1">{error}</p>
-          </div>
+        <div className="w-full ui-card border-[var(--color-brand)] text-[var(--color-text)]">
+          <p className="text-[length:var(--text-base)] font-bold text-[var(--color-brand)]">Processing Error</p>
+          <p className="prose-measure text-[length:var(--text-base)] text-[var(--color-text)] mt-1">{error}</p>
         </div>
       )}
 
-      {/* Loading Progress State */}
       {isLoading && (
         <div id="extraction-process" className="scroll-mt-24">
           <ProgressTracker />
         </div>
       )}
 
-      {/* Extraction Result or Recovery Card */}
       {result && !isLoading && (
         <div id="extraction-result" className="scroll-mt-24">
           {result.success && result.song ? (
             <SongResultCard data={result} onReset={handleReset} />
           ) : (
-            <FailedRecognitionCard 
+            <FailedRecognitionCard
               message={result.message}
               mediaInfo={result.media_info}
               errorType={result.error_type}
@@ -232,7 +220,6 @@ export default function SongFinderEngine({
         </div>
       )}
 
-      {/* Unique Children Content (Page-Specific Intros, Steps, FAQs, Interlinks) */}
       {children}
     </div>
   );
