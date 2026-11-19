@@ -41,7 +41,7 @@ export default function Header({ onOpenHistory, historyCount }) {
           </span>
         </Link>
 
-        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-6 text-[length:var(--text-base)] font-semibold text-[var(--color-text)]">
+        <nav aria-label="Main navigation" className="hidden lg:flex items-center lg:gap-3.5 xl:gap-6 text-[length:var(--text-base)] font-semibold text-[var(--color-text)]">
           <Link href="/tools/song-extractor" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
             Song Finder
           </Link>
@@ -64,7 +64,7 @@ export default function Header({ onOpenHistory, historyCount }) {
               type="button"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               aria-expanded={isDropdownOpen}
-              className="min-h-[52px] px-[20px] py-[12px] flex items-center gap-1.5 text-[length:var(--text-base)] hover:text-[var(--color-brand)] transition-colors duration-150 cursor-pointer"
+              className="min-h-[52px] px-3.5 xl:px-5 py-[12px] flex items-center gap-1.5 text-[length:var(--text-base)] hover:text-[var(--color-brand)] transition-colors duration-150 cursor-pointer"
             >
               <span>Tools</span>
               <ChevronStrokeIcon
@@ -108,7 +108,7 @@ export default function Header({ onOpenHistory, historyCount }) {
           <button
             type="button"
             onClick={onOpenHistory}
-            className="min-h-[52px] min-w-[48px] px-[20px] rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-brand)] text-[length:var(--text-base)] font-semibold flex items-center gap-2 transition-colors duration-150 cursor-pointer"
+            className="min-h-[52px] min-w-[48px] px-3.5 xl:px-5 rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-brand)] text-[length:var(--text-base)] font-semibold flex items-center gap-2 transition-colors duration-150 cursor-pointer"
             title="View History"
           >
             <HistoryClockIcon className="w-5 h-5 text-[var(--color-brand)]" />
