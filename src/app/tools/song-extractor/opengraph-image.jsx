@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 export const alt = 'Free Song Finder & Music Identifier | iLoveAudios';
@@ -9,6 +11,10 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const logoPath = path.join(process.cwd(), 'public', 'logo.png');
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -61,21 +67,12 @@ export default async function Image() {
             marginBottom: '24px',
           }}
         >
-          <div
-            style={{
-              width: '52px',
-              height: '52px',
-              borderRadius: '16px',
-              background: '#EF3E4A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '26px',
-              fontWeight: 'bold',
-            }}
-          >
-            🎵
-          </div>
+          <img
+            src={logoBase64}
+            width="52"
+            height="52"
+            style={{ width: '52px', height: '52px', objectFit: 'contain' }}
+          />
           <div style={{ display: 'flex', fontSize: '36px', fontWeight: '900', letterSpacing: '-0.5px' }}>
             <span>iLove</span>
             <span style={{ color: '#EF3E4A' }}>Audios</span>

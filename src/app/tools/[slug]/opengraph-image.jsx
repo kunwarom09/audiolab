@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { TOOLS } from '@/lib/toolsConfig';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 export const alt = 'iLoveAudios Free Audio Converter';
@@ -12,6 +14,9 @@ export const contentType = 'image/png';
 export default async function Image({ params }) {
   const { slug } = await params;
   const tool = TOOLS[slug] || { title: 'Free Online Audio Tool', fromFormat: 'Audio', toFormat: 'MP3' };
+  const logoPath = path.join(process.cwd(), 'public', 'logo.png');
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
 
   return new ImageResponse(
     (
@@ -65,21 +70,12 @@ export default async function Image({ params }) {
             marginBottom: '28px',
           }}
         >
-          <div
-            style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '14px',
-              background: '#EF3E4A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '24px',
-              fontWeight: 'bold',
-            }}
-          >
-            🎵
-          </div>
+          <img
+            src={logoBase64}
+            width="48"
+            height="48"
+            style={{ width: '48px', height: '48px', objectFit: 'contain' }}
+          />
           <div style={{ display: 'flex', fontSize: '32px', fontWeight: '900', letterSpacing: '-0.5px' }}>
             <span>iLove</span>
             <span style={{ color: '#EF3E4A' }}>Audios</span>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from './Header';
 import ExtractionHistory from './ExtractionHistory';
 
@@ -86,9 +87,21 @@ export default function AppClientWrapper({ children }) {
 
         <footer className="w-full border-t border-[var(--color-border)] bg-[var(--color-surface)] py-8 mt-12">
           <div className="site-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[length:var(--text-base)]">
-            <p className="font-semibold text-[var(--color-text)]">
-              iLoveAudios &copy; 2026
-            </p>
+            <Link href="/" className="inline-flex items-center gap-2 min-h-[48px] shrink-0">
+              <Image
+                src="/logo.png"
+                alt="iLoveAudios"
+                width={28}
+                height={28}
+                className="w-7 h-7 object-contain shrink-0"
+              />
+              <span className="font-logo text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">
+                iLove<span className="text-[var(--color-brand)]">Audios</span>
+              </span>
+              <span className="text-[length:var(--text-sm)] text-[var(--color-text-muted)] ml-1">
+                &copy; 2026
+              </span>
+            </Link>
             <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--color-text)]">
               <Link href="/about" className="inline-flex items-center min-h-[48px] py-[12px] hover:text-[var(--color-brand)] transition-colors duration-150">
                 About

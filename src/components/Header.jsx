@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ChevronStrokeIcon,
   CloseCrossIcon,
@@ -27,9 +28,14 @@ export default function Header({ onOpenHistory, historyCount }) {
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="site-container min-h-[72px] py-2 flex items-center justify-between gap-4">
         <Link href="/" className="inline-flex items-center gap-2.5 min-h-[48px] shrink-0">
-          <span className="w-9 h-9 rounded-[8px] bg-[var(--color-brand)] text-white flex items-center justify-center">
-            <WaveformIcon className="w-5 h-5" />
-          </span>
+          <Image
+            src="/logo.png"
+            alt="iLoveAudios"
+            width={36}
+            height={36}
+            priority
+            className="w-9 h-9 object-contain shrink-0"
+          />
           <span className="font-logo text-[length:var(--text-lead)] font-bold text-[var(--color-text)]">
             iLove<span className="text-[var(--color-brand)]">Audios</span>
           </span>

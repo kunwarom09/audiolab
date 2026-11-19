@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 export const alt = 'Free MP3 & Audio Cutter – Trim Songs Online | iLoveAudios';
@@ -9,6 +11,10 @@ export const size = {
 export const contentType = 'image/png';
 
 export default function Image() {
+  const logoPath = path.join(process.cwd(), 'public', 'logo.png');
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -61,21 +67,12 @@ export default function Image() {
             marginBottom: '24px',
           }}
         >
-          <div
-            style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '16px',
-              background: '#9333EA',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '28px',
-              fontWeight: 'bold',
-            }}
-          >
-            ✂️
-          </div>
+          <img
+            src={logoBase64}
+            width="56"
+            height="56"
+            style={{ width: '56px', height: '56px', objectFit: 'contain' }}
+          />
           <div style={{ display: 'flex', fontSize: '38px', fontWeight: '900', letterSpacing: '-0.5px' }}>
             <span>iLove</span>
             <span style={{ color: '#A855F7' }}>Audios</span>
