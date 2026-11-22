@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { ChevronStrokeIcon } from './AudioIcons';
-import AdBanner from './AdBanner';
 
 const FAQ_ITEMS = [
   {
@@ -45,11 +44,8 @@ export default function FaqSection({ items, faqs }) {
     : FAQ_ITEMS;
 
   return (
-    <section id="faq" className="w-full pt-8 pb-6">
-      {/* 728x90 Leaderboard Ad before FAQ */}
-      <AdBanner />
-
-      <div className="w-full space-y-6 mt-6">
+    <section id="faq" className="w-full pt-12 pb-6">
+      <div className="w-full space-y-6">
         <h2 className="text-[length:var(--text-h2)] font-bold text-[var(--color-text)] leading-[var(--leading-heading)]">
           Frequently Asked Questions
         </h2>
