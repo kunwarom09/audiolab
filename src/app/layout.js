@@ -1,5 +1,6 @@
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import AppClientWrapper from "@/components/AppClientWrapper";
+import AdsterraSocialBar from "@/components/AdsterraSocialBar";
 import "./globals.css";
 import { SITE_URL } from "@/lib/siteConfig";
 
@@ -129,6 +130,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-full flex flex-col">
         <AppClientWrapper>{children}</AppClientWrapper>
+        <AdsterraSocialBar />
         <script
           data-cfasync="false"
           src="https://bauval.org/14/83440adbaab9d77714f0312be2bbbb95"
