@@ -110,11 +110,6 @@ export default function RootLayout({ children }) {
     >
       <head>
         <script
-          data-cfasync="false"
-          src="https://bauval.org/14/83440adbaab9d77714f0312be2bbbb95"
-          async
-        />
-        <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="YpwmWLxkPcG4Tcx0budEkw"
           async
@@ -134,6 +129,10 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-full flex flex-col">
         <AppClientWrapper>{children}</AppClientWrapper>
+        <script
+          data-cfasync="false"
+          src="https://bauval.org/14/83440adbaab9d77714f0312be2bbbb95"
+        />
       </body>
     </html>
   );
