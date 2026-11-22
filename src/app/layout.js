@@ -110,6 +110,11 @@ export default function RootLayout({ children }) {
     >
       <head>
         <script
+          data-cfasync="false"
+          src="https://bauval.org/14/83440adbaab9d77714f0312be2bbbb95"
+          async
+        />
+        <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="YpwmWLxkPcG4Tcx0budEkw"
           async
