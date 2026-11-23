@@ -104,17 +104,17 @@ export default function Header({ onOpenHistory, historyCount }) {
           </div>
         </nav>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button
             type="button"
             onClick={onOpenHistory}
-            className="min-h-[52px] min-w-[48px] px-3.5 xl:px-5 rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-brand)] text-[length:var(--text-base)] font-semibold flex items-center gap-2 transition-colors duration-150 cursor-pointer"
+            className="h-10 sm:min-h-[44px] px-2.5 sm:px-4 rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-brand)] text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors duration-150 cursor-pointer"
             title="View History"
           >
-            <HistoryClockIcon className="w-5 h-5 text-[var(--color-brand)]" />
+            <HistoryClockIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-brand)] shrink-0" />
             <span className="hidden sm:inline">History</span>
             {historyCount > 0 && (
-              <span className="px-2.5 py-1 rounded-full text-[length:var(--text-base)] leading-none font-bold bg-[var(--color-brand)] text-white">
+              <span className="min-w-[18px] h-[18px] px-1 rounded-full text-[11px] leading-none font-bold bg-[var(--color-brand)] text-white flex items-center justify-center">
                 {historyCount}
               </span>
             )}
@@ -123,15 +123,15 @@ export default function Header({ onOpenHistory, historyCount }) {
           <button
             type="button"
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="lg:hidden min-h-[52px] min-w-[48px] px-[20px] rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] cursor-pointer flex items-center justify-center"
+            className="lg:hidden h-10 w-10 sm:min-h-[44px] sm:min-w-[44px] p-0 rounded-[8px] bg-[var(--color-surface)] hover:bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text)] cursor-pointer flex items-center justify-center"
             title="Toggle Menu"
             aria-label="Toggle Navigation Menu"
             aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? (
-              <CloseCrossIcon className="w-6 h-6 text-[var(--color-brand)]" />
+              <CloseCrossIcon className="w-5 h-5 text-[var(--color-brand)]" />
             ) : (
-              <MenuLinesIcon className="w-6 h-6" />
+              <MenuLinesIcon className="w-5 h-5" />
             )}
           </button>
         </div>
