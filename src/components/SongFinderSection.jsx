@@ -421,36 +421,36 @@ export default function SongFinderSection() {
   return (
     <section
       aria-labelledby="home-heading"
-      className="w-full bg-[var(--color-band-top)] border-b border-[var(--color-band-border)] py-8 lg:py-12"
+      className="w-full bg-[var(--color-band-top)] border-b border-[var(--color-band-border)] py-2 sm:py-6 lg:py-12"
     >
       <div className="site-container">
-        <div className="w-full rounded-[20px] border border-[var(--color-band-border)] bg-[var(--color-surface)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        <div className="w-full rounded-[14px] sm:rounded-[20px] border border-[var(--color-band-border)] bg-[var(--color-surface)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
           {/* Left Panel (5 cols): Editorial Record-Sleeve Dark Ink Panel */}
-          <div className="lg:col-span-5 bg-[var(--color-studio-bg)] p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 text-left">
-            <div className="space-y-5">
+          <div className="lg:col-span-5 bg-[var(--color-studio-bg)] p-3.5 sm:p-6 lg:p-10 flex flex-col justify-between gap-2.5 sm:gap-6 lg:gap-8 text-left">
+            <div className="space-y-1 sm:space-y-3 lg:space-y-5">
               <h1
                 id="home-heading"
-                className="text-[length:var(--text-h1)] font-bold leading-[1.08] text-[var(--color-studio-text)]"
+                className="text-lg sm:text-2xl lg:text-[length:var(--text-h1)] font-bold leading-tight lg:leading-[1.08] text-[var(--color-studio-text)]"
                 style={{ textWrap: 'balance' }}
               >
                 Find the Song Behind Any Video
               </h1>
 
-              <p className="prose-measure text-[length:var(--text-lead)] text-[var(--color-studio-muted)] leading-[var(--leading-body)]">
+              <p className="prose-measure text-xs sm:text-sm lg:text-[length:var(--text-lead)] text-[var(--color-studio-muted)] leading-snug sm:leading-[var(--leading-body)]">
                 When a Reel, TikTok, or Short only says &ldquo;Original Audio,&rdquo; drop a link, clip, or live mic sample to uncover the real track, artist, lyrics, and MP3.
               </p>
             </div>
 
-            <div className="border-t border-[var(--color-studio-border)] pt-6 space-y-4">
+            <div className="border-t border-[var(--color-studio-border)] pt-2 sm:pt-4 lg:pt-6 space-y-1.5 sm:space-y-3 lg:space-y-4">
               <div
                 aria-hidden="true"
-                className="relative w-full h-9 overflow-hidden rounded-[4px] select-none"
+                className="relative w-full h-5 sm:h-8 lg:h-9 overflow-hidden rounded-[4px] select-none"
                 style={{ contain: 'layout paint' }}
               >
                 {/* Base unplayed waveform (muted grey) */}
                 <TrackWaveformGraphic
                   isProcessing={isLoading || isUploading}
-                  className={`w-full h-9 transition-colors duration-200 ${
+                  className={`w-full h-5 sm:h-8 lg:h-9 transition-colors duration-200 ${
                     isLoading || isUploading
                       ? 'text-[var(--color-brand)]'
                       : 'text-[var(--color-studio-wave)]'
@@ -465,7 +465,7 @@ export default function SongFinderSection() {
                   >
                     <TrackWaveformGraphic
                       isProcessing={false}
-                      className="w-full h-9 text-[var(--color-studio-text)]"
+                      className="w-full h-5 sm:h-8 lg:h-9 text-[var(--color-studio-text)]"
                     />
                   </div>
                 )}
@@ -480,14 +480,14 @@ export default function SongFinderSection() {
                 />
               </div>
 
-              <p className="text-[length:var(--text-base)] text-[var(--color-studio-muted)] leading-[var(--leading-body)]">
+              <p className="text-[11px] sm:text-sm lg:text-[length:var(--text-base)] text-[var(--color-studio-muted)] leading-tight sm:leading-[var(--leading-body)]">
                 Works with Instagram Reels, TikTok, YouTube Shorts, Facebook and Snapchat.
               </p>
             </div>
           </div>
 
           {/* Right Panel (7 cols): Crisp White Working Tool Desk */}
-          <div className="lg:col-span-7 bg-[var(--color-surface)] p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 w-full">
+          <div className="lg:col-span-7 bg-[var(--color-surface)] p-3 sm:p-6 lg:p-10 flex flex-col justify-between gap-3 sm:gap-6 lg:gap-8 w-full">
             <div className="w-full">
                 {/* In-Place Result State (no page jump) */}
                 {result && !isLoading ? (
@@ -676,12 +676,12 @@ export default function SongFinderSection() {
                   )
                 ) : (
                   /* Default Tool Input Panel */
-                  <div className="space-y-5">
+                  <div className="space-y-2.5 sm:space-y-4 lg:space-y-5">
                     {/* Segmented Control: 3 real tab buttons */}
                     <div
                       role="tablist"
                       aria-label="Song Finder input method"
-                      className="w-full grid grid-cols-3 sm:inline-flex sm:w-auto items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-[10px] sm:rounded-[8px] bg-[var(--color-bg)] border border-[var(--color-border)]"
+                      className="w-full grid grid-cols-3 sm:inline-flex sm:w-auto items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-[8px] bg-[var(--color-bg)] border border-[var(--color-border)]"
                     >
                       <button
                         type="button"
@@ -691,7 +691,7 @@ export default function SongFinderSection() {
                           setActiveTab('link');
                           setError(null);
                         }}
-                        className={`flex items-center justify-center min-h-[44px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-2 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
+                        className={`flex items-center justify-center min-h-[38px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-1.5 sm:px-[20px] py-1.5 sm:py-[12px] rounded-[6px] sm:rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
                           activeTab === 'link'
                             ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
                             : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
@@ -708,7 +708,7 @@ export default function SongFinderSection() {
                           setActiveTab('upload');
                           setError(null);
                         }}
-                        className={`flex items-center justify-center min-h-[44px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-2 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
+                        className={`flex items-center justify-center min-h-[38px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-1.5 sm:px-[20px] py-1.5 sm:py-[12px] rounded-[6px] sm:rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
                           activeTab === 'upload'
                             ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
                             : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
@@ -725,7 +725,7 @@ export default function SongFinderSection() {
                           setActiveTab('record');
                           setError(null);
                         }}
-                        className={`flex items-center justify-center min-h-[44px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-2 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
+                        className={`flex items-center justify-center min-h-[38px] sm:min-h-[48px] sm:flex-1 whitespace-nowrap px-1.5 sm:px-[20px] py-1.5 sm:py-[12px] rounded-[6px] sm:rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer ${
                           activeTab === 'record'
                             ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
                             : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
@@ -744,12 +744,12 @@ export default function SongFinderSection() {
                             handleExtractLink(url.trim());
                           }
                         }}
-                        className="space-y-3 sm:space-y-4"
+                        className="space-y-2 sm:space-y-3 lg:space-y-4"
                       >
                         <label htmlFor="song-finder-url-input" className="sr-only">
                           Video URL
                         </label>
-                        <div className="relative flex items-center bg-[var(--color-bg)] border border-[var(--color-border)] focus-within:border-[var(--color-brand)] rounded-[10px] sm:rounded-[8px] min-h-[48px] sm:min-h-[56px] p-1 gap-1">
+                        <div className="relative flex items-center bg-[var(--color-bg)] border border-[var(--color-border)] focus-within:border-[var(--color-brand)] rounded-[8px] min-h-[42px] sm:min-h-[56px] p-1 gap-1">
                           <input
                             id="song-finder-url-input"
                             type="url"
@@ -757,7 +757,7 @@ export default function SongFinderSection() {
                             onChange={(e) => setUrl(e.target.value)}
                             placeholder="https://www.instagram.com/reel/..."
                             disabled={isLoading}
-                            className="flex-1 min-w-0 min-h-[44px] sm:min-h-[52px] bg-transparent px-3 sm:px-[20px] text-sm sm:text-[length:var(--text-base)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+                            className="flex-1 min-w-0 min-h-[38px] sm:min-h-[52px] bg-transparent px-2.5 sm:px-[20px] text-xs sm:text-[length:var(--text-base)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
                           />
 
                           {url && (
@@ -765,9 +765,9 @@ export default function SongFinderSection() {
                               type="button"
                               onClick={() => setUrl('')}
                               aria-label="Clear URL"
-                              className="w-8 h-8 sm:min-w-[48px] sm:min-h-[48px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer shrink-0"
+                              className="w-7 h-7 sm:min-w-[48px] sm:min-h-[48px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer shrink-0"
                             >
-                              <CloseCrossIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                              <CloseCrossIcon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                             </button>
                           )}
 
@@ -775,7 +775,7 @@ export default function SongFinderSection() {
                             type="button"
                             onClick={handlePaste}
                             disabled={isLoading}
-                            className="shrink-0 min-h-[38px] sm:min-h-[52px] px-3.5 sm:px-[20px] rounded-[6px] sm:rounded-[8px] bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-text)] text-xs sm:text-[length:var(--text-base)] font-semibold text-[var(--color-text)] cursor-pointer transition-colors duration-150"
+                            className="shrink-0 min-h-[34px] sm:min-h-[52px] px-3 sm:px-[20px] rounded-[6px] sm:rounded-[8px] bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-text)] text-xs sm:text-[length:var(--text-base)] font-semibold text-[var(--color-text)] cursor-pointer transition-colors duration-150"
                           >
                             Paste
                           </button>
@@ -784,15 +784,15 @@ export default function SongFinderSection() {
                         <button
                           type="submit"
                           disabled={!hasValidUrl || isLoading}
-                          className={`w-full min-h-[48px] sm:min-h-[52px] px-5 sm:px-[20px] rounded-[10px] sm:rounded-[8px] text-sm sm:text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors duration-150 ${
+                          className={`w-full min-h-[42px] sm:min-h-[52px] px-4 sm:px-[20px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold flex items-center justify-center gap-2 transition-colors duration-150 ${
                             isLoading
                               ? 'bg-[var(--color-brand)] text-white cursor-wait'
                               : hasValidUrl
-                              ? 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer'
+                              ? 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer active:scale-[0.99]'
                               : 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
                           }`}
                         >
-                          {isLoading && <SpinnerStrokeIcon className="w-5 h-5" />}
+                          {isLoading && <SpinnerStrokeIcon className="w-4 h-4 sm:w-5 sm:h-5" />}
                           <span>{isLoading ? 'Finding song' : 'Find song'}</span>
                         </button>
                       </form>
