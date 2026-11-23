@@ -259,20 +259,20 @@ export default function MediaInputArea({
       <div
         role="tablist"
         aria-label="Song finder input method"
-        className="w-full grid grid-cols-3 sm:inline-flex sm:w-auto items-center gap-1 p-1 bg-[var(--color-bg)] rounded-[10px] border border-[var(--color-border)]"
+        className="w-full grid grid-cols-3 sm:inline-flex sm:w-auto items-center gap-1 sm:gap-2 p-1 sm:p-1.5 bg-[var(--color-bg)] rounded-[10px] sm:rounded-[8px] border border-[var(--color-border)]"
       >
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === 'link'}
           onClick={() => setActiveTab('link')}
-          className={`flex items-center justify-center gap-1.5 min-h-[44px] px-2.5 sm:px-4 py-2 rounded-[8px] text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] sm:min-h-[48px] sm:flex-initial px-2.5 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
             activeTab === 'link'
-              ? 'bg-[var(--color-pill-active)] text-white shadow-sm'
+              ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
               : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <WaveformIcon className="w-4 h-4 shrink-0" />
+          <WaveformIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
           <span>Paste Link</span>
         </button>
 
@@ -281,13 +281,13 @@ export default function MediaInputArea({
           role="tab"
           aria-selected={activeTab === 'upload'}
           onClick={() => setActiveTab('upload')}
-          className={`flex items-center justify-center gap-1.5 min-h-[44px] px-2.5 sm:px-4 py-2 rounded-[8px] text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] sm:min-h-[48px] sm:flex-initial px-2.5 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
             activeTab === 'upload'
-              ? 'bg-[var(--color-pill-active)] text-white shadow-sm'
+              ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
               : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <UploadTrayIcon className="w-4 h-4 shrink-0" />
+          <UploadTrayIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
           <span>Upload File</span>
         </button>
 
@@ -296,58 +296,85 @@ export default function MediaInputArea({
           role="tab"
           aria-selected={activeTab === 'record'}
           onClick={() => setActiveTab('record')}
-          className={`flex items-center justify-center gap-1.5 min-h-[44px] px-2.5 sm:px-4 py-2 rounded-[8px] text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] sm:min-h-[48px] sm:flex-initial px-2.5 sm:px-[20px] py-2 sm:py-[12px] rounded-[8px] text-xs sm:text-[length:var(--text-base)] font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap ${
             activeTab === 'record'
-              ? 'bg-[var(--color-pill-active)] text-white shadow-sm'
+              ? 'bg-[var(--color-pill-active)] text-white shadow-sm sm:shadow-none'
               : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
           }`}
         >
-          <MicStrokeIcon className="w-4 h-4 shrink-0" />
+          <MicStrokeIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
           <span>Record Audio</span>
         </button>
       </div>
 
       {activeTab === 'link' && (
-        <div className="space-y-3">
-          <form onSubmit={handleLinkSubmit} className="space-y-3">
+        <div className="space-y-3 sm:space-y-4">
+          <form onSubmit={handleLinkSubmit} className="space-y-3 sm:space-y-0">
             <label htmlFor="subpage-song-finder-url" className="sr-only">
               Video URL
             </label>
-            <div className="relative flex items-center bg-[var(--color-bg)] rounded-[10px] p-1.5 border border-[var(--color-border)] focus-within:border-[var(--color-brand)] transition-colors">
-              <input
-                id="subpage-song-finder-url"
-                type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder={linkPlaceholder}
-                className="flex-1 min-w-0 min-h-[44px] sm:min-h-[48px] bg-transparent px-3 sm:px-4 text-sm sm:text-base text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
-                disabled={isLoading}
-              />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-[var(--color-bg)] rounded-[10px] sm:rounded-[8px] p-1.5 gap-2 border border-[var(--color-border)] focus-within:border-[var(--color-brand)]">
+              <div className="flex items-center flex-1 min-w-0 gap-2">
+                <input
+                  id="subpage-song-finder-url"
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder={linkPlaceholder}
+                  className="w-full bg-transparent px-3 sm:px-[20px] py-2 sm:py-[12px] text-sm sm:text-[length:var(--text-base)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+                  disabled={isLoading}
+                />
 
-              {url && (
+                {url && (
+                  <button
+                    type="button"
+                    onClick={() => setUrl('')}
+                    aria-label="Clear URL"
+                    className="w-8 h-8 sm:min-w-[48px] sm:min-h-[48px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer shrink-0"
+                  >
+                    <CloseCrossIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                )}
+
+                {/* Mobile-only inline paste button */}
                 <button
                   type="button"
-                  onClick={() => setUrl('')}
-                  aria-label="Clear URL"
-                  className="w-9 h-9 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer shrink-0"
+                  onClick={handlePaste}
+                  className="sm:hidden shrink-0 min-h-[38px] px-3.5 rounded-[6px] text-xs font-semibold text-[var(--color-text)] bg-[var(--color-surface)] hover:border-[var(--color-text)] border border-[var(--color-border)] cursor-pointer transition-colors"
                 >
-                  <CloseCrossIcon className="w-4 h-4" />
+                  Paste
                 </button>
-              )}
+              </div>
 
-              <button
-                type="button"
-                onClick={handlePaste}
-                className="shrink-0 min-h-[38px] px-3.5 sm:px-4 rounded-[6px] text-xs sm:text-sm font-semibold text-[var(--color-text)] bg-[var(--color-surface)] hover:border-[var(--color-text)] border border-[var(--color-border)] cursor-pointer transition-colors"
-              >
-                Paste
-              </button>
+              {/* Desktop action buttons: side-by-side in same horizontal bar as before */}
+              <div className="hidden sm:flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={handlePaste}
+                  className="min-h-[52px] px-[20px] rounded-[8px] text-[length:var(--text-base)] font-semibold text-[var(--color-text)] bg-[var(--color-surface)] hover:border-[var(--color-text)] border border-[var(--color-border)] cursor-pointer transition-colors duration-150"
+                >
+                  Paste
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitDisabled}
+                  className={`min-h-[52px] px-[20px] rounded-[8px] font-semibold text-[length:var(--text-base)] transition-colors duration-150 ${
+                    isSubmitDisabled
+                      ? 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
+                      : 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer'
+                  }`}
+                >
+                  {isLoading ? 'Finding...' : 'Find Song'}
+                </button>
+              </div>
             </div>
 
+            {/* Mobile-only Find Song button */}
             <button
               type="submit"
               disabled={isSubmitDisabled}
-              className={`w-full min-h-[48px] sm:min-h-[52px] px-5 rounded-[10px] font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all shadow-sm ${
+              className={`sm:hidden w-full min-h-[48px] px-5 rounded-[10px] font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm ${
                 isSubmitDisabled
                   ? 'bg-[var(--color-disabled-bg)] text-[var(--color-disabled-fg)] cursor-not-allowed'
                   : 'bg-[var(--color-brand)] hover:bg-[var(--color-brand-hover)] text-white cursor-pointer active:scale-[0.99]'
@@ -357,8 +384,8 @@ export default function MediaInputArea({
             </button>
           </form>
 
-          <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
-            <span className="text-[var(--color-text-muted)] font-medium mr-1">Examples:</span>
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1 sm:pt-0 text-xs sm:text-[length:var(--text-base)]">
+            <span className="text-[var(--color-text-muted)] font-medium sm:font-semibold mr-1 sm:mr-0">Examples:</span>
             {sampleReels.map((sample, idx) => (
               <button
                 key={idx}
@@ -367,7 +394,7 @@ export default function MediaInputArea({
                   setUrl(sample.url);
                   onExtractLink(sample.url);
                 }}
-                className="px-2.5 py-1.5 rounded-full bg-[var(--color-bg)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] text-xs font-medium transition-colors cursor-pointer"
+                className="px-2.5 py-1.5 sm:min-h-[48px] sm:px-[20px] sm:py-[12px] rounded-full sm:rounded-[8px] bg-[var(--color-bg)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] border border-[var(--color-border)] text-[var(--color-text-muted)] sm:text-[var(--color-text)] text-xs sm:text-[length:var(--text-base)] font-medium transition-colors duration-150 cursor-pointer"
               >
                 {sample.label}
               </button>
