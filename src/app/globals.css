@@ -429,3 +429,30 @@
 .progress-fill-transition {
   transition: width 0.35s ease;
 }
+
+/* Adsterra Social Bar - Non-intrusive Bottom-Right positioning */
+div[id*="container-83440adb"],
+iframe[id*="container-83440adb"],
+div[class*="container-83440adb"],
+iframe[class*="container-83440adb"] {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  left: auto !important;
+  top: auto !important;
+  max-width: min(400px, calc(100vw - 32px)) !important;
+  z-index: 99999 !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 640px) {
+  div[id*="container-83440adb"],
+  iframe[id*="container-83440adb"],
+  div[class*="container-83440adb"],
+  iframe[class*="container-83440adb"] {
+    bottom: 12px !important;
+    right: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+}
+
